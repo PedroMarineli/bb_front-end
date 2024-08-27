@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+    .font-bb {
+        @apply font-bbFont;
+    }
+    .titulosMain {
+        @apply my-14 text-6xl underline uppercase;
+    }
+    .quadroBranco {
+        @apply bg-white rounded-3xl text-black; 
+    }
+@tailwind utilities;
+
+@font-face {
+    font-family: "mainFont";
+    src: local("Marcellus-Regular");
+    src: url("./assets/fonts/Marcellus/Marcellus-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "bbFont";
+    src: local("Irish_Grover");
+    src: url("./assets/fonts/Irish_Grover/IrishGrover-Regular.ttf") format("truetype");
+}
+

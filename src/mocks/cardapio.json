@@ -1,0 +1,100 @@
+[
+  {
+    "Clássicos": [
+      {
+        "id": 1,
+        "nome": "Boss Supremo",
+        "descricao": "Nosso hambúrguer assinatura com carne suculenta, queijo cheddar derretido, alface fresca, tomate e molho especial.",
+        "preco": 19.99
+      },
+      {
+        "id": 2,
+        "nome": "Brazilian Dream",
+        "descricao": "Uma explosão de sabores com bacon crocante, abacaxi grelhado, queijo prato e molho barbecue.",
+        "preco": 21.99
+      },
+      {
+        "id": 3,
+        "nome": "Segredo da Casa",
+        "descricao": "Um hambúrguer super misterioso com cebola caramelizada, alface queijo gorgonzola e rúcula.",
+        "preco": 20.99
+      }
+    ],
+    "Vegetarianos": [
+        {
+          "id": 4,
+          "nome": "Veggie Delight",
+          "descricao": "Hambúrguer de soja com abobrinha grelhada, queijo feta e molho de iogurte.",
+          "preco": 20.99
+        },
+        {
+          "id": 5,
+          "nome": "Explosão de Queijo",
+          "descricao": "Um trio de queijos (gouda, provolone e muçarela) sobre um hambúrguer de cogumelos.",
+          "preco": 23.99
+        }
+    ],
+    "Sobremesas": [
+        {
+          "id": 6,
+          "nome": "Brownie de Chocolate",
+          "descricao": "Um pedaço generoso de brownie com sorvete de baunilha.",
+          "preco": 4.99
+        },
+        {
+          "id": 7,
+          "nome": "Shake de Nutella",
+          "descricao": "Um shake cremoso com Nutella e chantilly.",
+          "preco": 14.99
+        }
+    ],
+    "Combos": [
+        {
+        "id": 8,
+        "nome": "Combo Supremo",
+        "descricao": "Boss Supremo + Batata Rústica + Refrigerante",
+        "preco": 34.99
+        },
+        {
+        "id": 9,
+        "nome": "Combo Veggie",
+        "descricao": "Veggie Delight + Anéis de Cebola + Suco Natural",
+        "preco": 44.99
+        }
+    ],
+    "Acompanhamentos": [
+        {
+        "id": 10,
+        "nome": "Batata Rústica",
+        "descricao": "Batatas cortadas em palitos, temperadas e assadas até ficarem crocantes e sequinhas.",
+        "preco": 11.99
+        },
+        {
+        "id": 11,
+        "nome": "Anéis de Cebola",
+        "descricao": "Cebolas empanadas e fritas.",
+        "preco": 15.99
+        },
+        {
+        "id": 12,
+        "nome": "Mozzarella Sticks",
+        "descricao": "Palitos de queijo mozzarella empanados e dourados.",
+        "preco": 16.99
+        }
+    ],
+    "Bebidas": [
+        {
+        "id": 13,
+        "nome": "Coca-Cola, Guaraná, Soda",
+        "descricao": "Clássicos que sempre agradam.",
+        "preco": 7.99
+        },
+        {
+        "id": 14,
+        "nome": "Suco de Laranja, Limão ou Maracujá",
+        "descricao": "Opções naturais e refrescantes",
+        "preco": 12.99
+        }
+    ] 
+  }
+]
