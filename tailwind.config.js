@@ -18,6 +18,7 @@ export default {
       },
       backgroundImage: {
         'hamburguer': "url('/images/hamburguerBackground.png')",
+        'fundo': "url('/images/fundo.png')",
       }
     },
   },

@@ -1,6 +1,7 @@
 import header from "../../../../json/header.json";
 import BurguerBoss from "../../../../components/BurguerBoss";
 import userIcon from "/icons/userIcon.png";
+import { Link } from "react-router-dom";
 
 const HeaderInicio = () => {
     return (
@@ -11,7 +12,9 @@ const HeaderInicio = () => {
                     <li className="uppercase px-10 font-bold">{header.opcao}</li>
                 ))}
             </ul>
-            <img src={userIcon} alt="usuario"/>
+            <Link to={"/bb"}>
+                <img src={userIcon} alt="usuario"/>
+            </Link>
         </header>
     )
 }
