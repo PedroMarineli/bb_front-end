@@ -9,6 +9,9 @@
     .quadroBranco {
         @apply bg-white rounded-3xl text-black; 
     }
+    .menu {
+        @apply bg-seaBlue py-16 px-8 rounded-r-3xl;
+    }
 @tailwind utilities;
 
 @font-face {

@@ -1,12 +1,20 @@
+import { Link } from "react-router-dom";
+import paginas from "../../json/paginas.json";
+
 const Menu = () => {
     return (
-        <div className="flex relative">
+        <div className="menu fixed left-0 bottom-0">
             <ul className="">
-                <li>Reserva de Mesas</li>
-                <li>Cadastro de Pedidos</li>
-                <li>Cozinha</li>
-                <li>Caixa</li>
-                <li>Relatórios</li>
+                {paginas.map((pagina) => (
+                    <li>
+                        <Link to={pagina.link}>
+                            <div className="flex items-center gap-2 py-2">
+                                <img src={pagina.icon} alt={pagina.nome} className="w-7 h-7"/>
+                                <span>{pagina.nome}</span>
+                            </div>
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </div>
     )
