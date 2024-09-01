@@ -15,6 +15,12 @@
     .telaBranca {
         @apply bg-white p-24 text-black rounded-3xl bg-fundo;
     }
+    .janela {
+        @apply fixed top-56 bg-white text-black p-10 rounded-3xl w-4/5;
+    }
+    .tituloJanela {
+        @apply text-3xl uppercase;
+    }
 @tailwind utilities;
 
 @font-face {

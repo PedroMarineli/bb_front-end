@@ -1,0 +1,26 @@
+[
+    {
+        "nome": "Telefone",
+        "icone": "",
+        "texto": "14 3322-2233",
+        "link": "https://www.fatecourinhos.edu.br/"
+    },
+    {
+        "nome": "WhatsApp",
+        "icone": "",
+        "texto": "14 99876-5432",
+        "link": "https://www.fatecourinhos.edu.br/"
+    },
+    {
+        "nome": "Instagram",
+        "icone": "",
+        "texto": "@burguerBossbb",
+        "link": "https://www.fatecourinhos.edu.br/"
+    },
+    {
+        "nome": "E-mail",
+        "icone": "",
+        "texto": "bb.hamburguer@gmail.ocom",
+        "link": "https://www.fatecourinhos.edu.br/"
+    }
+]

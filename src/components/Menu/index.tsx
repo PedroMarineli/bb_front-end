@@ -4,7 +4,7 @@ import paginas from "../../json/paginas.json";
 const Menu = () => {
     return (
         <div className="menu fixed right-0 top-0">
-            <ul className="">
+            <ul>
                 {paginas.map((pagina) => (
                     <li>
                         <Link to={pagina.link}>

@@ -5,10 +5,11 @@ import Twitter from "/icons/twitterIcon.png";
 import Facebook from "/icons/facebookIcon.png";
 import Whats from "/icons/whatsapIcon.png";
 import Insta from "/icons/instagramIcon.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className="bg-seaBlue flex items-center justify-around py-10">
+        <footer className="bg-seaBlue flex items-center justify-around py-10 text-lg">
             <img src={Logo} alt="LogoBB" />
             <ul>
                 <li className="flex items-center py-2 gap-4">
@@ -24,12 +25,14 @@ const Footer = () => {
                     <span>Burguer Boss - 2024 - Todos os direitos reservados</span>
                 </li>
             </ul>
-            <ul className="flex gap-8">
-                <li><img src={Twitter} alt="Twitter" className="w-10 h-10"/></li>
-                <li><img src={Facebook} alt="Facebook" className="w-10 h-10"/></li>
-                <li><img src={Whats} alt="Whatsapp" className="w-10 h-10"/></li>
-                <li><img src={Insta} alt="Instagram" className="w-10 h-10"/></li>
-            </ul>
+            <Link to="https://www.fatecourinhos.edu.br">
+                <ul className="flex gap-8">
+                    <li><img src={Twitter} alt="Twitter" className="w-10 h-10"/></li>
+                    <li><img src={Facebook} alt="Facebook" className="w-10 h-10"/></li>
+                    <li><img src={Whats} alt="Whatsapp" className="w-10 h-10"/></li>
+                    <li><img src={Insta} alt="Instagram" className="w-10 h-10"/></li>
+                </ul>
+            </Link>
         </footer>
     )
 }
