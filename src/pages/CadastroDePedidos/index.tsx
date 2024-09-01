@@ -1,6 +1,8 @@
 const CadastroDePedidos = () => {
     return (
-        <h1>Cadastro De Pedidos</h1>
+        <section className="telaBranca">
+            <h1>Cadastro De Pedidos</h1>
+        </section>
     )
 }
 export default CadastroDePedidos;
