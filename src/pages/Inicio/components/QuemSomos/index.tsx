@@ -2,7 +2,7 @@ import HomemCozinhando from "/images/imagemHomemcozinhando.png";
 
 const QuemSomos = () => {
     return (
-        <section className="grid justify-items-center">
+        <section className="grid justify-items-center min-h-[calc(70vh)] items-center">
             <h2 className="titulosMain">Quem Somos</h2>
             <div className="flex items-center gap-10">
                 <img src={HomemCozinhando} alt="Homem cozinhando" />

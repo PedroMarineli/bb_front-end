@@ -1,6 +1,6 @@
 import Maleta from "/icons/walletIcon.png";
 import Telefone from "/icons/telephoneIcon.png";
-import Logo from "/images/LogoBB.png";
+import Logo from "/images/logoBB.png";
 import Twitter from "/icons/twitterIcon.png";
 import Facebook from "/icons/facebookIcon.png";
 import Whats from "/icons/whatsapIcon.png";

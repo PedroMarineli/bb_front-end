@@ -4,7 +4,7 @@
         @apply font-bbFont;
     }
     .titulosMain {
-        @apply my-14 text-6xl underline uppercase;
+        @apply mb-14 text-6xl underline uppercase;
     }
     .quadroBranco {
         @apply bg-white rounded-3xl text-black; 
@@ -21,6 +21,7 @@
     .tituloJanela {
         @apply text-3xl uppercase;
     }
+
 @tailwind utilities;
 
 @font-face {
