@@ -4,7 +4,7 @@ import LogoBB from "/images/logoBB.png";
 const FaleComAGente = () => {
     return (
         <div className="grid justify-items-center">
-            <div className="bg-black opacity-60 fixed top-0 right-0 bottom-0 left-0"/>
+            <div className="overlay"/>
             <div className="janela">
                 <div className="flex justify-between items-center mb-6">
                     <div></div>

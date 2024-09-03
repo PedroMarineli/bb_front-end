@@ -4,6 +4,7 @@ import QuemSomos from "./components/QuemSomos"
 import Unidades from "./components/Unidades"
 import Cardapio from "./components/Cardapio"
 import FaleComAGente from "../../components/FaleComAGente"
+import Login from "../Login"
 
 const Inicio = () => {
 
@@ -22,6 +23,7 @@ const Inicio = () => {
             </main>
             <Footer />
             {/* {abertoFechado && <FaleComAGente />} */}
+            <Login/>
         </div>
     )
 }
