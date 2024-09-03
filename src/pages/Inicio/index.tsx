@@ -6,6 +6,7 @@ import Cardapio from "./components/Cardapio"
 import FaleComAGente from "../../components/FaleComAGente"
 
 const Inicio = () => {
+
     return (
         <div className="bg-hamburguer bg-no-repeat bg-right-top overflow-visible">
             <HeaderInicio />
@@ -20,7 +21,7 @@ const Inicio = () => {
                 <QuemSomos />
             </main>
             <Footer />
-            <FaleComAGente />
+            {/* {abertoFechado && <FaleComAGente />} */}
         </div>
     )
 }
