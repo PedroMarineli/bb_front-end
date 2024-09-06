@@ -1,7 +1,6 @@
-// import { atom } from "recoil";
-// import { IMenuState } from "../interfaces/IMenuState";
+import { atom } from "recoil";
 
-// export const menuState = atom<IMenuState>({
-//     key: 'menuState',
-//     default: 
-// })
+export const menuState = atom({
+    key: 'menuState',
+    default: false,
+});

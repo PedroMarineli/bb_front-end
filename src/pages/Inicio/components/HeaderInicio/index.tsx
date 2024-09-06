@@ -1,15 +1,35 @@
-import header from "../../../../json/header.json";
 import BurguerBoss from "../../../../components/BurguerBoss";
 import userIcon from "/icons/userIcon.png";
-import { Link } from "react-router-dom";
+import { HashLink as Link} from 'react-router-hash-link';
 
 const HeaderInicio = () => {
+    const opcoes = [
+        {
+            opcao: "Home",
+            link: "/home#home"
+        },
+        {
+            opcao: "Cardápio",
+            link: "/home#cardapio"
+        },
+        {
+            opcao: "Unidades", 
+            link: "/home#unidades" 
+        },
+        {
+            opcao: "Sobre Nós", 
+            link: "/home#sobreNos" 
+        }
+    ]
+
     return (
         <header className="flex items-center justify-around bg-seaBlue text-white py-2">
             <BurguerBoss />
             <ul className="flex">
-                {header.map((header) => (
-                    <li className="uppercase px-10 font-bold">{header.opcao}</li>
+                {opcoes.map((opcao) => (
+                    <li className="uppercase px-10 font-bold">
+                        <Link smooth to={opcao.link}>{opcao.opcao}</Link>
+                    </li>
                 ))}
             </ul>
             <Link to={"/bb"}>

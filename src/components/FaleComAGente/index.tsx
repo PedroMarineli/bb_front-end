@@ -1,7 +1,14 @@
+import { useSetRecoilState } from "recoil";
 import meios from "../../json/faleConosco.json";
 import LogoBB from "/images/logoBB.png";
+import { menuState } from "../../state/atom";
 
 const FaleComAGente = () => {
+    //const { clique } = useAbertoFechado()
+    const aberto = useSetRecoilState(menuState)
+    const alterarStatus = () => {
+        aberto(false)
+    }
     return (
         <div className="grid justify-items-center">
             <div className="overlay"/>
@@ -9,7 +16,7 @@ const FaleComAGente = () => {
                 <div className="flex justify-between items-center mb-6">
                     <div></div>
                     <h3 className="tituloJanela text-center">Fale com a gente</h3>
-                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6"/>
+                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarStatus}/>
                 </div>
                 <p>Tem alguma dúvida?! Alguma sugestão?! Alguma reclamação?!</p>
                 <p>Entre em contato conosco por meio destes meios abaixo!</p>
@@ -22,9 +29,9 @@ const FaleComAGente = () => {
                         </li>
                     ))}
                 </ul>
-                {/* <button onClick={aoFechar} className="justify-items-center"> */}
+                <div className="grid justify-items-center">
                     <img src={LogoBB} alt="Logo BB"/>
-                {/* </button> */}
+                </div>
             </div>
         </div>
     )

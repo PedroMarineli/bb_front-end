@@ -1,10 +1,13 @@
 import { useState } from "react";
 
-const useAbertoFechado = () => {
-    const [abertoFechado, setAbertoFechado] = useState(false);
-    return {
-        
+function useAbertoFechado () {
+    const [overlayAberto, setOverlayAberto] = useState(false)
+    
+    const clique = () => {
+        setOverlayAberto(!overlayAberto)
     }
+    
+    return { overlayAberto, clique }
 }
 
 export default useAbertoFechado;
