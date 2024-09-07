@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import HeaderInicio from "../../pages/Inicio/components/HeaderInicio";
 import BotaoMenu from "../BotaoMenu";
 import Menu from "../Menu";
 import { useState } from "react";
+import HeaderSistema from "../HeaderSistema";
 
 const PaginaPadrao = () => {
     const [menu, setMenu] = useState(false);
@@ -10,7 +10,7 @@ const PaginaPadrao = () => {
 
     return (
         <main>
-            <HeaderInicio />
+            <HeaderSistema />
             {menu && <Menu/>}
             <div onClick={mostrarMenu}>
                 <BotaoMenu />

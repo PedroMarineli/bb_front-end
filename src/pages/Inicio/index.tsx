@@ -27,8 +27,8 @@ const Inicio = () => {
                     <QuemSomos />
                 </main>
                 <Footer />
-                {/* <LoginSistema/> */}
-                { aberto && <FaleComAGente />}
+                { aberto && <LoginSistema/>}
+                {/* { aberto && <FaleComAGente />} */}
             </div>
         </div>
     )

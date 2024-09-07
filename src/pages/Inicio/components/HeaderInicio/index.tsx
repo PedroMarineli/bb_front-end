@@ -1,6 +1,8 @@
+import { useSetRecoilState } from "recoil";
 import BurguerBoss from "../../../../components/BurguerBoss";
 import userIcon from "/icons/userIcon.png";
 import { HashLink as Link} from 'react-router-hash-link';
+import { menuState } from "../../../../state/atom";
 
 const HeaderInicio = () => {
     const opcoes = [
@@ -22,6 +24,11 @@ const HeaderInicio = () => {
         }
     ]
 
+    const aberto = useSetRecoilState(menuState)
+    const alterarStatus = () => {
+        aberto(true)
+    }
+
     return (
         <header className="flex items-center justify-around bg-seaBlue text-white py-2">
             <BurguerBoss />
@@ -32,9 +39,9 @@ const HeaderInicio = () => {
                     </li>
                 ))}
             </ul>
-            <Link to={"/bb"}>
-                <img src={userIcon} alt="usuario"/>
-            </Link>
+            <div onClick={alterarStatus}>
+                <img src={userIcon} alt="usuario" className="hover:cursor-pointer"/>
+            </div>
         </header>
     )
 }
