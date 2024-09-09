@@ -1,0 +1,27 @@
+[
+    {
+        "nome": "Reserva de Mesas",
+        "icon": "/icons/mesa.png",
+        "link": "/bb-reservas"
+    },
+    {
+        "nome": "Cadastro de Pedidos",
+        "icon": "/icons/pedido.png",
+        "link": "/bb-cadastro-pedidos"
+    },
+    {
+        "nome": "Cozinha",
+        "icon": "/icons/cozinha.png",
+        "link": "/bb-cozinha"
+    },
+    {
+        "nome": "Caixa",
+        "icon": "/icons/caixa.png",
+        "link": "/bb-caixa"
+    },
+    {
+        "nome": "Relatórios",
+        "icon": "/icons/relatorios.png",
+        "link": "/bb-relatorios"
+    }
+]
