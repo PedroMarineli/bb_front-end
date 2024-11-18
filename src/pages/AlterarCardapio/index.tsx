@@ -18,6 +18,7 @@ const AlterarCardapio = () => {
                         <li key={item.nome}>
                             <div className='flex'>
                                 <p>{item.nome}: {item.descricao} - R${item.preco.toFixed(2)}</p>
+                                <p>aqui terá coisas para mudar</p>
                                 <td><button onClick={() => excluir(item.nome)}>Excluir</button></td>
                             </div>
                         </li>
