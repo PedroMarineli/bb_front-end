@@ -19,8 +19,8 @@ const Inicio = () => {
                 <main className="m-32 grid gap-32">
                     <div className="w-1/2 min-h-[calc(70vh)] flex flex-col justify-center">
                         <h2 className="font-bb text-8xl pb-6">Burguer Boss</h2>
-                        <p>Porque fome não combina com rei.</p>
-                        <p>Venha experimentar essa maravilha que se chama Burguer Boss!</p>
+                        <p className="text-2xl pb-5">Porque fome não combina com rei.</p>
+                        <p className="text-2xl">Venha experimentar essa maravilha que se chama Burguer Boss!</p>
                     </div>
                     <Cardapio />
                     <Unidades />
