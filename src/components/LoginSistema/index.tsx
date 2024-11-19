@@ -3,6 +3,7 @@ import Botao from "../Botao";
 import { menuState } from "../../state/atom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Janela from "../Janela";
 
 const LoginSistema = () => {
     const navigate = useNavigate();
@@ -32,25 +33,17 @@ const LoginSistema = () => {
     }
 
     return(
-        <div className="grid justify-items-center">
-            <div className="overlay"/>
-            <div className="janela">
-                <div className="flex justify-between items-center">
-                    <div></div>
-                    <h3 className="tituloJanela text-center">Login</h3>
-                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarStatus}/>
+        <Janela titulo="Login" conteudo={
+            <form className="grid justify-items-center" onSubmit={validarLogin}>
+                <div className="grid gap-8 my-12">
+                    <input required type="text" placeholder="Id" className="input" id="id" onChange={(e) => setId(e.target.value)}/>
+                    <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setSenha(e.target.value)}/>
                 </div>
-                <form className="grid justify-items-center" onSubmit={validarLogin}>
-                    <div className="grid gap-8 my-12">
-                        <input required type="text" placeholder="Id" className="input" id="id" onChange={(e) => setId(e.target.value)}/>
-                        <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setSenha(e.target.value)}/>
-                    </div>
-                    <button type="submit">
-                        <Botao children="Entrar"/>
-                    </button>
-                </form>
-            </div>
-        </div>
+                <button type="submit">
+                    <Botao children="Entrar"/>
+                </button>
+            </form>
+        }/>
     )
 }
 
