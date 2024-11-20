@@ -14,6 +14,7 @@ export default {
         black: '#000',
         white: '#fff',
         seaBlue: '#162836',
+        seaBlueLighter: '#23394a',
         brown: '#302925'
       },
       backgroundImage: {
