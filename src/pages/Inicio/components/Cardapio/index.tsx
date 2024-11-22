@@ -5,7 +5,7 @@ const Cardapio = () => {
     const [lista, setLista] = useState(cardapio);
 
     return (
-        <section className="telaBranca px-16 pb-14 text-center">
+        <section className="telaBranca px-16 pb-14 text-center" id='cardapio'>
             <h2 className="titulosMain">Cardápio</h2>
             <p className="text-2xl mb-14">Descubra nossos pratos clássicos, preparados com carinho e ingredientes frescos. Deixe-se surpreender pela simplicidade e sabor que só a cozinha tradicional pode oferecer.</p>
             <div className="grid grid-cols-2 gap-10">

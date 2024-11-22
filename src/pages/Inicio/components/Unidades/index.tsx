@@ -1,6 +1,6 @@
 const Unidades = () => {
     return (
-        <section className="grid justify-items-center">
+        <section className="grid justify-items-center" id="unidades">
             <h2 className="titulosMain">UNIDADES</h2>
             <p>Ourinhos</p>
             <p>R. Quinze de Novembro, 336 - Vila Margarida</p>

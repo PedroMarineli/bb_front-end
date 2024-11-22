@@ -7,16 +7,15 @@ import FaleComAGente from "../../components/FaleComAGente"
 import LoginSistema from "../../components/LoginSistema"
 import { useRecoilValue } from "recoil"
 import { menuState } from "../../state/atom"
-
 const Inicio = () => {
     const aberto = useRecoilValue(menuState)
     //const { overlayAberto } = useAbertoFechado()
 
     return (
         <div className="overflow-visible">
-            <HeaderInicio />
+            <HeaderInicio/>
             <div className="bg-hamburguer bg-no-repeat bg-right-top">
-                <main className="m-32 grid gap-32">
+                <main className="m-32 grid gap-32" id="home">
                     <div className="w-1/2 min-h-[calc(70vh)] flex flex-col justify-center">
                         <h2 className="font-bb text-8xl pb-6">Burguer Boss</h2>
                         <p className="text-2xl pb-5">Porque fome não combina com rei.</p>
