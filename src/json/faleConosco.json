@@ -1,26 +1,22 @@
 [
     {
         "nome": "Telefone",
-        "icone": "",
-        "texto": "14 3322-2233",
-        "link": "https://www.fatecourinhos.edu.br/"
+        "icone": "/icons/telefoneBlack.png",
+        "texto": "14 3322-2233"
     },
     {
         "nome": "WhatsApp",
-        "icone": "",
-        "texto": "14 99876-5432",
-        "link": "https://www.fatecourinhos.edu.br/"
+        "icone": "/icons/whatsappBlack.png",
+        "texto": "14 99876-5432"
     },
     {
         "nome": "Instagram",
-        "icone": "",
-        "texto": "@burguerBossbb",
-        "link": "https://www.fatecourinhos.edu.br/"
+        "icone": "/icons/instagramBlack.png",
+        "texto": "@burguerBossbb"
     },
     {
         "nome": "E-mail",
-        "icone": "",
-        "texto": "bb.hamburguer@gmail.ocom",
-        "link": "https://www.fatecourinhos.edu.br/"
+        "icone": "/icons/emailBlack.png",
+        "texto": "bb.hamburguer@gmail.ocom"
     }
 ]

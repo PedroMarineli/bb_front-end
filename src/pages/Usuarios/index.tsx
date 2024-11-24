@@ -15,16 +15,24 @@ const Usuarios = () => {
 
     return(
         <div>
-            <section className="telaBranca">
+            {usuarios.length === 0 ? 
+            (<section className="telaBranca grid gap-5">
+                <p>Nenhum usuário cadastrado!</p>
+            </section>) : 
+            (
+            <section className="telaBranca grid gap-5">
                 {usuarios.map(usuario => (
-                    <div className="flex justify-between">
-                        <img src="./icons/userIcon.png" alt="Usuário" className="text-black"/>
+                    <div className="flex justify-between items-center">
+                        <div className="flex gap-5 items-center">
+                            <img src="./icons/userIconBlack.png" alt="Usuário"/>
+                            <p>{usuario.hierarquia}</p>
+                        </div>
                         <p>{usuario.id}</p>
                         <p>{usuario.senha}</p>
-                        <p>{usuario.hierarquia}</p>
                     </div>
                 ))}
             </section>
+            )}
             <button className="pt-5">
                 <button onClick={alterarStatus}>Cadastrar / Alterar</button>
             </button>

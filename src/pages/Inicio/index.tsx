@@ -7,9 +7,14 @@ import FaleComAGente from "../../components/FaleComAGente"
 import LoginSistema from "../../components/LoginSistema"
 import { useRecoilValue } from "recoil"
 import { menuState } from "../../state/atom"
+import { useState } from "react"
 const Inicio = () => {
     const aberto = useRecoilValue(menuState)
-    //const { overlayAberto } = useAbertoFechado()
+
+    const [fale, setFale] = useState(false)
+    const alterarStatus = () => {
+        setFale(!fale)
+    }
 
     return (
         <div className="overflow-visible">
@@ -25,9 +30,9 @@ const Inicio = () => {
                     <Unidades />
                     <QuemSomos />
                 </main>
-                <Footer />
-                { aberto && <LoginSistema/>}
-                {/* { aberto && <FaleComAGente />} */}
+                <Footer alterarStatus={alterarStatus}/>
+                {aberto && <LoginSistema/>}
+                {fale && <FaleComAGente alterarStatus={alterarStatus}/>}
             </div>
         </div>
     )

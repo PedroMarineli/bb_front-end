@@ -30,6 +30,7 @@ const CadastraUsuario = ({setUsuarios}: Props) => {
                     <input required type="text" placeholder="Id" className="input" id="id" onChange={(e) => setId(e.target.value)}/>
                     <input required type="text" placeholder="Senha" className="input" id="senha" onChange={(e) => setSenha(e.target.value)}/>
                     <select className="input" onChange={(e) => setHierarquia(e.target.value)}>
+                        <option value=""></option>
                         <option value="Funcionário">Funcionário</option>
                         <option value="Administrador">Administrador</option>
                     </select>

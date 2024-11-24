@@ -7,11 +7,15 @@ import { useState } from "react";
 const PaginaPadrao = () => {
     const [menu, setMenu] = useState(false);
 
+    const alterarStatus = () => {
+        setMenu(!menu)
+    }
+
     return (
         <main>
             <HeaderSistema />
-            {menu && <Menu/>}
-            <div onClick={() => setMenu(!menu)}>
+            {menu && <Menu alterarStatus={alterarStatus}/>}
+            <div onClick={alterarStatus}>
                 <BotaoMenu />
             </div>
             <div className="mx-32 my-16">
