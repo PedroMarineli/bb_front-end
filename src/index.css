@@ -1,4 +1,8 @@
 @tailwind base;
+    td, th {
+        @apply w-1/3;
+    }
+
 @tailwind components;
     .font-bb {
         @apply font-bbFont;

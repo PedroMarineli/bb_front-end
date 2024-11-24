@@ -20,7 +20,7 @@ const ReservaDeMesas = () => {
                 {Array.from({ length: mesasAtualizadas }).map((_, index) => (
                 <li key={index} className="flex justify-between">
                     <p>Mesa {index + 1}</p>
-                    <div className="h-7 w-7 bg-green-800 rounded-full"></div>
+                    <div className="h-7 w-7 bg-green rounded-full"></div>
                 </li>
                 ))}
             </ul>

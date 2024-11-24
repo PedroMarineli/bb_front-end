@@ -15,7 +15,10 @@ export default {
         white: '#fff',
         seaBlue: '#162836',
         seaBlueLighter: '#23394a',
-        brown: '#302925'
+        brown: '#302925',
+        green: '#00ff00',
+        yellow: '#ffff00',
+        red: '#ff0000'
       },
       backgroundImage: {
         'hamburguer': "url('/images/hamburguerBackground.png')",
