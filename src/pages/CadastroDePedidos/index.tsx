@@ -49,7 +49,7 @@ const CadastroDePedidos = () => {
                     </div>
                 </div>
             </section>
-            <button className="pt-5">
+            <button className="pt-5 text-right">
                 <Link to='/bb-alterar-cardapio'>Alterar Cardápio</Link>
             </button>
             { fechado && <PedidoEnviado/>}

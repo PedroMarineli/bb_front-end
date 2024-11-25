@@ -3,6 +3,7 @@ import { menuState } from "../../state/atom";
 import CadastraUsuario from "../../components/CadastraUsuario";
 import { useState } from "react";
 import { IUsuario } from "../../types/IUsuario";
+import AlterarUsuario from "../../components/AlteraUsuario";
 
 const Usuarios = () => {
     const aberto = useSetRecoilState(menuState)
@@ -12,6 +13,11 @@ const Usuarios = () => {
     const fechado = useRecoilValue(menuState)
 
     const [usuarios, setUsuarios] = useState<IUsuario[] | []>([])
+
+    const [altera, setAltera] = useState(false)
+    const alterarAltera = () => {
+        setAltera(!altera)
+    }
 
     return(
         <div>
@@ -29,14 +35,16 @@ const Usuarios = () => {
                         </div>
                         <p>{usuario.id}</p>
                         <p>{usuario.senha}</p>
+                        <button onClick={alterarAltera}>Alterar</button>
                     </div>
                 ))}
             </section>
             )}
-            <button className="pt-5">
-                <button onClick={alterarStatus}>Cadastrar / Alterar</button>
+            <button className="pt-5 text-right">
+                <button onClick={alterarStatus}>Cadastrar</button>
             </button>
             { fechado && <CadastraUsuario setUsuarios={setUsuarios}/>}
+            { altera && <AlterarUsuario alterarAltera={alterarAltera}/> }
         </div>
     )
 }

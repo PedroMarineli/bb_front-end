@@ -8,7 +8,7 @@ interface Props {
 
 const Menu = ({alterarStatus}: Props) => {
     return (
-        <div className="menu fixed right-0 top-0">
+        <div className="menu fixed right-0 top-0 z-10">
             <ul>
                 {paginas.map((pagina) => (
                     <li>
