@@ -36,12 +36,12 @@ const Caixa = () => {
                             <tr>
                                 <td>{item.nome}</td>
                                 <td>{item.quantidade}</td>
-                                <td>{item.valor}</td>
+                                <td>{item.valor.toFixed(2)}</td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
-                    <p>Total: R${pedido.valorTotal}</p>
+                    <p>Total: R${pedido.valorTotal.toFixed(2)}</p>
                 </div>
             ))}
             <div className="flex items-center justify-around">
@@ -50,7 +50,7 @@ const Caixa = () => {
                     <ul className="grid gap-1">
                         {opcoes.map((opcao) => (
                             <li className="flex items-center gap-2">
-                                <input type="checkbox" className="w-6 h-6 bg-transparent border-black rounded-2xl"/>
+                                <input type="checkbox" className="w-6 h-6 bg-transparent border-black rounded-2xl hover:ring-black"/>
                                 {opcao.pagamento}
                             </li>
                         ))}
