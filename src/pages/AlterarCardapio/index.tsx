@@ -2,11 +2,21 @@ import { useEffect, useState } from 'react';
 import cardapio from '../../mocks/cardapio.json';
 import lataLixo from "/icons/lata-de-lixo.png";
 import Botao from '../../components/Botao';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { menuState } from '../../state/atom';
+import Exclusao from '../../components/Exclusao';
 
 const AlterarCardapio = () => {
+    const aberto = useSetRecoilState(menuState)
+    const alterarStatus = () => {
+        aberto(true)
+    }
+    const fechado = useRecoilValue(menuState)
+
     const [lista, setLista] = useState(cardapio);
 
     function excluir(nome: string) {
+        alterarStatus()
         return setLista(listaAntiga => listaAntiga.filter(evento => evento.nome !== nome))
     }
 
@@ -37,7 +47,7 @@ const AlterarCardapio = () => {
                             <input type="text" name="nome" value={categoria.nome} onChange={alterarCardapio} className='inputAlterar text-2xl'></input>
                             <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
                             <div onClick={() => excluir(categoria.nome)}>
-                                <img src={lataLixo} alt="Lata de lixo" className='h-9'/>
+                                <img src={lataLixo} alt="Lata de lixo" className='h-9 cursor-pointer'/>
                             </div>
                         </div>
                         <ul className='grid gap-7'>
@@ -48,7 +58,7 @@ const AlterarCardapio = () => {
                                     <input type="text" name="descricao" value={item.descricao} onChange={alterarCardapio} className='inputAlterar w-full'></input>
                                     <input type="text" name="preco" value={item.preco} onChange={alterarCardapio} className='inputAlterar w-20'></input>
                                     <div onClick={() => excluir(item.nome)}>
-                                        <img src={lataLixo} alt="Lata de lixo" className='w-12'/>
+                                        <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
                                     </div>
                                 </div>
                             </li>
@@ -66,6 +76,7 @@ const AlterarCardapio = () => {
                     </div>
                 </div>
             </form>
+            { fechado && <Exclusao/>}
         </section>
     )
 }
