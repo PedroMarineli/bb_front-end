@@ -1,6 +1,6 @@
 [
     {
-        "nome": "Reserva de Mesas",
+        "nome": "Controle de Mesas",
         "icon": "/icons/mesa.png",
         "link": "/bb-reservas"
     },
