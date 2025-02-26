@@ -18,7 +18,7 @@ const PaginaPadrao = () => {
             <div onClick={alterarStatus}>
                 <BotaoMenu />
             </div>
-            <div className="mx-32 my-16">
+            <div className="mx-32 lg:mx-60 my-32">
                 <Outlet/>
             </div>
         </main>

@@ -30,7 +30,7 @@ const HeaderInicio = () => {
     }
 
     return (
-        <header className="flex items-center justify-around bg-seaBlue text-white py-2">
+        <header className="w-full flex items-center justify-around bg-seaBlue text-white py-2">
             <BurguerBoss />
             <ul className="flex">
                 {opcoes.map((opcao) => (

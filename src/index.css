@@ -8,10 +8,10 @@
         @apply font-bbFont;
     }
     .titulosMain {
-        @apply mb-14 text-6xl underline uppercase;
+        @apply text-6xl underline uppercase;
     }
     .quadroBranco {
-        @apply bg-white rounded-3xl text-black; 
+        @apply bg-white rounded-3xl text-black;
     }
     .menu {
         @apply bg-seaBlue py-16 px-8 rounded-bl-3xl shadow-2xl;
@@ -20,7 +20,7 @@
         @apply bg-white py-16 px-20 text-black rounded-3xl bg-fundo;
     }
     .janela {
-        @apply fixed top-36 bg-white bg-fundo text-black p-10 rounded-3xl w-4/5 grid gap-5;
+        @apply fixed top-36 bg-white bg-fundo text-black p-10 rounded-3xl w-1/2 grid gap-5;
     }
     .tituloJanela {
         @apply text-3xl uppercase;

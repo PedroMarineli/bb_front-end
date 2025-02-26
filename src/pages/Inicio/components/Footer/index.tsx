@@ -13,9 +13,9 @@ interface Props {
 
 const Footer = ({alterarStatus}: Props) => {
     return (
-        <footer className="bg-seaBlue flex items-center justify-around py-10 text-lg">
+        <footer className="bg-seaBlue grid gap-10 justify-items-center justify-around lg:flex items-center py-10 text-lg">
             <img src={Logo} alt="LogoBB" />
-            <ul>
+            <ul className="justify-items-center">
                 <li className="flex items-center py-2 gap-4">
                     <img src={Maleta} alt="Maleta trabalho" className="w-8 h-8" />
                     <span>Trabalhe Conosco</span>

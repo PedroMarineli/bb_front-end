@@ -17,10 +17,10 @@ const Inicio = () => {
     }
 
     return (
-        <div className="overflow-visible">
+        <main className="overflow-visible min-w-full">
             <HeaderInicio/>
             <div className="bg-hamburguer bg-no-repeat bg-right-top">
-                <main className="m-32 grid gap-32" id="home">
+                <main className="mx-32 lg:mx-60 my-32 grid gap-32" id="home">
                     <div className="w-1/2 min-h-[calc(70vh)] flex flex-col justify-center">
                         <h2 className="font-bb text-8xl pb-6">Burguer Boss</h2>
                         <p className="text-2xl pb-5">Porque fome não combina com rei.</p>
@@ -30,11 +30,11 @@ const Inicio = () => {
                     <Unidades />
                     <QuemSomos />
                 </main>
-                <Footer alterarStatus={alterarStatus}/>
-                {aberto && <LoginSistema/>}
-                {fale && <FaleComAGente alterarStatus={alterarStatus}/>}
             </div>
-        </div>
+            <Footer alterarStatus={alterarStatus}/>
+            {aberto && <LoginSistema/>}
+            {fale && <FaleComAGente alterarStatus={alterarStatus}/>}
+        </main>
     )
 }
 
