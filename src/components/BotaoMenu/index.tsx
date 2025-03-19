@@ -1,4 +1,4 @@
-import MenuHamburguer from "/icons/hamburguer.png";
+import MenuHamburguer from "../../../public/icons/hamburguer.png";
 
 const BotaoMenu = () => {
     return (

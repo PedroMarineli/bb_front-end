@@ -1,10 +1,10 @@
-import Maleta from "/icons/walletIcon.png";
-import Telefone from "/icons/telephoneIcon.png";
-import Logo from "/images/logoBB.png";
-import Twitter from "/icons/twitterIcon.png";
-import Facebook from "/icons/facebookIcon.png";
-import Whats from "/icons/whatsapIcon.png";
-import Insta from "/icons/instagramIcon.png";
+import Maleta from "../../../../../public/icons/walletIcon.png";
+import Telefone from "../../../../../public/icons/telephoneIcon.png";
+import Logo from "../../../../../public/images/logoBB.png";
+import Twitter from "../../../../../public/icons/twitterIcon.png";
+import Facebook from "../../../../../public/icons/facebookIcon.png";
+import Whats from "../../../../../public/icons/whatsapIcon.png";
+import Insta from "../../../../../public/icons/instagramIcon.png";
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { menuState } from "../../../../state/atom";

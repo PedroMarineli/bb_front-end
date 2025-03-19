@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import meios from "../../json/faleConosco.json";
-import LogoBB from "/images/logoBB.png";
+import LogoBB from "../../../public/images/logoBB.png";
 import { menuState } from "../../state/atom";
 
 const FaleComAGente = () => {
