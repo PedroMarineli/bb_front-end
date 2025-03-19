@@ -1,14 +1,11 @@
-import { useSetRecoilState } from "recoil";
 import meios from "../../json/faleConosco.json";
 import LogoBB from "/images/logoBB.png";
-import { menuState } from "../../state/atom";
 
-const FaleComAGente = () => {
-    //const { clique } = useAbertoFechado()
-    const aberto = useSetRecoilState(menuState)
-    const alterarStatus = () => {
-        aberto(false)
-    }
+interface Props {
+    alterarStatus: React.MouseEventHandler<HTMLImageElement>
+}
+
+const FaleComAGente = ({alterarStatus}: Props) => {
     return (
         <div className="grid justify-items-center">
             <div className="overlay"/>
@@ -22,9 +19,9 @@ const FaleComAGente = () => {
                 <p>Entre em contato conosco por meio destes meios abaixo!</p>
                 <ul className="grid gap-5 my-8">
                     {meios.map((meio) => (
-                        <li className="flex gap-6">
+                        <li className="flex gap-6 items-center">
                             <span>{meio.nome}</span>
-                            <img src={meio.icone} alt={meio.nome} />
+                            <img src={meio.icone} alt={meio.nome} className="w-9"/>
                             <span>{meio.texto}</span>
                         </li>
                     ))}

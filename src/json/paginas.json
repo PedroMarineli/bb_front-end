@@ -1,6 +1,6 @@
 [
     {
-        "nome": "Reserva de Mesas",
+        "nome": "Controle de Mesas",
         "icon": "/icons/mesa.png",
         "link": "/bb-reservas"
     },
@@ -23,5 +23,10 @@
         "nome": "Relatórios",
         "icon": "/icons/relatorios.png",
         "link": "/bb-relatorios"
+    }, 
+    {
+        "nome": "Usuários",
+        "icon": "/icons/userIcon.png",
+        "link": "/bb-usuarios"
     }
 ]

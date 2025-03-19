@@ -6,26 +6,21 @@ import Facebook from "/icons/facebookIcon.png";
 import Whats from "/icons/whatsapIcon.png";
 import Insta from "/icons/instagramIcon.png";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { menuState } from "../../../../state/atom";
 
-const Footer = () => {
-    //const { clique } = useAbertoFechado()
+interface Props {
+    alterarStatus: React.MouseEventHandler<HTMLLIElement>
+}
 
-    // const aberto = useSetRecoilState(menuState)
-    // const alterarStatus = () => {
-    //     aberto(true)
-    // }
-
+const Footer = ({alterarStatus}: Props) => {
     return (
-        <footer className="bg-seaBlue flex items-center justify-around py-10 text-lg">
+        <footer className="bg-seaBlue grid gap-10 justify-items-center justify-around lg:flex items-center py-10 text-lg">
             <img src={Logo} alt="LogoBB" />
-            <ul>
+            <ul className="justify-items-center">
                 <li className="flex items-center py-2 gap-4">
                     <img src={Maleta} alt="Maleta trabalho" className="w-8 h-8" />
                     <span>Trabalhe Conosco</span>
                 </li>
-                <li className="flex items-center py-2 gap-4 hover:cursor-pointer">
+                <li className="flex items-center py-2 gap-4 hover:cursor-pointer" onClick={alterarStatus}>
                     <img src={Telefone} alt="Contato" className="w-8 h-8" />
                     <span>Fale com a gente</span>
                 </li>
