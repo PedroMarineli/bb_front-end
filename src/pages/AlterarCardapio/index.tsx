@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import cardapio from '../../mocks/cardapio.json';
-import lataLixo from "/icons/lata-de-lixo.png";
+import lataLixo from "../../../public/icons/lata-de-lixo.png";
 import Botao from '../../components/Botao';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { menuState } from '../../state/atom';

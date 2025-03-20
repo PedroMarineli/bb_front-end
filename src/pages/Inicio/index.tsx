@@ -7,30 +7,35 @@ import FaleComAGente from "../../components/FaleComAGente"
 import LoginSistema from "../../components/LoginSistema"
 import { useRecoilValue } from "recoil"
 import { menuState } from "../../state/atom"
+import { useState } from "react"
 
 const Inicio = () => {
     const aberto = useRecoilValue(menuState)
-    //const { overlayAberto } = useAbertoFechado()
+
+    const [fale, setFale] = useState(false)
+    const alterarStatus = () => {
+        setFale(!fale)
+    }
 
     return (
-        <div className="overflow-visible">
-            <HeaderInicio />
+        <main className="overflow-visible min-w-full">
+            <HeaderInicio/>
             <div className="bg-hamburguer bg-no-repeat bg-right-top">
-                <main className="m-32 grid gap-32">
+                <main className="mx-32 lg:mx-60 my-32 grid gap-32" id="home">
                     <div className="w-1/2 min-h-[calc(70vh)] flex flex-col justify-center">
                         <h2 className="font-bb text-8xl pb-6">Burguer Boss</h2>
-                        <p>Porque fome não combina com rei.</p>
-                        <p>Venha experimentar essa maravilha que se chama Burguer Boss!</p>
+                        <p className="text-2xl pb-5">Porque fome não combina com rei.</p>
+                        <p className="text-2xl">Venha experimentar essa maravilha que se chama Burguer Boss!</p>
                     </div>
                     <Cardapio />
                     <Unidades />
                     <QuemSomos />
                 </main>
-                <Footer />
-                { aberto && <LoginSistema/>}
-                {/* { aberto && <FaleComAGente />} */}
             </div>
-        </div>
+            <Footer alterarStatus={alterarStatus}/>
+            {aberto && <LoginSistema/>}
+            {fale && <FaleComAGente alterarStatus={alterarStatus}/>}
+        </main>
     )
 }
 

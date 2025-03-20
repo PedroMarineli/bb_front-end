@@ -1,22 +1,26 @@
 @tailwind base;
+    td, th {
+        @apply w-1/3;
+    }
+
 @tailwind components;
     .font-bb {
         @apply font-bbFont;
     }
     .titulosMain {
-        @apply mb-14 text-6xl underline uppercase;
+        @apply text-6xl underline uppercase;
     }
     .quadroBranco {
-        @apply bg-white rounded-3xl text-black; 
+        @apply bg-white rounded-3xl text-black;
     }
     .menu {
         @apply bg-seaBlue py-16 px-8 rounded-bl-3xl shadow-2xl;
     }
     .telaBranca {
-        @apply bg-white p-24 text-black rounded-3xl bg-fundo;
+        @apply bg-white py-16 px-20 text-black rounded-3xl bg-fundo;
     }
     .janela {
-        @apply fixed top-36 bg-white bg-fundo text-black p-10 rounded-3xl w-4/5;
+        @apply fixed top-36 bg-white bg-fundo text-black p-10 rounded-3xl w-1/2 grid gap-5;
     }
     .tituloJanela {
         @apply text-3xl uppercase;
@@ -26,6 +30,9 @@
     }
     .input {
         @apply bg-transparent border-solid border-2 border-black rounded-3xl py-3 px-10;
+    }
+    .inputAlterar {
+        @apply px-3 py-1.5 rounded-lg;
     }
 
 @tailwind utilities;
@@ -40,4 +47,3 @@
     src: local("Irish_Grover");
     src: url("./assets/fonts/Irish_Grover/IrishGrover-Regular.ttf") format("truetype");
 }
-

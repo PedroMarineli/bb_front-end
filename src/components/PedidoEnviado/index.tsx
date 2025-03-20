@@ -1,5 +1,5 @@
 import Janela from "../Janela";
-import LogoBB from "/images/logoBB.png";
+import LogoBB from "../../../public/images/logoBB.png";
 
 const PedidoEnviado = () => {
     return (

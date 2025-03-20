@@ -7,6 +7,8 @@ import CadastroDePedidos from './pages/CadastroDePedidos'
 import AlterarCardapio from './pages/AlterarCardapio'
 import Caixa from './pages/Caixa'
 import PaginaPadrao from './components/PaginaPadrao'
+import Usuarios from './pages/Usuarios'
+import Relatorios from './pages/Relatorios'
 import { RecoilRoot } from 'recoil'
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
             <Route path='/bb-cadastro-pedidos' element={<CadastroDePedidos />}/>
             <Route path='/bb-alterar-cardapio' element={<AlterarCardapio />}/>
             <Route path='/bb-caixa' element={<Caixa />}/>
+            <Route path='/bb-usuarios' element={<Usuarios />}/>
+            <Route path='/bb-relatorios' element={<Relatorios />}/>
           </Route>
         </Routes>
       </Router>

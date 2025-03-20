@@ -1,11 +1,11 @@
 import Janela from "../Janela";
 import LogoBB from "/images/logoBB.png";
 
-const PedidoEnviado = () => {
+const RelatorioEnviado = () => {
     return (
-        <Janela titulo="Pedido Enviado" conteudo={
+        <Janela titulo="Relatório Enviado" conteudo={
             <div className="grid justify-items-center gap-5">
-                <p>Pedido enviado com sucesso!</p>
+                <p>O download começará em segundos...</p>
                 <div className="grid justify-items-center">
                     <img src={LogoBB} alt="Logo BB"/>
                 </div>
@@ -14,4 +14,4 @@ const PedidoEnviado = () => {
     )
 }
 
-export default PedidoEnviado;
+export default RelatorioEnviado;
