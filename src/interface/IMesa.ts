@@ -1,3 +1,4 @@
-export interface IAberto {
+export interface IMesa {
+    id: number
     filled: boolean
 }
