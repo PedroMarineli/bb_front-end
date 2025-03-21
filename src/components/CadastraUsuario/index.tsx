@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IUsuario } from "../../types/IUsuario";
+import { IUsuario } from "../../interface/IUsuario";
 import Botao from "../Botao";
 import Janela from "../../components/Janela";
 

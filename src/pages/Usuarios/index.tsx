@@ -2,7 +2,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import CadastraUsuario from "../../components/CadastraUsuario";
 import { useState } from "react";
-import { IUsuario } from "../../types/IUsuario";
+import { IUsuario } from "../../interface/IUsuario";
 import AlterarUsuario from "../../components/AlteraUsuario";
 
 const Usuarios = () => {

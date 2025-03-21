@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 //import lataLixo from "/icons/lata-de-lixo.png";
 import Botao from "../Botao";
-import { IUsuario } from "../../types/IUsuario";
+import { IUsuario } from "../../interface/IUsuario";
 
 interface Props {
     //setUsuarios: React.Dispatch<React.SetStateAction<IUsuario[]>>
