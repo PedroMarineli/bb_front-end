@@ -1,10 +1,10 @@
 import axios, { AxiosPromise } from "axios";
-import { IMesa } from '../interface/IMesa';
 import { useQuery } from "react-query";
+import { IApiResponse } from "../interface/IApiResponse";
 
 const API_URL = 'http://localhost:8080';
 
-const fetchDesk = async (): AxiosPromise<IMesa[]> => {
+const fetchDesk = async (): AxiosPromise<IApiResponse[]> => {
     const response = axios.get(API_URL + '/desk')
     return response;
 }

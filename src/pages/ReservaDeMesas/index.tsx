@@ -5,48 +5,50 @@ import { IMesa } from "../../interface/IMesa";
 import { useDeskMutate } from "../../hooks/useDeskMutate";
 
 const ReservaDeMesas = () => {
+    const [deskNumber, setDeskNumber] = useState(0)
+    const { mutate } = useDeskMutate(); 
     const { data } = useDesk();
 
     const [ativado, setAtivado] = useState(false)
     const ativar = () => {
         setAtivado(!ativado)
     }
-
-    const [deskNumber, setDeskNumber] = useState(0)
-    const [mesasAtualizadas, setMesasAtualizadas] = useState(0)
-    const { mutate, isSuccess } = useDeskMutate(); 
+    
     const atualizaMesas = () => {
         const deskData: IMesa = {
             deskNumber
         }
-
         mutate(deskData)
+        setAtivado(!ativado)
     }
 
-    /*function atualizaMesas() {
-        setMesasAtualizadas(qtdMesas)
-        setAtivado(!ativado)
-    }*/
+    console.log("Data.content:", data);
 
     return(
         <section className="telaBranca">
             <ul className="grid grid-cols-2 pb-10 gap-x-10 gap-y-3">
-                {data?.map(desk => 
-                    <li key={desk.id} className="flex justify-between">
-                        <p>Mesa {desk.id + 1}</p>
-                        <div className="h-7 w-7 bg-green rounded-full"></div>
-                    </li>
+                {Array.isArray(data) && data?.map((desk) => (
+                    <div>
+                        {desk.content.map((item) => 
+                            <li key={item.id} className="flex justify-between">
+                                <p>Mesa {item.id}</p>
+                                <div className="h-7 w-7 bg-green rounded-full"></div>
+                            </li>
+                        )}
+                    </div>
+                    )
                 )}
             </ul>
             <div className="flex justify-around">
             <div onClick={ativar} className={`${ativado ? 'opacity-55 pointer-events-none' : 'opacity-100'}`}><Botao children="Alterar Mesas"/></div>
-                <form className={`flex gap-4 items-center justify-between ${ativado ? 'opacity-100' : 'opacity-55 pointer-events-none'}`}>
+                <div className={`flex gap-4 items-center justify-between ${ativado ? 'opacity-100' : 'opacity-55 pointer-events-none'}`}>
                     <p>Quantidade de mesas:</p>
                     <input className="input" type="number" value={deskNumber} onChange={e => setDeskNumber(Number(e.target.value))}/>
                     <button onClick={atualizaMesas}><Botao children="Atualizar"/></button>
-                </form>
+                </div>
             </div>
         </section>
     )
 }
+
 export default ReservaDeMesas;

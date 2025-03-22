@@ -1,5 +1,5 @@
 export interface IMesa {
-    deskNumber: number
-    id?: number | undefined
+    deskNumber?: number | undefined,
+    id?: number | undefined,
     filled?: boolean | undefined
 }
