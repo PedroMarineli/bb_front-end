@@ -5,8 +5,10 @@ import Botao from '../../components/Botao';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { menuState } from '../../state/atom';
 import Exclusao from '../../components/Exclusao';
+import CriarMenuItem from '../../components/CriarMenuItem';
 
 const AlterarCardapio = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(true)
@@ -37,6 +39,11 @@ const AlterarCardapio = () => {
         // Aqui você implementaria a lógica para salvar as alterações
         console.log('Dados alterados:', lista);*/
       };
+
+      const handleOpenModal = () => {
+        //setIsModalOpen(isModalOpen => !isModalOpen)
+        aberto(true)
+      }
 
     return (
         <section className="telaBranca">
@@ -74,10 +81,12 @@ const AlterarCardapio = () => {
                     <div className="flex justify-center">
                         <Botao>Alterar</Botao>
                     </div>
+                    <button onClick={handleOpenModal}>Novo Item de Menu</button>
                 </div>
             </form>
-            { fechado && <Exclusao/>}
+            {fechado && <CriarMenuItem closeModal={handleOpenModal}/>}
         </section>
     )
 }
+//{ fechado && <Exclusao/>} fica entre o form e o section
 export default AlterarCardapio;
