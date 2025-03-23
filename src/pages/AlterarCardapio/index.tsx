@@ -8,17 +8,15 @@ import Exclusao from '../../components/Exclusao';
 import CriarMenuItem from '../../components/CriarMenuItem';
 
 const AlterarCardapio = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const aberto = useSetRecoilState(menuState)
-    const alterarStatus = () => {
-        aberto(true)
+    const [altera, setAltera] = useState(false)
+    const alterarAltera = () => {
+        setAltera(!altera)
     }
-    const fechado = useRecoilValue(menuState)
 
     const [lista, setLista] = useState(cardapio);
 
     function excluir(nome: string) {
-        alterarStatus()
+        //alterarStatus()
         return setLista(listaAntiga => listaAntiga.filter(evento => evento.nome !== nome))
     }
 
@@ -39,11 +37,6 @@ const AlterarCardapio = () => {
         // Aqui você implementaria a lógica para salvar as alterações
         console.log('Dados alterados:', lista);*/
       };
-
-      const handleOpenModal = () => {
-        //setIsModalOpen(isModalOpen => !isModalOpen)
-        aberto(true)
-      }
 
     return (
         <section className="telaBranca">
@@ -81,10 +74,10 @@ const AlterarCardapio = () => {
                     <div className="flex justify-center">
                         <Botao>Alterar</Botao>
                     </div>
-                    <button onClick={handleOpenModal}>Novo Item de Menu</button>
+                    {altera && <CriarMenuItem alterarAltera={alterarAltera}/>}
+                    <button onClick={alterarAltera}>Novo Item de Menu</button>
                 </div>
             </form>
-            {fechado && <CriarMenuItem closeModal={handleOpenModal}/>}
         </section>
     )
 }

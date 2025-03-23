@@ -3,22 +3,27 @@ import LogoBB from "../../../public/images/logoBB.png";
 import { useEffect, useState } from "react";
 import { IMenuItem } from "../../interface/IMenuItem";
 import { useMenuItemMutate } from "../../hooks/UseMenuItemMutate";
+import { useSetRecoilState } from "recoil";
+import { menuState } from "../../state/atom";
 
-interface ModalProps {
-    closeModal(): void
+interface Props {
+    alterarAltera: React.MouseEventHandler<HTMLImageElement>
 }
 
-const CriarMenuItem = ({ closeModal }: ModalProps) => {
+const CriarMenuItem = ({alterarAltera}: Props) => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [category, setCategory] = useState("")
-    const { mutate, isSuccess } = useMenuItemMutate()
+    const [available, setAvailable] = useState(true)
+    const { mutate } = useMenuItemMutate()
+
 
     const submit = () => {
         const menuItem: IMenuItem = {
             name,
             price, 
-            category
+            category,
+            available
         }
 
         mutate(menuItem)
@@ -26,19 +31,33 @@ const CriarMenuItem = ({ closeModal }: ModalProps) => {
 
     // useEffect(() => {
     //     if(isSuccess) {
-    //         closeModal()
+            
     //     }
     // }, [isSuccess])
 
+    const handleChange = (event: any) => {
+        setAvailable(event.target.value === 'true');
+    };
+
     return (
-        <Janela titulo="Adicionar Item" conteudo={
-            <div className="grid justify-items-center gap-5">
+        <div className="grid justify-items-center">
+            <div className="overlay"/>
+            <div className="janela">
+                <div className="flex justify-between items-center">
+                    <div></div>
+                    <h3 className="tituloJanela text-center">Novo Item</h3>
+                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarAltera}/>
+                </div>
                 <div className="modal-body">
                     <h2>Cadastre um novo item no cardápio:</h2>
                     <form className="input-container" action="">
                         <input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
                         <input className="input" type="text" value={price} onChange={e => setPrice(e.target.value)}/>
                         <input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
+                        <select name="available" id="status" value={available.toString()} onChange={handleChange}>
+                            <option value="true">Disponível</option>
+                            <option value="false">Indisponível</option>
+                        </select>
                     </form>
                     <button onClick={submit} className="btn-secondary">Submeter</button>
                 </div>
@@ -46,7 +65,7 @@ const CriarMenuItem = ({ closeModal }: ModalProps) => {
                     <img src={LogoBB} alt="Logo BB"/>
                 </div>
             </div>
-        }/>
+        </div>
     )
 }
 

@@ -8,7 +8,8 @@ const ReservaDeMesas = () => {
     const [deskNumber, setDeskNumber] = useState(0)
     const { mutate } = useDeskMutate(); 
     const { data } = useDesk();
-
+    console.log("Data.content:", data);
+    
     const [ativado, setAtivado] = useState(false)
     const ativar = () => {
         setAtivado(!ativado)
@@ -22,7 +23,6 @@ const ReservaDeMesas = () => {
         setAtivado(!ativado)
     }
 
-    console.log("Data.content:", data);
 
     return(
         <section className="telaBranca">

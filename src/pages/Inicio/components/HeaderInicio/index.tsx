@@ -8,19 +8,19 @@ const HeaderInicio = () => {
     const opcoes = [
         {
             opcao: "Home",
-            link: "/home#home"
+            id: "home"
         },
         {
             opcao: "Cardápio",
-            link: "/home#cardapio"
+            id: "cardapio"
         },
         {
-            opcao: "Unidades", 
-            link: "/home#unidades" 
+            opcao: "Unidades",
+            id: "unidades"
         },
         {
-            opcao: "Sobre Nós", 
-            link: "/home#sobreNos" 
+            opcao: "Sobre Nós",
+            id: "sobreNos"
         }
     ]
 
@@ -35,7 +35,7 @@ const HeaderInicio = () => {
             <ul className="flex">
                 {opcoes.map((opcao) => (
                     <li className="uppercase px-10 font-bold">
-                        <Link smooth to={opcao.link}>{opcao.opcao}</Link>
+                        <Link key={opcao.id} to={`#${opcao.id}`} smooth={true}>{opcao.opcao}</Link>
                     </li>
                 ))}
             </ul>
