@@ -6,23 +6,19 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { menuState } from '../../state/atom';
 import Exclusao from '../../components/Exclusao';
 import CriarMenuItem from '../../components/CriarMenuItem';
+import { useMenuItem } from '../../hooks/useMenuItem';
 
 const AlterarCardapio = () => {
+    const { data } = useMenuItem();
     const [altera, setAltera] = useState(false)
     const alterarAltera = () => {
         setAltera(!altera)
     }
 
-    const [lista, setLista] = useState(cardapio);
-
-    function excluir(nome: string) {
+    function excluir(id: number) {
         //alterarStatus()
-        return setLista(listaAntiga => listaAntiga.filter(evento => evento.nome !== nome))
+        //return setLista(listaAntiga => listaAntiga.filter(evento => evento.id !== id))
     }
-
-    useEffect(() => {
-        setLista(cardapio);
-      }, [cardapio]);
     
       const alterarCardapio = () => {
         /*setLista({
@@ -38,28 +34,30 @@ const AlterarCardapio = () => {
         console.log('Dados alterados:', lista);*/
       };
 
+      console.log(data)
+
     return (
         <section className="telaBranca">
             <form onSubmit={submeterForm} className='grid gap-7'>
-                {lista.map(categoria => (
+                {Array.isArray(data) && data?.map((items) => (
                     <div className='grid gap-7'>
-                        <div className='flex justify-center gap-5'>
+                        {/* <div className='flex justify-center gap-5'>
                             <input type="text" name="nome" value={categoria.nome} onChange={alterarCardapio} className='inputAlterar text-2xl'></input>
                             <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
                             <div onClick={() => excluir(categoria.nome)}>
                                 <img src={lataLixo} alt="Lata de lixo" className='h-9 cursor-pointer'/>
                             </div>
-                        </div>
+                        </div> */}
                         <ul className='grid gap-7'>
-                        {categoria.itens.map((item) => (
-                            <li key={item.nome}>
+                        {items.items?.map((item) => (
+                            <li key={item.name}>
                                 <div className='flex justify-between gap-5 items-center'>
-                                    <input type="text" name="nome" value={item.nome} onChange={alterarCardapio} className='inputAlterar w-52'></input>
-                                    <input type="text" name="descricao" value={item.descricao} onChange={alterarCardapio} className='inputAlterar w-full'></input>
-                                    <input type="text" name="preco" value={item.preco} onChange={alterarCardapio} className='inputAlterar w-20'></input>
-                                    <div onClick={() => excluir(item.nome)}>
+                                    <input type="text" name="nome" value={item.name} onChange={alterarCardapio} className='inputAlterar w-52'></input>
+                                    {/* <input type="text" name="descricao" value={item.descricao} onChange={alterarCardapio} className='inputAlterar w-full'></input> */}
+                                    <input type="text" name="preco" value={item.price} onChange={alterarCardapio} className='inputAlterar w-20'></input>
+                                    {/* <div onClick={() => excluir(item.id)}>
                                         <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </li>
                         ))}

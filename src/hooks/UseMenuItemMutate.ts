@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios"
 import { IMenuItem } from '../interface/IMenuItem';
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = 'http://localhost:8080';
 
