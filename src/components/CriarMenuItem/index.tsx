@@ -7,16 +7,15 @@ import { useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 
 interface Props {
-    alterarAltera: React.MouseEventHandler<HTMLImageElement>
+    closeModal(): void
 }
 
-const CriarMenuItem = ({alterarAltera}: Props) => {
+const CriarMenuItem = ({closeModal}: Props) => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [category, setCategory] = useState("")
     const [available, setAvailable] = useState(true)
-    const { mutate } = useMenuItemMutate()
-
+    const { mutate, isSuccess } = useMenuItemMutate()
 
     const submit = () => {
         const menuItem: IMenuItem = {
@@ -29,11 +28,11 @@ const CriarMenuItem = ({alterarAltera}: Props) => {
         mutate(menuItem)
     }
 
-    // useEffect(() => {
-    //     if(isSuccess) {
-            
-    //     }
-    // }, [isSuccess])
+    useEffect(() => {
+        if(isSuccess) {
+            closeModal()
+        }
+    }, [isSuccess])
 
     const handleChange = (event: any) => {
         setAvailable(event.target.value === 'true');
@@ -46,7 +45,7 @@ const CriarMenuItem = ({alterarAltera}: Props) => {
                 <div className="flex justify-between items-center">
                     <div></div>
                     <h3 className="tituloJanela text-center">Novo Item</h3>
-                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarAltera}/>
+                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={closeModal}/>
                 </div>
                 <div className="modal-body">
                     <h2>Cadastre um novo item no cardápio:</h2>
@@ -54,10 +53,10 @@ const CriarMenuItem = ({alterarAltera}: Props) => {
                         <input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
                         <input className="input" type="text" value={price} onChange={e => setPrice(e.target.value)}/>
                         <input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
-                        <select name="available" id="status" value={available.toString()} onChange={handleChange}>
+                        {/* <select name="available" id="status" value={available.toString()} onChange={handleChange}>
                             <option value="true">Disponível</option>
                             <option value="false">Indisponível</option>
-                        </select>
+                        </select> */}
                     </form>
                     <button onClick={submit} className="btn-secondary">Submeter</button>
                 </div>
