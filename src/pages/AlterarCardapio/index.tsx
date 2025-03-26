@@ -13,7 +13,7 @@ const AlterarCardapio = () => {
     const { data, isLoading } = useMenuItem();
     const [altera, setAltera] = useState(false)
     const alterarAltera = () => {
-        setAltera(altera => !altera)
+        setAltera(!altera)
     }
 
     function excluir(id: number) {
@@ -82,18 +82,18 @@ const AlterarCardapio = () => {
                         </div>
                     ))} */}
                 </>
-                <div className='grid gap-7 justify-center'>
-                    <div className='flex justify-center gap-5'>
-                        <h2 className='text-2xl'>Adicionar categoria:</h2>
-                        <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
-                    </div>
-                    <div className="flex justify-center">
-                        <Botao>Alterar</Botao>
-                    </div>
-                    <button onClick={alterarAltera}>Novo Item de Menu</button>
-                    {altera && <CriarMenuItem closeModal={alterarAltera}/>}
-                </div>
             </form>
+            <div className='grid gap-7 justify-center'>
+                <div className='flex justify-center gap-5'>
+                    <h2 className='text-2xl'>Adicionar categoria:</h2>
+                    <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
+                </div>
+                <div className="flex justify-center">
+                    <Botao>Alterar</Botao>
+                </div>
+                <button onClick={alterarAltera}>Novo Item de Menu</button>
+                {altera && <CriarMenuItem closeModal={alterarAltera}/>}
+            </div>
         </section>
     )
 }

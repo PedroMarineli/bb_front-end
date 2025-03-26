@@ -49,10 +49,12 @@ const CriarMenuItem = ({closeModal}: Props) => {
                 </div>
                 <div className="modal-body">
                     <h2>Cadastre um novo item no cardápio:</h2>
-                    <form className="input-container" action="">
-                        <input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
-                        <input className="input" type="text" value={price} onChange={e => setPrice(e.target.value)}/>
-                        <input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
+                    <form className="grid gap-5" action="">
+                        <div>
+                            <span>Nome:</span><input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
+                            <span>Preço:</span><input className="input" type="text" value={price} onChange={e => setPrice(e.target.value)}/>
+                        </div>
+                        <span>Categoria:</span><input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
                         {/* <select name="available" id="status" value={available.toString()} onChange={handleChange}>
                             <option value="true">Disponível</option>
                             <option value="false">Indisponível</option>
