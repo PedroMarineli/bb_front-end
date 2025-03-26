@@ -4,15 +4,15 @@ import { IApiResponse } from "../interface/IApiResponse";
 
 const API_URL = 'http://localhost:8080';
 
-const fetchDesk = async (): AxiosPromise<IApiResponse[]> => {
-    const response = axios.get(API_URL + '/desk')
+const fetchDesk = async (): AxiosPromise<IApiResponse> => {
+    const response = await axios.get(API_URL + '/desk')
     return response;
 }
 
 export function useDesk() {
     const query = useQuery({
         queryFn: fetchDesk,
-        queryKey: ['desk'],
+        queryKey: ['desks'],
         retry: 2
     })
 
