@@ -38,14 +38,14 @@ const AlterarCardapio = () => {
     console.log(data)
 
     return (
-        <section className="telaBranca">
+        <section className="telaBranca grid gap-10">
             <form onSubmit={submeterForm} className='grid gap-7'>
                 {isLoading ? <p>Carregando...</p> : <>
                     {data?.items?.map((item) => 
-                        <li key={item.name}>
+                        <li key={item.name} className='list-none'>
                             <div className='flex justify-between gap-5 items-center'>
                                 <input type="text" name="nome" value={item.name} onChange={alterarCardapio} className='inputAlterar w-52'></input>
-                                <input type="text" name="descricao" value={item.name} onChange={alterarCardapio} className='inputAlterar w-full'></input>
+                                <input type="text" name="descricao" value={item.category} onChange={alterarCardapio} className='inputAlterar w-full'></input>
                                 <input type="text" name="preco" value={item.price} onChange={alterarCardapio} className='inputAlterar w-20'></input>
                                 {/* <div onClick={() => excluir(item.id)}> */}
                                 <div>

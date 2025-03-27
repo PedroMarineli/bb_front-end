@@ -12,8 +12,10 @@ interface Props {
 
 const CriarMenuItem = ({closeModal}: Props) => {
     const [name, setName] = useState("")
-    const [price, setPrice] = useState("")
+    const [preco, setPreco] = useState("")
+    const price = parseFloat(preco)
     const [category, setCategory] = useState("")
+    const [id, setId] = useState(4)
     const [available, setAvailable] = useState(true)
     const { mutate, isSuccess } = useMenuItemMutate()
 
@@ -22,7 +24,8 @@ const CriarMenuItem = ({closeModal}: Props) => {
             name,
             price, 
             category,
-            available
+            available,
+            menu: { id: id }
         }
 
         mutate(menuItem)
@@ -52,13 +55,14 @@ const CriarMenuItem = ({closeModal}: Props) => {
                     <form className="grid gap-5" action="">
                         <div>
                             <span>Nome:</span><input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
-                            <span>Preço:</span><input className="input" type="text" value={price} onChange={e => setPrice(e.target.value)}/>
+                            <span>Preço:</span><input className="input" type="text" value={preco} onChange={e => setPreco(e.target.value)}/>
                         </div>
                         <span>Categoria:</span><input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
                         {/* <select name="available" id="status" value={available.toString()} onChange={handleChange}>
                             <option value="true">Disponível</option>
                             <option value="false">Indisponível</option>
-                        </select> */}
+                        </select>
+                        <input className="input" type="number" value={id} onChange={e => setId(Number(e.target.value))}/> */}
                     </form>
                     <button onClick={submit} className="btn-secondary">Submeter</button>
                 </div>
