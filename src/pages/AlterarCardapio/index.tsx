@@ -7,7 +7,6 @@ import { menuState } from '../../state/atom';
 import Exclusao from '../../components/Exclusao';
 import CriarMenuItem from '../../components/CriarMenuItem';
 import { useMenuItem } from '../../hooks/useMenuItem';
-import { IMenuItem } from '../../interface/IMenuItem';
 
 const AlterarCardapio = () => {
     const { data, isLoading } = useMenuItem();

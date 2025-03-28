@@ -2,14 +2,13 @@ import { useState } from "react";
 import Botao from "../../components/Botao";
 import { useDesk } from "../../hooks/useDesk";
 import { useDeskMutate } from "../../hooks/useDeskMutate";
-import { IDeskNumber } from "../../interface/IDeskNumber";
+import { IDeskId, IDeskNumber } from "../../interface/IDesk";
 
 const ReservaDeMesas = () => {
     const [deskNumber, setDeskNumber] = useState(0)
     const [ativado, setAtivado] = useState(false)
-    const [ocupada, setOcupada] = useState(false)
-    const { data, isLoading } = useDesk();
-    const { mutate } = useDeskMutate(); 
+    const { data, isLoading, refetch } = useDesk();
+    const { postMutate, putMutate } = useDeskMutate(); 
     console.log("Data:", data);
     
     const ativar = () => {
@@ -20,12 +19,17 @@ const ReservaDeMesas = () => {
         const deskData: IDeskNumber = {
             deskNumber
         }
-        mutate(deskData)
+        postMutate.mutate(deskData)
         setAtivado(!ativado)
+        refetch()
     }
 
-    const statusMesa = () => {
-        setOcupada(!ocupada)
+    const statusMesa = (id: any) => {
+        const deskData: IDeskId = {
+            id
+        }
+        putMutate.mutate(deskData)
+        refetch()
     }
 
     return(
@@ -35,7 +39,7 @@ const ReservaDeMesas = () => {
                     {data?.content.map((item) => 
                         <li key={item.id} className="flex justify-between">
                             <p>Mesa {item.id}</p>
-                            <div onClick={statusMesa} className={`h-7 w-7 rounded-full ${ocupada ? 'bg-green-800' : 'bg-red-700'}`}></div>
+                            <div onClick={() => statusMesa(item.id)} className={`h-7 w-7 rounded-full ${item.filled ? 'bg-red-700' : 'bg-green-800'}`}></div>
                         </li>
                     )}
                 </>}

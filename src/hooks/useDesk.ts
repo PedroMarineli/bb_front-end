@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { IApiResponse } from "../interface/IApiResponse";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { IApiResponse } from "../interface/IDesk";
 
 const API_URL = 'http://localhost:8080';
 
@@ -10,6 +10,8 @@ const fetchDesk = async (): AxiosPromise<IApiResponse> => {
 }
 
 export function useDesk() {
+    const queryClient = useQueryClient();
+
     const query = useQuery({
         queryFn: fetchDesk,
         queryKey: ['desks'],
@@ -18,6 +20,7 @@ export function useDesk() {
 
     return {
         ...query,
-        data: query.data?.data
+        data: query.data?.data,
+        refetch: () => queryClient.refetchQueries({ queryKey: ['desks'] })
     }
 }
