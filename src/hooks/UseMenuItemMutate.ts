@@ -9,10 +9,15 @@ const postMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
     return response;
 }
 
+const putMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
+    const response = axios.put(API_URL + '/menu/item', data)
+    return response
+}
+
 export function useMenuItemMutate() {
     const queryClient = useQueryClient();
 
-    const mutate = useMutation({
+    const postMutate = useMutation({
         mutationFn: postMenuItem,
         retry: 2,
         onSuccess: () => {
@@ -20,5 +25,13 @@ export function useMenuItemMutate() {
         }
     })
 
-    return mutate;
+    const putMutate = useMutation({
+        mutationFn: putMenuItem,
+        retry: 2,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['menuItem']})
+        }
+    })
+
+    return { postMutate, putMutate };
 }

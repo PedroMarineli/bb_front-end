@@ -7,10 +7,19 @@ import { menuState } from '../../state/atom';
 import Exclusao from '../../components/Exclusao';
 import CriarMenuItem from '../../components/CriarMenuItem';
 import { useMenuItem } from '../../hooks/useMenuItem';
+import { useDeskMutate } from '../../hooks/useDeskMutate';
+import { IMenuItem } from '../../interface/IMenu';
 
 const AlterarCardapio = () => {
-    const { data, isLoading } = useMenuItem();
+    const { data, isLoading, refetch } = useMenuItem()
     const [altera, setAltera] = useState(false)
+    const [name, setName] = useState("")
+    const [preco, setPreco] = useState("")
+    const price = parseFloat(preco)
+    const [category, setCategory] = useState("")
+    const [available, setAvailable] = useState(true)
+    const [id, setId] = useState(4)
+    const { putMutate } = useDeskMutate()
     const alterarAltera = () => {
         setAltera(!altera)
     }
@@ -20,11 +29,16 @@ const AlterarCardapio = () => {
         //return setLista(listaAntiga => listaAntiga.filter(evento => evento.id !== id))
     }
     
-    const alterarCardapio = () => {
-    /*setLista({
-        ...lista,
-        [event.target.name]: event.target.value,
-    });*/
+    const alterarCardapio = (name: any) => {
+        const menuItem: IMenuItem = {
+            name,
+            price, 
+            category,
+            available,
+            menu: { id: id }
+        }
+        putMutate.mutate(menuItem)
+        refetch()
     };
 
     const submeterForm = () => {
@@ -43,7 +57,7 @@ const AlterarCardapio = () => {
                     {data?.items?.map((item) => 
                         <li key={item.name} className='list-none'>
                             <div className='flex justify-between gap-5 items-center'>
-                                <input type="text" name="nome" value={item.name} onChange={alterarCardapio} className='inputAlterar w-52'></input>
+                                <input type="text" name="nome" value={item.name} onChange={() => alterarCardapio(setName)} className='inputAlterar w-52'></input>
                                 <input type="text" name="descricao" value={item.category} onChange={alterarCardapio} className='inputAlterar w-full'></input>
                                 <input type="text" name="preco" value={item.price} onChange={alterarCardapio} className='inputAlterar w-20'></input>
                                 {/* <div onClick={() => excluir(item.id)}> */}

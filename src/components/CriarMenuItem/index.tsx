@@ -1,10 +1,10 @@
 import Janela from "../../components/Janela";
 import LogoBB from "../../../public/images/logoBB.png";
 import { useEffect, useState } from "react";
-import { IMenuItem } from "../../interface/IMenuItem";
 import { useMenuItemMutate } from "../../hooks/UseMenuItemMutate";
 import { useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
+import { IMenuItem } from "../../interface/IMenu";
 
 interface Props {
     closeModal(): void
@@ -17,7 +17,7 @@ const CriarMenuItem = ({closeModal}: Props) => {
     const [category, setCategory] = useState("")
     const [id, setId] = useState(4)
     const [available, setAvailable] = useState(true)
-    const { mutate, isSuccess } = useMenuItemMutate()
+    const { postMutate } = useMenuItemMutate()
 
     const submit = () => {
         const menuItem: IMenuItem = {
@@ -28,14 +28,14 @@ const CriarMenuItem = ({closeModal}: Props) => {
             menu: { id: id }
         }
 
-        mutate(menuItem)
+        postMutate.mutate(menuItem)
     }
 
     useEffect(() => {
-        if(isSuccess) {
+        if(postMutate.isSuccess) {
             closeModal()
         }
-    }, [isSuccess])
+    }, [postMutate.isSuccess])
 
     const handleChange = (event: any) => {
         setAvailable(event.target.value === 'true');
