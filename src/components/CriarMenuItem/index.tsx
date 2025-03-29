@@ -1,9 +1,6 @@
-import Janela from "../../components/Janela";
 import LogoBB from "../../../public/images/logoBB.png";
 import { useEffect, useState } from "react";
 import { useMenuItemMutate } from "../../hooks/UseMenuItemMutate";
-import { useSetRecoilState } from "recoil";
-import { menuState } from "../../state/atom";
 import { IMenuItem } from "../../interface/IMenu";
 
 interface Props {
@@ -11,12 +8,12 @@ interface Props {
 }
 
 const CriarMenuItem = ({closeModal}: Props) => {
+    const [id, setId] = useState(4)
     const [name, setName] = useState("")
+    const [category, setCategory] = useState("")
+    const [available, setAvailable] = useState(true)
     const [preco, setPreco] = useState("")
     const price = parseFloat(preco)
-    const [category, setCategory] = useState("")
-    const [id, setId] = useState(4)
-    const [available, setAvailable] = useState(true)
     const { postMutate } = useMenuItemMutate()
 
     const submit = () => {
