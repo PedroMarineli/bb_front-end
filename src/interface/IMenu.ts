@@ -8,6 +8,6 @@ export interface IMenuItem {
     name: string,
     price: number,
     category: string,
-    available: boolean
-    menu: { id: number }
+    available?: boolean
+    menu?: { id: number }
 }

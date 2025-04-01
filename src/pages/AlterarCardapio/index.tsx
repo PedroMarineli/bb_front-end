@@ -14,12 +14,16 @@ const AlterarCardapio = () => {
     const { data, isLoading, refetch } = useMenuItem()
     const [altera, setAltera] = useState(false)
     const [items, setItems] = useState<IMenuItem[]>([])
+    const [name, setName] = useState("")
+    const [category, setCategory] = useState("")
+    const [preco, setPreco] = useState("")
+    const price = parseFloat(preco)
     // const [name, setName] = useState(menu.name)
     // const [price, setPrice] = useState(menu.price)
     // const [category, setCategory] = useState(menu.category)
     // const [available, setAvailable] = useState(menu.available)
     const [id, setId] = useState(4)
-    const { putMutate } = useMenuItemMutate()
+    const { putMutate, deleteMutate } = useMenuItemMutate()
     const alterarAltera = () => {
         setAltera(!altera)
     }
@@ -33,17 +37,30 @@ const AlterarCardapio = () => {
     console.log(items)
     console.log(data)
 
-    function excluir(id: number) {
-        //alterarStatus()
-        //return setLista(listaAntiga => listaAntiga.filter(evento => evento.id !== id))
+    const excluirMenuItem = (id: any) => {
+        deleteMutate.mutate(id)
+    }
+
+    if (deleteMutate?.isSuccess) {
+        return <Exclusao/>
     }
     
-    const alterarCardapio = (event: React.FormEvent) => {
-        event.preventDefault()
-        items.forEach((item) => {
-          putMutate.mutate(item);
-        })
-        refetch()
+    // const alterarCardapio = (event: React.FormEvent) => {
+    //     event.preventDefault()
+    //     items.forEach((item) => {
+    //       putMutate.mutate(item);
+    //     })
+    //     refetch()
+    // }
+
+    const alterarCardapio = () => {
+        const menuItem: IMenuItem = {
+            name,
+            price, 
+            category
+        }
+
+        putMutate.mutate(menuItem)
     }
 
     const handleInputChange = (id: number | undefined, field: keyof IMenuItem, value: any) => {
@@ -62,11 +79,12 @@ const AlterarCardapio = () => {
                     {items.map((item) => 
                         <li key={item.id} className='list-none'>
                             <div className='flex justify-between gap-5 items-center'>
-                                <input type="text" name="nome" value={item.name} onChange={(e) => handleInputChange(item.id, 'name', e.target.value)} className='inputAlterar w-52'></input>
-                                <input type="text" name="descricao" value={item.category} onChange={(e) => handleInputChange(item.id, 'category', e.target.value)} className='inputAlterar w-full'></input>
-                                <input type="text" name="preco" value={item.price.toString()} onChange={(e) => handleInputChange(item.id, 'price', Number(e.target.value))} className='inputAlterar w-20'></input>
-                                {/* <div onClick={() => excluir(item.id)}> */}
-                                <div>
+                                <input type="text" name="nome" value={item.name} onChange={(e) => setName(e.target.value)} className='inputAlterar w-52'></input>
+                                <input type="text" name="descricao" value={item.category} onChange={(e) => setCategory(e.target.value)} className='inputAlterar w-full'></input>
+                                {/* <input type="text" name="descricao" value={item.category} onChange={(e) => handleInputChange(item.id, 'category', e.target.value)} className='inputAlterar w-full'></input> */}
+                                <input type="text" name="preco" value={item.price.toString()} onChange={(e) => setPreco(e.target.value)} className='inputAlterar w-20'></input>
+                                {/* <div value={item.available} onClick={(e) => handleInputChange(item.id, 'available', e.target.value)} className={`h-7 w-7 rounded-full ${item.available ? 'bg-green-800' : 'bg-red-700'}`}></div> */}
+                                <div onClick={() => excluirMenuItem(item.id)}>
                                     <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
                                 </div>
                             </div>

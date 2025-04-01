@@ -14,6 +14,11 @@ const putMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
     return response
 }
 
+const deleteMenuItem = async (id: IMenuItem): AxiosPromise<any> => {
+    const response = axios.delete(API_URL + `/menu/item/${id}`)
+    return response
+}
+
 export function useMenuItemMutate() {
     const queryClient = useQueryClient();
 
@@ -33,5 +38,17 @@ export function useMenuItemMutate() {
         }
     })
 
-    return { postMutate, putMutate };
+    const deleteMutate = useMutation({
+        mutationFn: deleteMenuItem,
+        retry: 2,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['menuItem']})
+        },
+        onError: () => {
+            console.log("ERROR")
+        }
+
+    })
+
+    return { postMutate, putMutate, deleteMutate };
 }
