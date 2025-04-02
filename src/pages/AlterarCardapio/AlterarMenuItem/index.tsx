@@ -2,7 +2,6 @@ import { IMenuItem } from "../../../interface/IMenu";
 import lataLixo from "../../../../public/icons/lata-de-lixo.png";
 import { useMenuItemMutate } from "../../../hooks/UseMenuItemMutate";
 import Exclusao from "../../../components/Exclusao";
-import Botao from "../../../components/Botao";
 import { useState } from "react";
 import FormAlterarItemMenu from "./FormAlterarMenuItem";
 
@@ -42,7 +41,7 @@ const AlterarMenuItem = (item: IMenuItem) => {
                     <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
                 </div>
                 <div onClick={() => alterarItemMenu()} className="flex justify-center">
-                    <button><Botao>Alterar</Botao></button>
+                    <button>Alterar</button>
                 </div>
             </div>
         </li>

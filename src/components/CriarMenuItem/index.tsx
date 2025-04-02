@@ -1,7 +1,7 @@
-import LogoBB from "../../../public/images/logoBB.png";
 import { useEffect, useState } from "react";
 import { useMenuItemMutate } from "../../hooks/UseMenuItemMutate";
 import { IMenuItem } from "../../interface/IMenu";
+import Botao from "../Botao";
 
 interface Props {
     closeModal(): void
@@ -33,38 +33,34 @@ const CriarMenuItem = ({closeModal}: Props) => {
         }
     }, [postMutate.isSuccess])
 
-    const handleChange = (event: any) => {
-        setAvailable(event.target.value === 'true');
-    };
-
     return (
         <div className="grid justify-items-center">
             <div className="overlay"/>
-            <div className="janela">
+            <div className="janela w-max">
                 <div className="flex justify-between items-center">
                     <div></div>
                     <h3 className="tituloJanela text-center">Novo Item</h3>
                     <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={closeModal}/>
                 </div>
-                <div className="modal-body">
+                <form className="grid gap-10 justify-items-center" onSubmit={submit}>
                     <h2>Cadastre um novo item no cardápio:</h2>
-                    <form className="grid gap-5" action="">
-                        <div>
-                            <span>Nome:</span><input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/>
-                            <span>Preço:</span><input className="input" type="text" value={preco} onChange={e => setPreco(e.target.value)}/>
+                    <div className="grid gap-5">
+                        <div className="flex gap-10">
+                            <div className="form"><span>Nome:</span><input className="input" type="text" value={name} onChange={e => setName(e.target.value)}/></div>
+                            <div className="form"><span>Categoria:</span><input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/></div>
                         </div>
-                        <span>Categoria:</span><input className="input" type="text" value={category} onChange={e => setCategory(e.target.value)}/>
-                        {/* <select name="available" id="status" value={available.toString()} onChange={handleChange}>
-                            <option value="true">Disponível</option>
-                            <option value="false">Indisponível</option>
-                        </select>
-                        <input className="input" type="number" value={id} onChange={e => setId(Number(e.target.value))}/> */}
-                    </form>
-                    <button onClick={submit} className="btn-secondary">Submeter</button>
-                </div>
-                <div className="grid justify-items-center">
-                    <img src={LogoBB} alt="Logo BB"/>
-                </div>
+                        <div className="form"><span>Descrição:</span><input className="input w-full" type="text" value={name} onChange={e => setName(e.target.value)}/></div>
+                        <div className="flex items-center justify-between">
+                            <div className="form"><span>Preço:</span><input className="input w-40" type="text" value={preco} onChange={e => setPreco(e.target.value)}/></div>
+                            <div className="flex gap-5">
+                                <label><input type="radio" name="assinatura" onChange={() => setAvailable(true)}/>Disponível</label>
+                                <label><input type="radio" name="assinatura" onChange={() => setAvailable(false)}/>Indisponível</label>
+                            </div>
+                            <input className="input w-28" type="number" value={id} onChange={e => setId(Number(e.target.value))}/>
+                        </div>
+                    </div>
+                    <button className="btn-secondary"><Botao> Submeter </Botao></button>
+                </form>
             </div>
         </div>
     )
