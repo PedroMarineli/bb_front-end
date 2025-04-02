@@ -24,7 +24,6 @@ const CriarMenuItem = ({closeModal}: Props) => {
             available,
             menu: { id: id }
         }
-
         postMutate.mutate(menuItem)
     }
 
