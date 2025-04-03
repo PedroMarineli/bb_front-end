@@ -20,6 +20,7 @@ const FormAlterarItemMenu = ({ onClose, onSubmit, ...item }: Props) => {
                 <input type="text" name="category" value={state.category} onChange={(e) => setState({ ...state, category: e.target.value})} className='inputAlterar w-full'></input>
                 <input type="text" value={state.price.toString()} onChange={(e) => setState({ ...state, price: Number(e.target.value)})} className='inputAlterar w-20'></input>
                 {/* <div value={item.available} onClick={(e) => handleInputChange(item.id, 'available', e.target.value)} className={`h-7 w-7 rounded-full ${item.available ? 'bg-green-800' : 'bg-red-700'}`}></div> */}
+                <input type="number" value={state.menu?.id} onChange={(e) => {setState(prevState => ({...prevState,menu: {...prevState.menu,id: Number(e.target.value)}}))}}className="inputAlterar w-20"/>
                 <div>
                     <button>Salvar</button>
                 </div>
