@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { IMenuItem } from "../../../../interface/IMenu"
-import { useMutation } from "@tanstack/react-query"
 
 type Props = IMenuItem & { onClose(): void, onSubmit(body: IMenuItem): void }
 

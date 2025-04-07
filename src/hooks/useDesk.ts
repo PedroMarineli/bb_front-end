@@ -20,7 +20,7 @@ export function useDesk() {
 
     return {
         ...query,
-        data: query.data?.data,
+        mesas: query.data?.data,
         refetch: () => queryClient.refetchQueries({ queryKey: ['desks'] })
     }
 }

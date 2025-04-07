@@ -7,9 +7,9 @@ import { IDeskId, IDeskNumber } from "../../interface/IDesk";
 const ReservaDeMesas = () => {
     const [deskNumber, setDeskNumber] = useState(0)
     const [ativado, setAtivado] = useState(false)
-    const { data, isLoading, refetch } = useDesk();
+    const { mesas, isLoading, refetch } = useDesk();
     const { postMutate, putMutate } = useDeskMutate(); 
-    console.log("Data:", data);
+    //console.log("Data:", data);
     
     const ativar = () => {
         setAtivado(!ativado)
@@ -28,6 +28,7 @@ const ReservaDeMesas = () => {
         const deskData: IDeskId = {
             id
         }
+        console.log(deskData)
         putMutate.mutate(deskData)
         refetch()
     }
@@ -36,7 +37,7 @@ const ReservaDeMesas = () => {
         <section className="telaBranca">
             <ul className="grid grid-cols-2 pb-10 gap-x-10 gap-y-3">
                 {isLoading ? <p>Carregando...</p> : <>
-                    {data?.content.map((item) => 
+                    {mesas?.content.map((item) => 
                         <li key={item.id} className="flex justify-between">
                             <p>Mesa {item.id}</p>
                             <div onClick={() => statusMesa(item.id)} className={`h-7 w-7 rounded-full ${item.filled ? 'bg-red-700' : 'bg-green-800'}`}></div>

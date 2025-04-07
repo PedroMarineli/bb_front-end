@@ -6,8 +6,8 @@ export interface IMenu {
 export interface IMenuItem {
     id?: number,
     name: string,
-    price: number,
+    price?: number,
     category: string,
     available?: boolean
-    menu: { id: number }
+    menu?: { id?: number }
 }
