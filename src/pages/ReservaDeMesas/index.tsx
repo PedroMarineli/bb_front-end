@@ -7,9 +7,9 @@ import { IDeskId, IDeskNumber } from "../../interface/IDesk";
 const ReservaDeMesas = () => {
     const [deskNumber, setDeskNumber] = useState(0)
     const [ativado, setAtivado] = useState(false)
-    const { mesas, isLoading, refetch } = useDesk();
-    const { postMutate, putMutate } = useDeskMutate(); 
-    //console.log("Data:", data);
+    const { mesas, isLoading, refetch } = useDesk()
+    const { postMutate, putMutate } = useDeskMutate()
+    //console.log("Data:", data)
     
     const ativar = () => {
         setAtivado(!ativado)

@@ -38,8 +38,8 @@ const CadastroDePedidos = () => {
 
     useEffect(() => {
     const fetchMesasDisponiveis = async () => {
-        setIsLoadingMesas(true);
-        setErrorMesas(null);
+        setIsLoadingMesas(true)
+        setErrorMesas(null)
         try {
             if (mesas?.content) {
                 // Filtra apenas os IDs das mesas não preenchidas (se necessário)
@@ -47,23 +47,23 @@ const CadastroDePedidos = () => {
                 .filter(mesa => mesa.filled === false || mesa.filled === undefined) // Mantém não preenchidas ou com 'filled' indefinido
                 .map(mesa => mesa.id)
                 .filter((id): id is number => id !== undefined) // Garante que não há undefined
-                .sort((a, b) => a - b); // Ordena os IDs
+                .sort((a, b) => a - b) // Ordena os IDs
 
                 setMesasDisponiveisIds(ids);
                 if (ids.length > 0 && mesaSelecionada === null) {
                 setMesaSelecionada(ids[0]);
                 }
             } else {
-                setErrorMesas('Erro ao buscar mesas disponíveis.');
+                setErrorMesas('Erro ao buscar mesas disponíveis.')
             }
         } catch (error: any) {
-            setErrorMesas('Erro ao buscar mesas: ' + error.message);
+            setErrorMesas('Erro ao buscar mesas: ' + error.message)
         } finally {
-            setIsLoadingMesas(false);
+            setIsLoadingMesas(false)
         }
     };
-    fetchMesasDisponiveis();
-    }, [mesaSelecionada]); // Refetch pode ser necessário em algum cenário, adicione dependências conforme necessário
+    fetchMesasDisponiveis()
+    }, [mesaSelecionada]) // Refetch pode ser necessário em algum cenário, adicione dependências conforme necessário
 
     const [quantidades, setQuantidades] = useState<{ [itemId: number]: number }>({});
 
@@ -71,33 +71,33 @@ const CadastroDePedidos = () => {
       setQuantidades((prevQuantidades) => ({
         ...prevQuantidades,
         [itemId]: (prevQuantidades[itemId] || 0) + 1,
-      }));
-    };
+      }))
+    }
   
     const handleDecrement = (itemId: any) => {
       setQuantidades((prevQuantidades) => ({
         ...prevQuantidades,
         [itemId]: Math.max(0, (prevQuantidades[itemId] || 0) - 1), // Garante que não seja negativo
-      }));
-    };
+      }))
+    }
 
     const avancarMesa = () => {
         if (mesaSelecionada !== null && mesasDisponiveisIds.length > 0) {
-          const currentIndex = mesasDisponiveisIds.indexOf(mesaSelecionada);
+          const currentIndex = mesasDisponiveisIds.indexOf(mesaSelecionada)
           if (currentIndex < mesasDisponiveisIds.length - 1) {
-            setMesaSelecionada(mesasDisponiveisIds[currentIndex + 1]);
+            setMesaSelecionada(mesasDisponiveisIds[currentIndex + 1])
           }
         }
-      };
+    }
     
       const retrocederMesa = () => {
         if (mesaSelecionada !== null && mesasDisponiveisIds.length > 0) {
-          const currentIndex = mesasDisponiveisIds.indexOf(mesaSelecionada);
+          const currentIndex = mesasDisponiveisIds.indexOf(mesaSelecionada)
           if (currentIndex > 0) {
-            setMesaSelecionada(mesasDisponiveisIds[currentIndex - 1]);
+            setMesaSelecionada(mesasDisponiveisIds[currentIndex - 1])
           }
         }
-      };
+    }
 
     return (
         <div>
