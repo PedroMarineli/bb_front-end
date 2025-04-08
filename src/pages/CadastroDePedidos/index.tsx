@@ -1,84 +1,114 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import cardapio from '../../mocks/cardapio.json';
 import Botao from "../../components/Botao";
 import PedidoEnviado from "../../components/PedidoEnviado";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
 import { useDesk } from "../../hooks/useDesk";
-import { ICreateOrder } from "../../interface/IOrder";
+import { ICreateOrder, ICreateOrderItem } from "../../interface/IOrder";
+import { useOrderMutate } from "../../hooks/useOrderMutate";
 
 const CadastroDePedidos = () => {
     const { data, isLoading } = useMenuItem()
-    const { mesas } = useDesk();
-    const [totalValue, setTotalValue] = useState(0)
+    const { mesas } = useDesk()
+    //const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    const [totalValue, setTotalValue] = useState(50)
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
-    const [paymentMethod, setPaymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
-    const [orderStatus, setOrderStatus] = useState<ICreateOrder["orderStatus"]>("CREATED")
-    const [lista, setLista] = useState(cardapio);
+    const [paymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
+    const [orderStatus] = useState<ICreateOrder["orderStatus"]>("CREATED")
     const aberto = useSetRecoilState(menuState)
+    const [idItem, setIdItem] = useState(0)
     const [isLoadingMesas, setIsLoadingMesas] = useState(true);
     const [errorMesas, setErrorMesas] = useState<string | null>(null);
+    const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({});
+    const [quantity, setQuantity] = useState<number>()
     const alterarStatus = () => {
         aberto(true)
     }
     const fechado = useRecoilValue(menuState)
-
-    // const submitOrder = () => {
-    //     const createOrder: ICreateOrder = {
-    //         totalValue,
-    //         paymentMethod, 
-    //         orderStatus,
-    //         desk: { id: id }
-    //     }
-    //     postMutate.mutate(createOrder)
-    // }
-
+    
     useEffect(() => {
-    const fetchMesasDisponiveis = async () => {
-        setIsLoadingMesas(true)
-        setErrorMesas(null)
-        try {
-            if (mesas?.content) {
-                // Filtra apenas os IDs das mesas não preenchidas (se necessário)
-                const ids = mesas?.content
-                .filter(mesa => mesa.filled === false || mesa.filled === undefined) // Mantém não preenchidas ou com 'filled' indefinido
-                .map(mesa => mesa.id)
-                .filter((id): id is number => id !== undefined) // Garante que não há undefined
-                .sort((a, b) => a - b) // Ordena os IDs
-
-                setMesasDisponiveisIds(ids);
-                if (ids.length > 0 && mesaSelecionada === null) {
-                setMesaSelecionada(ids[0]);
+        const fetchMesasDisponiveis = async () => {
+            setIsLoadingMesas(true)
+            setErrorMesas(null)
+            try {
+                if (mesas?.content) {
+                    // Filtra apenas os IDs das mesas não preenchidas (se necessário)
+                    const ids = mesas?.content
+                    .filter(mesa => mesa.filled === false || mesa.filled === undefined) // Mantém não preenchidas ou com 'filled' indefinido
+                    .map(mesa => mesa.id)
+                    .filter((id): id is number => id !== undefined) // Garante que não há undefined
+                    .sort((a, b) => a - b) // Ordena os IDs
+                    
+                    setMesasDisponiveisIds(ids);
+                    if (ids.length > 0 && mesaSelecionada === null) {
+                        setMesaSelecionada(ids[0]);
+                    }
+                } else {
+                    setErrorMesas('Erro ao buscar mesas disponíveis.')
                 }
-            } else {
-                setErrorMesas('Erro ao buscar mesas disponíveis.')
+            } catch (error: any) {
+                setErrorMesas('Erro ao buscar mesas: ' + error.message)
+            } finally {
+                setIsLoadingMesas(false)
             }
-        } catch (error: any) {
-            setErrorMesas('Erro ao buscar mesas: ' + error.message)
-        } finally {
-            setIsLoadingMesas(false)
-        }
-    };
-    fetchMesasDisponiveis()
+        };
+        fetchMesasDisponiveis()
     }, [mesaSelecionada]) // Refetch pode ser necessário em algum cenário, adicione dependências conforme necessário
 
-    const [quantidades, setQuantidades] = useState<{ [itemId: number]: number }>({});
+    console.log(quantidade)
+    console.log(quantity)
+    
+    const submitOrder = () => {
+        // if (!mesaSelecionada) {
+        //     alert('Por favor, selecione uma mesa.');
+        //     return;
+        // }
+
+        const createOrderItem: ICreateOrderItem[] = [];
+
+        data?.items?.forEach(item => {
+            if (quantidade[item.id] > 0) {
+                createOrderItem.push({
+                    quantity: quantidade,
+                    menuItem: { id: item.id },
+                    // order: { id: number } // O ID do pedido será determinado ao criar o pedido principal
+                })
+            }
+        });
+
+        // if (createOrderItem.length === 0) {
+        //     alert('Por favor, adicione itens ao pedido.');
+        //     return;
+        // }
+
+        const createOrder: ICreateOrder = {
+            totalValue,
+            paymentMethod, 
+            orderStatus,
+            desk: { id: mesaSelecionada }
+        }
+
+        console.log(createOrder)
+        console.log(createOrderItem)
+        //postOrderMutate.mutate(createOrder)
+        //postOrderItemMutate.mutate(createOrderItem)
+    }
 
     const handleIncrement = (itemId: any) => {
-      setQuantidades((prevQuantidades) => ({
+        setQuantidade((prevQuantidades) => ({
         ...prevQuantidades,
         [itemId]: (prevQuantidades[itemId] || 0) + 1,
-      }))
+        }))
     }
   
     const handleDecrement = (itemId: any) => {
-      setQuantidades((prevQuantidades) => ({
+        setQuantidade((prevQuantidades) => ({
         ...prevQuantidades,
         [itemId]: Math.max(0, (prevQuantidades[itemId] || 0) - 1), // Garante que não seja negativo
-      }))
+        }))
     }
 
     const avancarMesa = () => {
@@ -90,7 +120,7 @@ const CadastroDePedidos = () => {
         }
     }
     
-      const retrocederMesa = () => {
+    const retrocederMesa = () => {
         if (mesaSelecionada !== null && mesasDisponiveisIds.length > 0) {
           const currentIndex = mesasDisponiveisIds.indexOf(mesaSelecionada)
           if (currentIndex > 0) {
@@ -112,7 +142,7 @@ const CadastroDePedidos = () => {
                         <div className='flex items-center gap-8' key={item.id}>
                             <div className="flex">
                                 <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={() => handleDecrement(item.id)}>-</button>
-                                <input type="text" className="bg-transparent w-12 text-center" value={quantidades[item.id] || 0}/>
+                                <input type="text" className="bg-transparent w-12 text-center" readOnly value={quantidade[item.id] || 0} onChange={(e) => setQuantity(Number(e.target.value))}/>
                                 <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={() => handleIncrement(item.id)}>+</button>
                             </div>
                             <p>{item.name}: {item.category}</p>
@@ -123,7 +153,7 @@ const CadastroDePedidos = () => {
                     <h2 className='text-2xl text-center pt-7'>Observações:</h2>
                     <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"/>
                     <div className="flex justify-center" onClick={alterarStatus}>
-                        <Botao>Enviar para a cozinha</Botao>
+                        <button onClick={submitOrder}><Botao>Enviar para a cozinha</Botao></button>
                     </div>
                 </div>
             </section>
