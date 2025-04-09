@@ -18,5 +18,5 @@ export interface IDeskId {
 
 export interface IMesa {
   id?: number | undefined,
-  filled?: boolean | undefined
+  filled?: boolean
 }

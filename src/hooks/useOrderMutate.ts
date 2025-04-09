@@ -10,7 +10,7 @@ const postOrder = async (data: ICreateOrder): AxiosPromise<any> => {
     return response;
 }
 
-const postOrderItem = async (data: ICreateOrderItem): AxiosPromise<any> => {
+const postOrderItem = async (data: ICreateOrderItem[]): AxiosPromise<any> => {
     const response = axios.post(API_URL + '/order/item', data)
     return response;
 }
