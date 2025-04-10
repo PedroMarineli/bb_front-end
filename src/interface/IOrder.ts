@@ -15,12 +15,12 @@ export interface ICreateOrderItem {
 }
 
 export interface IListOrders {
-    id: number,
-    totalValue: number,
-    paymentMethod: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT-CARD",
-    orderItems: [OrdemItems],
+    id?: number,
+    totalValue?: number,
+    paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT-CARD",
+    orderItems?: [OrdemItems],
     orderStatus: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED",
-    desk: IMesa
+    desk?: IMesa
 }
 
 interface OrdemItems {

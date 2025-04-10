@@ -1,7 +1,6 @@
 import axios, { AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IDeskId } from "../interface/IDesk";
-import { ICreateOrder, ICreateOrderItem } from "../interface/IOrder";
+import { ICreateOrder, ICreateOrderItem, IListOrders } from "../interface/IOrder";
 
 const API_URL = 'http://localhost:8080';
 
@@ -15,7 +14,7 @@ const postOrderItem = async (data: ICreateOrderItem[]): AxiosPromise<any> => {
     return response;
 }
 
-const putData = async (data: IDeskId): AxiosPromise<any> => {
+const putData = async (data: IListOrders): AxiosPromise<any> => {
     const response = axios.put(API_URL + '/desk', data)
     return response
 }
@@ -39,7 +38,7 @@ export function useOrderMutate() {
         }
     })
 
-    const putMutate = useMutation({
+    const putOrderMutate = useMutation({
         mutationFn: putData,
         retry: 2,
         onSuccess: () => {
@@ -47,5 +46,5 @@ export function useOrderMutate() {
         }
     })
 
-    return { postOrderMutate, postOrderItemMutate, putMutate };
+    return { postOrderMutate, postOrderItemMutate, putOrderMutate };
 }

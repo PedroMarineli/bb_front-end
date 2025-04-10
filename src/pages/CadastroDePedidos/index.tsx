@@ -31,7 +31,7 @@ const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuant
 const CadastroDePedidos = () => {
     const { data, isLoading } = useMenuItem()
     const { mesas } = useDesk()
-    //const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
     const [totalValue, setTotalValue] = useState(50)
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)

@@ -19,7 +19,7 @@ const Caixa = () => {
             {isLoading ? <p>Carregando...</p> : <>
                 {listOrder?.map(pedido => (
                     <div className='grid gap-10 text-center'>
-                        <h2 className='text-2xl'>Mesa {pedido.desk.id}</h2>
+                        <h2 className='text-2xl'>Mesa {pedido.desk?.id}</h2>
                         <table className="text-center w-full">
                             <thead>
                                 <tr>
@@ -29,7 +29,7 @@ const Caixa = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {pedido.orderItems.map((item) => (
+                                {pedido.orderItems?.map((item) => (
                                     <tr key={item.menuItem.id}>
                                         <td>{item.menuItem.name}</td>
                                         <td>{item.quantity}</td>
@@ -38,7 +38,7 @@ const Caixa = () => {
                                 ))}
                             </tbody>
                         </table>
-                        <p>Total: R${pedido.totalValue.toFixed(2)}</p>
+                        <p>Total: R${pedido.totalValue?.toFixed(2)}</p>
                     </div>
                 ))}
             </>}
