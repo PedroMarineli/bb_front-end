@@ -1,26 +1,26 @@
-// import axios, { AxiosPromise } from "axios";
-// import { useQuery, useQueryClient } from "@tanstack/react-query";
-// import { IApiResponse } from "../interface/IDesk";
+import axios, { AxiosPromise } from "axios";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { IListOrders } from "../interface/IOrder";
 
-// const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080';
 
-// const fetchDesk = async (): AxiosPromise<IApiResponse> => {
-//     const response = await axios.get(API_URL + '/desk')
-//     return response;
-// }
+const fetchOrder = async (): AxiosPromise<IListOrders[]> => {
+    const response = await axios.get(API_URL + '/order')
+    return response;
+}
 
-// export function useDesk() {
-//     const queryClient = useQueryClient();
+export function useOrder() {
+    const queryClient = useQueryClient();
 
-//     const query = useQuery({
-//         queryFn: fetchDesk,
-//         queryKey: ['desks'],
-//         retry: 2
-//     })
+    const query = useQuery({
+        queryFn: fetchOrder,
+        queryKey: ['order'],
+        retry: 2
+    })
 
-//     return {
-//         ...query,
-//         data: query.data?.data,
-//         refetch: () => queryClient.refetchQueries({ queryKey: ['desks'] })
-//     }
-// }
+    return {
+        ...query,
+        listOrder: query.data?.data,
+        refetch: () => queryClient.refetchQueries({ queryKey: ['order'] })
+    }
+}
