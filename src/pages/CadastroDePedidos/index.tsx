@@ -6,9 +6,10 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
 import { useDesk } from "../../hooks/useDesk";
-import { ICreateOrder, ICreateOrderItem } from "../../interface/IOrder";
+import { ICreateOrder, ICreateOrderItem, IListOrders } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { IMenuItem } from "../../interface/IMenu";
+import { useOrder } from "../../hooks/useOrder";
 
 const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuantity }: {
     item: IMenuItem;
@@ -29,7 +30,7 @@ const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuant
 });
 
 const CadastroDePedidos = () => {
-    const { data, isLoading } = useMenuItem()
+    const { data, isLoading, refetch } = useMenuItem()
     const { mesas } = useDesk()
     const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
     const [totalValue, setTotalValue] = useState(50)
@@ -45,6 +46,7 @@ const CadastroDePedidos = () => {
     const alterarStatus = () => {
         aberto(true)
     }
+    const { listOrder } = useOrder()
     
     useEffect(() => {
         const fetchMesasDisponiveis = async () => {
@@ -75,14 +77,26 @@ const CadastroDePedidos = () => {
         fetchMesasDisponiveis()
     }, [mesas]) // Refetch pode ser necessário em algum cenário, adicione dependências conforme necessário
     
+    const [orderToCompare, setOrderToCompare] = useState<IListOrders>()
+
+    useEffect(() => {
+        if (listOrder && mesaSelecionada) {
+            const foundOrder = listOrder.find(order => order.desk?.id === mesaSelecionada);
+            setOrderToCompare(foundOrder);
+        }
+    }, [listOrder, mesaSelecionada]);
+    
     const submitOrder = () => {
+        // console.log(listOrder)
+        // console.log(orderToCompare)
         const itemsToAdd: ICreateOrderItem[] = [];
+
         for (const itemId in quantidade) {
             const quantity = quantidade[parseInt(itemId)];
             if (quantity > 0) {
                 const menuItem = data?.items?.find((item) => item.id === parseInt(itemId));
                 if (menuItem) {
-                itemsToAdd.push({ menuItem: { id: menuItem.id }, quantity });
+                itemsToAdd.push({ menuItem: { id: menuItem.id }, quantity, order: { id: orderToCompare?.id } });
                 }
             }
         }
@@ -96,18 +110,21 @@ const CadastroDePedidos = () => {
         //     alert('Por favor, adicione itens ao pedido.');
         //     return;
         // }
+        
+        refetch()
+        console.log(itemsToAdd)
+        //postOrderItemMutate.mutate(itemsToAdd)
+    }
 
+    const submeterOrder = () => {
         const createOrder: ICreateOrder = {
             totalValue,
             paymentMethod, 
             orderStatus,
             desk: { id: mesaSelecionada }
         }
-
-        console.log(createOrder)
-        console.log(itemsToAdd)
-        //postOrderMutate.mutate(createOrder)
-        //postOrderItemMutate.mutate(itemsToAdd)
+        postOrderMutate.mutate(createOrder)
+        refetch()
     }
 
     const incrementQuantity = (itemId: any) => {
@@ -150,6 +167,7 @@ const CadastroDePedidos = () => {
                     <span>Mesa {mesaSelecionada !== null ? mesaSelecionada : 'Selecione'}</span>
                     <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={avancarMesa} disabled={mesaSelecionada === null || mesaSelecionada === mesasDisponiveisIds[mesasDisponiveisIds.length - 1]}>+</button>
                 </div>
+                <button onClick={submeterOrder}>Fazer Pedido</button>
                 {isLoading ? <p>Carregando...</p> : <>
                     {data?.items?.map((item) => 
                         <MenuItemCard

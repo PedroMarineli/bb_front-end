@@ -1,11 +1,8 @@
-import { useState } from "react";
 import Botao from "../../components/Botao";
-import caixa from '../../mocks/caixa.json';
 import { useOrder } from "../../hooks/useOrder";
 
 const Caixa = () => {
     const { listOrder, isLoading } = useOrder()
-    const [lista, setLista] = useState(caixa);
 
     const opcoes = [
         { pagamento: "Dinheiro" },
