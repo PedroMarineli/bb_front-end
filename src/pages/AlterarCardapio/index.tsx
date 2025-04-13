@@ -18,8 +18,24 @@ const AlterarCardapio = () => {
             setItems(data.items); 
         }
     }, [data?.items])
-    
-    console.log(items)
+
+    const categorias: { [categoria: string]: IMenuItem[] } = {}
+
+    // Organizar os itens por categoria
+    items.forEach(item => {
+        if (!categorias[item.category]) {
+            categorias[item.category] = [];
+        }
+        categorias[item.category].push(item);
+    });
+
+    // Iterar sobre as categorias e imprimir os itens
+    for (const categoria in categorias) {
+        console.log(categoria + ":");
+        categorias[categoria].forEach(item => {
+            console.log(`  - ${item.name} (R$ ${item.price?.toFixed(2)})`);
+        });
+    }
 
     return (
         <section className="telaBranca grid gap-10">
