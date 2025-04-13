@@ -49,7 +49,7 @@ const CadastroDePedidos = () => {
     const { listOrder } = useOrder()
     
     useEffect(() => {
-        const fetchMesasDisponiveis = async () => {
+        const fetchMesasDisponiveis = async() => {
             setIsLoadingMesas(true)
             setErrorMesas(null)
             try {
