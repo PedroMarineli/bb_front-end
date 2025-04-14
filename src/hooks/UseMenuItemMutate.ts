@@ -47,7 +47,6 @@ export function useMenuItemMutate() {
         onError: () => {
             console.log("ERROR")
         }
-
     })
 
     return { postMutate, putMutate, deleteMutate };
