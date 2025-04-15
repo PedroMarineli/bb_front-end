@@ -1,37 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 //import lataLixo from "/icons/lata-de-lixo.png";
 import Botao from "../Botao";
-import { IUsuario } from "../../interface/IUsuario";
+import { IUpdateUser } from "../../interface/IUsers";
 
-interface Props {
-    //setUsuarios: React.Dispatch<React.SetStateAction<IUsuario[]>>
-    alterarAltera: React.MouseEventHandler<HTMLImageElement>
-}
+type Props = IUpdateUser & { onClose(): void, onSubmit(body: IUpdateUser): void }
 
-const AlterarUsuario = ({alterarAltera}: Props) => {
-    const [lista, setLista] = useState<IUsuario[] | []>([])
+const AlterarUsuario = ({ onClose, onSubmit, ...user }: Props) => {
+    const [state, setState] = useState<IUpdateUser>(user)
 
-    /*function excluir(id: string) {
-        return setLista(listaAntiga => listaAntiga.filter(evento => evento.id !== id))
+    const submeterAlteracao = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        onSubmit(state)
     }
-
-    useEffect(() => {
-        setLista(lista);
-      }, [lista]);*/
-    
-      /*const alterarUsuario = () => {
-        setLista({
-          ...lista,
-          [event.target.name]: event.target.value,
-        });
-      };
-    
-      const submeterForm = () => {
-        event.preventDefault();
-    
-        // Aqui você implementaria a lógica para salvar as alterações
-        console.log('Dados alterados:', lista);
-      };*/
 
     return (
         <div className="grid justify-items-center">
@@ -40,17 +20,19 @@ const AlterarUsuario = ({alterarAltera}: Props) => {
                 <div className="flex justify-between items-center mb-6">
                     <div></div>
                     <h3 className="tituloJanela text-center">Alterar</h3>
-                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarAltera}/>
+                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={onClose}/>
                 </div>
-                <form className="grid justify-items-center">
+                <form onSubmit={submeterAlteracao} className="grid justify-items-center">
                     <div className="grid gap-8 my-12">
+                        <input type="text" name="username" value={state.username} onChange={(e) => setState({ ...state, username: e.target.value})} className='input'></input>
+                        <input type="text" name="password" value={state.password} onChange={(e) => setState({ ...state, password: e.target.value})} className='input'></input>
                         <input required type="text" placeholder="Id" className="input" id="id"/>
-                        <input required type="text" placeholder="Senha" className="input" id="senha"/>
+                        {/* <input required type="text" placeholder="Senha" className="input" id="senha"/>
                         <select className="input">
                             <option value=""></option>
                             <option value="Funcionário">Funcionário</option>
                             <option value="Administrador">Administrador</option>
-                        </select>
+                        </select> */}
                     </div>
                     <button type="submit">
                         <Botao children="Alterar"/>
@@ -68,22 +50,4 @@ export default AlterarUsuario;
     <option value="Funcionário">Funcionário</option>
     <option value="Administrador">Administrador</option>
 </select>
-
-{lista.map(usuario => (
-    <form className="grid justify-items-center" onSubmit={submeterForm}>
-        <div className="grid gap-8 my-12">
-            <input required type="text" value={usuario.id} onChange={alterarUsuario} className="input" id="id"/>
-            <input required type="text" value={usuario.senha} onChange={alterarUsuario} className="input" id="senha"/>
-
-
-
-        </div>
-        <button type="submit">
-            <Botao children="Alterar"/>
-        </button>
-        <div onClick={() => excluir(usuario.id)}>
-            <img src={lataLixo} alt="Lata de lixo" className='w-12'/>
-        </div>
-    </form>
-))}
 */

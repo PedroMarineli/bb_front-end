@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import pedidos from '../../mocks/pedidos.json';
 import { Link } from 'react-router-dom';
 import { useOrder } from '../../hooks/useOrder';
 import { IListOrders } from '../../interface/IOrder';
@@ -8,7 +7,6 @@ import { useOrderMutate } from '../../hooks/useOrderMutate';
 const Cozinha = () => {
     const { listOrder, isLoading, refetch } = useOrder()
     const { putOrderMutate } = useOrderMutate()
-    const [lista, setLista] = useState(pedidos);
     const [newOrderStatus, setNewOrderStatus] = useState("")
 
     const statusPedido = (orderStatus: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
