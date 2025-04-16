@@ -1,7 +1,7 @@
 import { useState } from "react";
 //import lataLixo from "/icons/lata-de-lixo.png";
-import Botao from "../Botao";
-import { IUpdateUser } from "../../interface/IUsers";
+import Botao from "../../../../components/Botao";
+import { IUpdateUser } from "../../../../interface/IUsers";
 
 type Props = IUpdateUser & { onClose(): void, onSubmit(body: IUpdateUser): void }
 

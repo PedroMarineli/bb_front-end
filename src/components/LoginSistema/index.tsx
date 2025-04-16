@@ -1,13 +1,16 @@
 import { useSetRecoilState } from "recoil";
 import Botao from "../Botao";
 import { menuState } from "../../state/atom";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IDoLogin } from "../../interface/ILogin";
-import { setupAPIClient, useLoginMutate } from "../../hooks/useLoginMutate";
+import { useLoginMutate } from "../../hooks/useLoginMutate";
+import { useUsers } from "../../hooks/useUser";
+import { LoginService } from "../../hooks/LoginService";
 
 const LoginSistema = () => {
-    const { mutate, isSuccess } = useLoginMutate()
+    const { mutate, isSuccess, data: loginData, error } = useLoginMutate();
+    //const { isLoading: isUsersLoading, error: usersError } = useUsers();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
@@ -15,6 +18,13 @@ const LoginSistema = () => {
     const alterarStatus = () => {
         aberto(false)
     }
+
+    //if(isUsersLoading) console.log("Loading Users...")
+    //if(usersError) console.log("Something went wrong fetching users")
+    //if(isLoginLoading) console.log("Logging in...")
+    //if(loginError) console.log("Login failed")
+
+    const loginService = useMemo(() => new LoginService(), []);
 
     // const [id, setId] = useState('')
     // const [senha, setSenha] = useState('')
@@ -42,14 +52,45 @@ const LoginSistema = () => {
             password
         }
         mutate(validateLogin)
+        // loginService.login(username, password).then((response) => {            
+        //     console.log("Sucesso");
+        //     console.log(response.data.token);
 
-        setupAPIClient()
+        //     localStorage.setItem('TOKEN_APLICACAO_FRONTEND', response.data.token);
 
-        if(isSuccess) {
-            navigate('/bb')
-            alterarStatus()
-        }
+        //     navigate('/bb');
+        //     window.location.reload();
+        // })
     }
+
+    useEffect(() => {
+        if (isSuccess && loginData?.data?.token) {
+            console.log("Sucesso");
+            console.log(loginData.data.token);
+            localStorage.setItem('TOKEN_APLICACAO_FRONTEND', loginData.data.token);
+            navigate('/bb');
+            window.location.reload(); // Recarregar após a navegação pode não ser o ideal, considere outras formas de atualizar o estado se necessário
+            alterarStatus();
+        } else if (isSuccess && !loginData?.data?.token) {
+            console.log("Login bem-sucedido, mas token não encontrado na resposta.");
+            // Lógica para lidar com a ausência do token
+        } else if (error) {
+            console.log("Erro no login:", error);
+            // Lógica para lidar com o erro de login
+        }
+    }, [isSuccess, loginData, navigate, alterarStatus, error]);
+
+    // useEffect(() => {
+    //     if (isLoginSuccess && loginData?.data?.token) {
+    //         localStorage.setItem('tokenJWT', loginData.data.token);
+    //         console.log("Login bem-sucedido, token armazenado e navegando.");
+    //         navigate('/bb');
+    //         alterarStatus();
+    //     } else if (isLoginSuccess && !loginData?.data?.token) {
+    //         console.log("Login bem-sucedido, mas token não encontrado na resposta.");
+    //         // Lógica para lidar com a ausência do token
+    //     }
+    // }, [isLoginSuccess, loginData, navigate, alterarStatus]);
 
     return(
         <div className="grid justify-items-center">
