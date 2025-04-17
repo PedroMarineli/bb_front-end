@@ -1,84 +1,98 @@
 import { useSetRecoilState } from "recoil";
 import Botao from "../Botao";
 import { menuState } from "../../state/atom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IDoLogin } from "../../interface/ILogin";
 import { useLoginMutate } from "../../hooks/useLoginMutate";
 import { useUsers } from "../../hooks/useUser";
-import { LoginService } from "../../hooks/LoginService";
 
 const LoginSistema = () => {
     const { mutate, isSuccess, data: loginData, error } = useLoginMutate();
     //const { isLoading: isUsersLoading, error: usersError } = useUsers();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [loginError, setLoginError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(false)
     }
 
-    //if(isUsersLoading) console.log("Loading Users...")
-    //if(usersError) console.log("Something went wrong fetching users")
-    //if(isLoginLoading) console.log("Logging in...")
-    //if(loginError) console.log("Login failed")
-
-    const loginService = useMemo(() => new LoginService(), []);
-
-    // const [id, setId] = useState('')
-    // const [senha, setSenha] = useState('')
-    // var idBB = "burguerboss"
-    // var senhaBB = "123"
-
-    // const validarLogin = (evento: React.FormEvent<HTMLFormElement>) => {
-    //         evento.preventDefault()
-
-    //         if(id === idBB && senha === senhaBB) {
-    //             navigate('/bb')
-    //             alterarStatus()
-    //         }
-    //         else if(id === idBB || senha === senhaBB) {
-    //             alert("Id ou senha incorretos!")
-    //         }
-    //         else {
-    //             alert("Erro ao logar. Tente novamente!")
-    //         }
-    // }
-
     const validarLogin = () => {
-        const validateLogin: IDoLogin = {
+        const loginData: IDoLogin = {
             username,
             password
         }
-        mutate(validateLogin)
-        // loginService.login(username, password).then((response) => {            
-        //     console.log("Sucesso");
-        //     console.log(response.data.token);
+        mutate(loginData)
+        navigate('/bb');
+    };
 
-        //     localStorage.setItem('TOKEN_APLICACAO_FRONTEND', response.data.token);
+    // useEffect(() => {
+    //     const storedToken = localStorage.getItem('token');
+    //     if (storedToken !== null) {
+    //         navigate('/bb');
+    //         alterarStatus();
+    //     }
+    // }, [validarLogin]);
 
-        //     navigate('/bb');
-        //     window.location.reload();
-        // })
-    }
+    // const validarLogin = async (evento: React.FormEvent<HTMLFormElement>) => {
+    //     evento.preventDefault()
+    //     setIsLoading(true)
+    //     setLoginError('')
 
-    useEffect(() => {
-        if (isSuccess && loginData?.data?.token) {
-            console.log("Sucesso");
-            console.log(loginData.data.token);
-            localStorage.setItem('TOKEN_APLICACAO_FRONTEND', loginData.data.token);
-            navigate('/bb');
-            window.location.reload(); // Recarregar após a navegação pode não ser o ideal, considere outras formas de atualizar o estado se necessário
-            alterarStatus();
-        } else if (isSuccess && !loginData?.data?.token) {
-            console.log("Login bem-sucedido, mas token não encontrado na resposta.");
-            // Lógica para lidar com a ausência do token
-        } else if (error) {
-            console.log("Erro no login:", error);
-            // Lógica para lidar com o erro de login
-        }
-    }, [isSuccess, loginData, navigate, alterarStatus, error]);
+    //     try {
+    //         const response = await fetch('http://localhost:8080/login', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ username, password }),
+    //         });
+
+    //         const data = await response.json();
+
+    //         if (response.ok) {
+    //             localStorage.setItem('token', data.tokenJWT)
+    //             console.log("Token recebido e armazenado:", data.tokenJWT)
+    //             navigate('/bb')
+    //             alterarStatus()
+    //         } else {
+    //             setLoginError(data.error || 'Erro ao fazer login. Verifique suas credenciais.')
+    //         }
+    //     } catch (error) {
+    //         console.error('Erro na comunicação com o servidor:', error)
+    //         setLoginError('Erro ao conectar com o servidor.')
+    //     } finally {
+    //         setIsLoading(false)
+    //     }
+    // };
+
+    // useEffect para verificar o token ao montar o componente (opcional, dependendo do fluxo)
+    // useEffect(() => {
+    //     const storedToken = localStorage.getItem('token');
+    //     if (storedToken !== null) {
+    //         setToken(storedToken);
+    //         navigate('/bb');
+    //         alterarStatus();
+    //     }
+    // }, [navigate, alterarStatus]);
+
+    // useEffect(() => {
+    //     if (isSuccess && loginData?.data?.token) {
+    //         console.log("Sucesso");
+    //         console.log(loginData.data.token);
+    //         localStorage.setItem('TOKEN_APLICACAO_FRONTEND', loginData.data.token);
+    //         navigate('/bb');
+    //         window.location.reload(); // Recarregar após a navegação pode não ser o ideal, considere outras formas de atualizar o estado se necessário
+    //         alterarStatus();
+    //     } else if (isSuccess && !loginData?.data?.token) {
+    //         console.log("Login bem-sucedido, mas token não encontrado na resposta.");
+    //         // Lógica para lidar com a ausência do token
+    //     } else if (error) {
+    //         console.log("Erro no login:", error);
+    //         // Lógica para lidar com o erro de login
+    //     }
+    // }, [isSuccess, loginData, navigate, alterarStatus, error]);
 
     // useEffect(() => {
     //     if (isLoginSuccess && loginData?.data?.token) {
