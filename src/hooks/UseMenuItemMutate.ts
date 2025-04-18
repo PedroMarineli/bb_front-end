@@ -5,17 +5,32 @@ import { IMenuItem } from "../interface/IMenu";
 const API_URL = 'http://localhost:8080';
 
 const postMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
-    const response = axios.post(API_URL + '/menu/item', data)
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + '/menu/item', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 
 const putMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
-    const response = axios.put(API_URL + '/menu/item', data)
+    const token = localStorage.getItem('token')
+    const response = axios.put(API_URL + '/menu/item', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response
 }
 
 const deleteMenuItem = async (id: IMenuItem): AxiosPromise<any> => {
-    const response = axios.delete(API_URL + `/menu/item/${id}`)
+    const token = localStorage.getItem('token')
+    const response = axios.delete(API_URL + `/menu/item/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response
 }
 

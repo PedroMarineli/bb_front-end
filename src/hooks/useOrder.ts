@@ -5,7 +5,12 @@ import { IListOrders } from "../interface/IOrder";
 const API_URL = 'http://localhost:8080';
 
 const fetchOrder = async (): AxiosPromise<IListOrders[]> => {
-    const response = await axios.get(API_URL + '/order')
+    const token = localStorage.getItem('token')
+    const response = await axios.get(API_URL + '/order', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 

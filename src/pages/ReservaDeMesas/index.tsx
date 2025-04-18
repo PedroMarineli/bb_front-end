@@ -9,7 +9,6 @@ const ReservaDeMesas = () => {
     const [ativado, setAtivado] = useState(false)
     const { mesas, isLoading, refetch } = useDesk()
     const { postMutate, putMutate } = useDeskMutate()
-    //console.log("Data:", data)
     
     const ativar = () => {
         setAtivado(!ativado)

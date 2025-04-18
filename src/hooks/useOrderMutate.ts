@@ -5,17 +5,32 @@ import { ICreateOrder, ICreateOrderItem, IListOrders } from "../interface/IOrder
 const API_URL = 'http://localhost:8080';
 
 const postOrder = async (data: ICreateOrder): AxiosPromise<any> => {
-    const response = axios.post(API_URL + '/order', data)
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + '/order', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 
 const postOrderItem = async (data: ICreateOrderItem[]): AxiosPromise<any> => {
-    const response = axios.post(API_URL + '/order/item', data)
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + '/order/item', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 
 const putData = async (data: IListOrders): AxiosPromise<any> => {
-    const response = axios.put(API_URL + '/desk', data)
+    const token = localStorage.getItem('token')
+    const response = axios.put(API_URL + '/desk', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response
 }
 

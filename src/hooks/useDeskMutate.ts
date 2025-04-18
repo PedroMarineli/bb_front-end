@@ -5,12 +5,22 @@ import { IDeskId, IDeskNumber } from "../interface/IDesk";
 const API_URL = 'http://localhost:8080';
 
 const postData = async (data: IDeskNumber): AxiosPromise<any> => {
-    const response = axios.post(API_URL + '/desk', data)
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + '/desk', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
     return response;
 }
 
 const putData = async (data: IDeskId): AxiosPromise<any> => {
-    const response = axios.put(API_URL + '/desk', data)
+    const token = localStorage.getItem('token')
+    const response = axios.put(API_URL + '/desk', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
     return response
 }
 

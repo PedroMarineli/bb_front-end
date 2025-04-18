@@ -8,7 +8,7 @@ import { useLoginMutate } from "../../hooks/useLoginMutate";
 import { useUsers } from "../../hooks/useUser";
 
 const LoginSistema = () => {
-    const { mutate, isSuccess, data: loginData, error } = useLoginMutate();
+    //const { mutate, isSuccess, data: loginData, error } = useLoginMutate();
     //const { isLoading: isUsersLoading, error: usersError } = useUsers();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -20,14 +20,14 @@ const LoginSistema = () => {
         aberto(false)
     }
 
-    const validarLogin = () => {
-        const loginData: IDoLogin = {
-            username,
-            password
-        }
-        mutate(loginData)
-        navigate('/bb');
-    };
+    // const validarLogin = () => {
+    //     const loginData: IDoLogin = {
+    //         username,
+    //         password
+    //     }
+    //     mutate(loginData)
+    //     navigate('/bb-reservas');
+    // };
 
     // useEffect(() => {
     //     const storedToken = localStorage.getItem('token');
@@ -37,35 +37,35 @@ const LoginSistema = () => {
     //     }
     // }, [validarLogin]);
 
-    // const validarLogin = async (evento: React.FormEvent<HTMLFormElement>) => {
-    //     evento.preventDefault()
-    //     setIsLoading(true)
-    //     setLoginError('')
+    const validarLogin = async (evento: React.FormEvent<HTMLFormElement>) => {
+        evento.preventDefault()
+        setIsLoading(true)
+        setLoginError('')
 
-    //     try {
-    //         const response = await fetch('http://localhost:8080/login', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify({ username, password }),
-    //         });
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
 
-    //         const data = await response.json();
+            const data = await response.json();
 
-    //         if (response.ok) {
-    //             localStorage.setItem('token', data.tokenJWT)
-    //             console.log("Token recebido e armazenado:", data.tokenJWT)
-    //             navigate('/bb')
-    //             alterarStatus()
-    //         } else {
-    //             setLoginError(data.error || 'Erro ao fazer login. Verifique suas credenciais.')
-    //         }
-    //     } catch (error) {
-    //         console.error('Erro na comunicação com o servidor:', error)
-    //         setLoginError('Erro ao conectar com o servidor.')
-    //     } finally {
-    //         setIsLoading(false)
-    //     }
-    // };
+            if (response.ok) {
+                localStorage.setItem('token', data.tokenJWT)
+                console.log("Token recebido e armazenado:", data.tokenJWT)
+                navigate('/bb-reservas')
+                alterarStatus()
+            } else {
+                setLoginError(data.error || 'Erro ao fazer login. Verifique suas credenciais.')
+            }
+        } catch (error) {
+            console.error('Erro na comunicação com o servidor:', error)
+            setLoginError('Erro ao conectar com o servidor.')
+        } finally {
+            setIsLoading(false)
+        }
+    };
 
     // useEffect para verificar o token ao montar o componente (opcional, dependendo do fluxo)
     // useEffect(() => {

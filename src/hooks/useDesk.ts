@@ -5,7 +5,12 @@ import { IApiResponse } from "../interface/IDesk";
 const API_URL = 'http://localhost:8080';
 
 const fetchDesk = async (): AxiosPromise<IApiResponse> => {
-    const response = await axios.get(API_URL + '/desk')
+    const token = localStorage.getItem('token')
+    const response = await axios.get(API_URL + '/desk', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 

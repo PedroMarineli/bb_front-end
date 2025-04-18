@@ -9,7 +9,12 @@ export const axiosInstance = axios.create({
 })
 
 const postLogin = async (data: IDoLogin): AxiosPromise<any> => {
-    const response = axiosInstance.post('/login', data)
+    const token = localStorage.getItem('token')
+    const response = axiosInstance.post('/login', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 

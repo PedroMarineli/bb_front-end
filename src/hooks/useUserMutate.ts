@@ -5,17 +5,32 @@ import { ICreateUser, IUpdateUser } from "../interface/IUsers";
 const API_URL = 'http://localhost:8080';
 
 const postUsers = async (data: ICreateUser): AxiosPromise<any> => {
-    const response = axios.post(API_URL + '/user', data)
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + '/user', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 
 const putUsers = async (data: IUpdateUser): AxiosPromise<any> => {
-    const response = axios.put(API_URL + '/user', data)
+    const token = localStorage.getItem('token')
+    const response = axios.put(API_URL + '/user', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response
 }
 
 const deleteUsers = async (id: IUpdateUser): AxiosPromise<any> => {
-    const response = axios.delete(API_URL + `/user/${id}`)
+    const token = localStorage.getItem('token')
+    const response = axios.delete(API_URL + `/user/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response
 }
 

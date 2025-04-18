@@ -5,7 +5,12 @@ import { IMenu } from "../interface/IMenu";
 const API_URL = 'http://localhost:8080';
 
 const fetchMenuItem = async (id: any): AxiosPromise<IMenu> => {
-    const response = await axios.get(API_URL + `/menu/${id}`)
+    const token = localStorage.getItem('token')
+    const response = await axios.get(API_URL + `/menu/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
     return response;
 }
 
