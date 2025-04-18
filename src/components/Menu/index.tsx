@@ -6,7 +6,7 @@ const Menu = () => {
         <div className="menu fixed right-0 top-0">
             <ul>
                 {paginas.map((pagina) => (
-                    <li>
+                    <li key={pagina.nome}>
                         <Link to={pagina.link}>
                             <div className="flex items-center gap-3 py-4 border-b">
                                 <img src={pagina.icon} alt={pagina.nome} className="w-7 h-7"/>

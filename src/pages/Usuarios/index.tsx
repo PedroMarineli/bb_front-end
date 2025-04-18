@@ -18,15 +18,14 @@ const Usuarios = () => {
                 (<section className="telaBranca grid gap-5">
                     <p>Nenhum usuário cadastrado!</p>
                 </section>) : 
-            (
-                <section className="telaBranca grid gap-5">
+                (<section className="telaBranca grid gap-5">
                         {isLoading ? <p>Carregando...</p> : <>
                             {users?.content.map(user => (
                                 <Usuario key={user.id} {...user}/>
                             ))}
                         </>}
-                </section>
-            )}
+                </section>)
+            }
             <button className="pt-5 text-right">
                 <button onClick={alterarStatus}>Cadastrar</button>
             </button>

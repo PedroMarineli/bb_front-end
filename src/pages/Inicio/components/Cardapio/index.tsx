@@ -6,6 +6,7 @@ import Lanche from '../../../../../public/icons/lanche.png';
 const Cardapio = () => {
     const { data, isLoading } = useMenuItem()
     const [items, setItems] = useState<IMenuItem[]>([])
+    const categorias: { [categoria: string]: IMenuItem[] } = {}
     
     useEffect(() => {
         if (data?.items) {
@@ -13,21 +14,12 @@ const Cardapio = () => {
         }
     }, [data?.items])
 
-    const categorias: { [categoria: string]: IMenuItem[] } = {}
-
     items.forEach(item => {
         if (!categorias[item.category]) {
             categorias[item.category] = [];
         }
         categorias[item.category].push(item);
     });
-
-    for (const categoria in categorias) {
-        console.log(categoria + ":");
-        categorias[categoria].forEach(item => {
-            console.log(`  - ${item.name} (R$ ${item.price?.toFixed(2)})`);
-        });
-    }
 
     return (
         <section className="telaBranca text-center grid gap-14" id='cardapio'>

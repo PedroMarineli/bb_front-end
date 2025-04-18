@@ -33,6 +33,7 @@ const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
     const { mesas } = useDesk()
     const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    const { listOrder } = useOrder()
     const [totalValue, setTotalValue] = useState(50)
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
@@ -41,20 +42,19 @@ const CadastroDePedidos = () => {
     const [isLoadingMesas, setIsLoadingMesas] = useState(true)
     const [errorMesas, setErrorMesas] = useState<string | null>(null)
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
+    const [orderToCompare, setOrderToCompare] = useState<IListOrders>()
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(true)
     }
-    const { listOrder } = useOrder()
     
     useEffect(() => {
         const fetchMesasDisponiveis = async() => {
             setIsLoadingMesas(true)
             setErrorMesas(null)
             try {
-                if (mesas?.content) {
-                    // Filtra apenas os IDs das mesas não preenchidas (se necessário)
+                if (mesas?.content) { // Filtra apenas os IDs das mesas não preenchidas (se necessário)
                     const ids = mesas?.content
                     .filter(mesa => mesa.filled === false) // Mantém não preenchidas ou com 'filled' indefinido
                     .map(mesa => mesa.id)
@@ -75,10 +75,8 @@ const CadastroDePedidos = () => {
             }
         };
         fetchMesasDisponiveis()
-    }, [mesas]) // Refetch pode ser necessário em algum cenário, adicione dependências conforme necessário
+    }, [mesas])
     
-    const [orderToCompare, setOrderToCompare] = useState<IListOrders>()
-
     useEffect(() => {
         if (listOrder && mesaSelecionada) {
             const foundOrder = listOrder.find(order => order.desk?.id === mesaSelecionada);
@@ -87,8 +85,6 @@ const CadastroDePedidos = () => {
     }, [listOrder, mesaSelecionada]);
     
     const submitOrder = () => {
-        // console.log(listOrder)
-        // console.log(orderToCompare)
         const itemsToAdd: ICreateOrderItem[] = [];
 
         for (const itemId in quantidade) {

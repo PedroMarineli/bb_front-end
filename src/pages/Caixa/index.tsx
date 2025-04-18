@@ -106,4 +106,5 @@ const Caixa = () => {
         </section>
     )
 }
+
 export default Caixa;

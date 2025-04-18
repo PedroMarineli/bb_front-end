@@ -1,5 +1,5 @@
-import { IUpdateUser } from "../../../interface/IUsers";
 import lataLixo from "../../../../public/icons/lata-de-lixo.png";
+import { IUpdateUser } from "../../../interface/IUsers";
 import { useUserMutate } from "../../../hooks/useUserMutate";
 import { useState } from "react";
 import AlterarUsuario from "./AlteraUsuario";

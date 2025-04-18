@@ -1,7 +1,5 @@
-//import SetaEsquerda from "../../../public/icons/seta-esquerda.png";
-import SetaEsquerda from "../../../public/icons/cozinha.png";
-//import SetaDireita from "../../../public/icons/seta-direita.png";
-import SetaDireita from "../../../public/icons/cozinha.png";
+import SetaEsquerda from "../../../public/icons/seta-esquerda.png";
+import SetaDireita from "../../../public/icons/seta-direita.png";
 import { useState } from "react";
 import OcupacaoMesasPorDia from "../../components/Relatorios";
 import PratosMaisPedidos from "../../components/Relatorios/index2";
