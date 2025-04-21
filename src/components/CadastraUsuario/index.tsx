@@ -11,7 +11,8 @@ const CadastraUsuario = () => {
     //const [hierarquia, setHierarquia] = useState("")
     const { refetch } = useUsers()
     const { postMutate } = useUserMutate()
-    const submit = () => {
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const users: ICreateUser = {
             username,
             password
@@ -24,7 +25,7 @@ const CadastraUsuario = () => {
         <Janela titulo="Cadastrar" conteudo={
             <form className="grid justify-items-center" onSubmit={submit}>
                 <div className="grid gap-8 my-12">
-                    <input required type="text" placeholder="Id" className="input" id="id" onChange={(e) => setUsername(e.target.value)}/>
+                    <input required type="text" placeholder="Nome de Usuário" className="input" id="id" onChange={(e) => setUsername(e.target.value)}/>
                     <input required type="text" placeholder="Senha" className="input" id="senha" onChange={(e) => setPassword(e.target.value)}/>
                     {/* <select className="input" onChange={(e) => setHierarquia(e.target.value)}>
                         <option value=""></option>

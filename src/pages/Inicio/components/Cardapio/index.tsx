@@ -19,7 +19,7 @@ const Cardapio = () => {
             categorias[item.category] = [];
         }
         categorias[item.category].push(item);
-    });
+    })
 
     return (
         <section className="telaBranca text-center grid gap-14" id='cardapio'>

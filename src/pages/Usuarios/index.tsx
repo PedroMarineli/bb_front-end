@@ -6,11 +6,11 @@ import Usuario from "./Usuario";
 
 const Usuarios = () => {
     const { users, isLoading } = useUsers()
+    const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(true)
     }
-    const fechado = useRecoilValue(menuState)
 
     return(
         <div>
@@ -19,18 +19,19 @@ const Usuarios = () => {
                     <p>Nenhum usuário cadastrado!</p>
                 </section>) : 
                 (<section className="telaBranca grid gap-5">
-                        {isLoading ? <p>Carregando...</p> : <>
-                            {users?.content.map(user => (
-                                <Usuario key={user.id} {...user}/>
-                            ))}
-                        </>}
+                    {isLoading ? <p>Carregando...</p> : <>
+                        {users?.content.map(user => (
+                            <Usuario key={user.id} {...user}/>
+                        ))}
+                    </>}
                 </section>)
             }
             <button className="pt-5 text-right">
                 <button onClick={alterarStatus}>Cadastrar</button>
             </button>
-            { fechado && <CadastraUsuario />}
+            { fechado && <CadastraUsuario /> }
         </div>
     )
 }
+
 export default Usuarios;

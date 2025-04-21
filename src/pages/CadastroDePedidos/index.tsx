@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Botao from "../../components/Botao";
 import PedidoEnviado from "../../components/PedidoEnviado";
@@ -8,26 +8,9 @@ import { useMenuItem } from "../../hooks/useMenuItem";
 import { useDesk } from "../../hooks/useDesk";
 import { ICreateOrder, ICreateOrderItem, IListOrders } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
-import { IMenuItem } from "../../interface/IMenu";
 import { useOrder } from "../../hooks/useOrder";
-
-const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuantity }: {
-    item: IMenuItem;
-    quantidade: number;
-    decrementQuantity: (id: number | undefined) => void;
-    incrementQuantity: (id: number | undefined) => void;
-  }) => {
-    return (
-        <div className='flex items-center gap-8' key={item.id}>
-        <div className="flex">
-            <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={() => decrementQuantity(item.id)}>-</button>
-            <span>{quantidade || 0}</span>
-            <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={() => incrementQuantity(item.id)}>+</button>
-        </div>
-        <p>{item.name}: {item.category}</p>
-    </div>
-    );
-});
+import MenuItemCard from "./MenuItemCard";
+import { IMenuItem } from "../../interface/IMenu";
 
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
@@ -43,8 +26,11 @@ const CadastroDePedidos = () => {
     const [errorMesas, setErrorMesas] = useState<string | null>(null)
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderToCompare, setOrderToCompare] = useState<IListOrders>()
+    const [ativado, setAtivado] = useState(false)
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
+    const [items, setItems] = useState<IMenuItem[]>([])
+    const categorias: { [categoria: string]: IMenuItem[] } = {}
     const alterarStatus = () => {
         aberto(true)
     }
@@ -76,6 +62,19 @@ const CadastroDePedidos = () => {
         };
         fetchMesasDisponiveis()
     }, [mesas])
+
+    useEffect(() => {
+        if (data?.items) {
+            setItems(data.items); 
+        }
+    }, [data?.items])
+
+    items.forEach(item => {
+        if (!categorias[item.category]) {
+            categorias[item.category] = [];
+        }
+        categorias[item.category].push(item);
+    })
     
     useEffect(() => {
         if (listOrder && mesaSelecionada) {
@@ -106,7 +105,7 @@ const CadastroDePedidos = () => {
         //     alert('Por favor, adicione itens ao pedido.');
         //     return;
         // }
-        
+        setAtivado(!ativado)
         refetch()
         console.log(itemsToAdd)
         //postOrderItemMutate.mutate(itemsToAdd)
@@ -119,7 +118,9 @@ const CadastroDePedidos = () => {
             orderStatus,
             desk: { id: mesaSelecionada }
         }
-        postOrderMutate.mutate(createOrder)
+        console.log(createOrder)
+        //postOrderMutate.mutate(createOrder)
+        setAtivado(!ativado)
         refetch()
     }
 
@@ -157,29 +158,38 @@ const CadastroDePedidos = () => {
 
     return (
         <div>
-            <section className="telaBranca">
-                <div className="flex justify-center">
+            <section className="telaBranca grid gap-5">
+                <div className="flex justify-center items-center gap-3">
                     <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={retrocederMesa} disabled={mesaSelecionada === null || mesaSelecionada === mesasDisponiveisIds[0]}>-</button>
                     <span>Mesa {mesaSelecionada !== null ? mesaSelecionada : 'Selecione'}</span>
                     <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={avancarMesa} disabled={mesaSelecionada === null || mesaSelecionada === mesasDisponiveisIds[mesasDisponiveisIds.length - 1]}>+</button>
                 </div>
-                <button onClick={submeterOrder}>Fazer Pedido</button>
-                {isLoading ? <p>Carregando...</p> : <>
-                    {data?.items?.map((item) => 
-                        <MenuItemCard
-                            key={item.id}
-                            item={item}
-                            quantidade={quantidade[item.id] || 0}
-                            incrementQuantity={incrementQuantity}
-                            decrementQuantity={decrementQuantity}
-                        />
-                    )}
-                </>}
-                <div className='grid gap-7'>
-                    <h2 className='text-2xl text-center pt-7'>Observações:</h2>
-                    <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"/>
-                    <div className="flex justify-center" onClick={alterarStatus}>
-                        <button onClick={submitOrder}><Botao>Enviar para a cozinha</Botao></button>
+                <button onClick={submeterOrder} className="justify-center">Fazer Pedido</button>
+                <div className={`${ativado ? 'opacity-100' : 'opacity-55 pointer-events-none'}`}>
+                    {isLoading ? <p>Carregando...</p> : <div className="grid gap-5">
+                        {Object.keys(categorias).map(categoria => (
+                            <div key={categoria} className='grid gap-3'>
+                                <h2 className='text-2xl justify-center'>{categoria}</h2>
+                                <ul className='grid gap-2'>
+                                    {categorias[categoria].map(item => (
+                                        <MenuItemCard
+                                            key={item.id}
+                                            item={item}
+                                            quantidade={quantidade[item.id] || 0}
+                                            incrementQuantity={incrementQuantity}
+                                            decrementQuantity={decrementQuantity}
+                                        />
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>}
+                    <div className='grid gap-7'>
+                        <h2 className='text-2xl text-center pt-7'>Observações:</h2>
+                        <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"/>
+                        <div className="flex justify-center" onClick={alterarStatus}>
+                            <button onClick={submitOrder}><Botao>Enviar para a cozinha</Botao></button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -192,37 +202,3 @@ const CadastroDePedidos = () => {
 }
 
 export default CadastroDePedidos;
-
-{/* <section className="telaBranca">
-<div className="flex justify-center">
-    <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">-</button>
-    <input type="text" className="bg-transparent w-36 text-center text-2xl" value="Mesa 10"/>
-    <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
-</div>
-{lista.map(categoria => (
-    <div className='grid gap-5'>
-        <h2 className='text-2xl text-center pt-7'>{categoria.nome}:</h2>
-        <ul className='grid gap-3'>
-        {categoria.itens.map((item) => (
-            <li key={item.nome}>
-                <div className='flex items-center gap-8'>
-                    <div className="flex">
-                        <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">-</button>
-                        <input type="text" className="bg-transparent w-12 text-center" value="0"/>
-                        <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black">+</button>
-                    </div>
-                    <p>{item.nome}: {item.descricao}</p>
-                </div>
-            </li>
-        ))}
-        </ul>
-    </div>
-))}
-<div className='grid gap-7'>
-    <h2 className='text-2xl text-center pt-7'>Observações:</h2>
-    <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"/>
-    <div className="flex justify-center" onClick={alterarStatus}>
-        <Botao>Enviar para a cozinha</Botao>
-    </div>
-</div>
-</section> */}

@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import lataLixo from "/icons/lata-de-lixo.png";
 import Botao from "../../../../components/Botao";
 import { IUpdateUser } from "../../../../interface/IUsers";
 
@@ -26,9 +25,9 @@ const AlterarUsuario = ({ onClose, onSubmit, ...user }: Props) => {
                     <div className="grid gap-8 my-12">
                         <input type="text" name="username" value={state.username} onChange={(e) => setState({ ...state, username: e.target.value})} className='input'></input>
                         <input type="text" name="password" value={state.password} onChange={(e) => setState({ ...state, password: e.target.value})} className='input'></input>
-                        <input required type="text" placeholder="Id" className="input" id="id"/>
                         {/* <input required type="text" placeholder="Senha" className="input" id="senha"/>
                         <select className="input">
+                        <select className="input" onChange={(e) => setHierarquia(e.target.value)}>
                             <option value=""></option>
                             <option value="Funcionário">Funcionário</option>
                             <option value="Administrador">Administrador</option>
@@ -42,12 +41,5 @@ const AlterarUsuario = ({ onClose, onSubmit, ...user }: Props) => {
         </div>
     )
 }
-export default AlterarUsuario;
 
-/*
-<select className="input" onChange={(e) => setHierarquia(e.target.value)}>
-    <option value=""></option>
-    <option value="Funcionário">Funcionário</option>
-    <option value="Administrador">Administrador</option>
-</select>
-*/
+export default AlterarUsuario;

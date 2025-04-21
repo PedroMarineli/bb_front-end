@@ -1,4 +1,5 @@
 import lataLixo from "../../../../public/icons/lata-de-lixo.png";
+import userIcon from "../../../../public/icons/blackUserIcon.png";
 import { IUpdateUser } from "../../../interface/IUsers";
 import { useUserMutate } from "../../../hooks/useUserMutate";
 import { useState } from "react";
@@ -13,8 +14,6 @@ const Usuario = (user: IUpdateUser) => {
     }
 
     const alterarUser = (data: IUpdateUser) => {
-        console.log({ data })
-
         putMutate.mutate(data)
     }
 
@@ -29,10 +28,10 @@ const Usuario = (user: IUpdateUser) => {
     return(
         <div key={user.id} className="flex justify-between items-center">
             <div className="flex gap-5 items-center">
-                <img src="./icons/userIconBlack.png" alt="Usuário"/>
+                <img src={userIcon} alt="Usuário"/>
                 {/* <p>{user.hierarquia}</p> */}
             </div>
-            <p>{user.id}</p>
+            <p>{user.username}</p>
             <p>{user.password}</p>
             <div onClick={() => deleteUser(user.id)}>
                 <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
