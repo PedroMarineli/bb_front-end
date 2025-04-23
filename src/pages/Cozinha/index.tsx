@@ -9,16 +9,42 @@ const Cozinha = () => {
     const { putOrderMutate } = useOrderMutate()
     const [newOrderStatus, setNewOrderStatus] = useState("")
 
-    const statusPedido = (orderStatus: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
-        if(orderStatus === "CREATED") setNewOrderStatus("PREPARING")
-        else if(orderStatus === "PREPARING") setNewOrderStatus("FINISHED")
+    // const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
+    //     if(status === "CREATED") setNewOrderStatus("PREPARING")
+    //     else if(status === "PREPARING") setNewOrderStatus("FINISHED")
 
-        const orderData: IListOrders = {
-            orderStatus
+    //     const orderStatus = newOrderStatus
+
+    //     const orderData: IListOrders = {
+    //         orderStatus
+    //     }
+    //     console.log(orderData)
+    //     //putOrderMutate.mutate(orderData)
+    //     refetch()
+    // }
+
+    const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
+        let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | undefined = undefined
+
+        if(status === "CREATED") newStatus = "PREPARING"
+        else if(status === "PREPARING") newStatus = "FINISHED"
+        else if(status === "FINISHED") {
+            console.log("Pedido finalizado")
+            return
+        } else if(status === "CANCELED") {
+            console.log("Pedido cancelado")
+            return
         }
-        console.log(orderData)
-        //putOrderMutate.mutate(orderData)
-        refetch()
+
+        if(newStatus) {
+            setNewOrderStatus(newStatus)
+            const orderData: IListOrders = {
+                orderStatus: newStatus
+            }
+            console.log(orderData)
+            //putOrderMutate.mutate(orderData)
+            refetch()
+        }
     }
 
     return (
