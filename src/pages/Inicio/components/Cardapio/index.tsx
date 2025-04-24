@@ -9,10 +9,10 @@ const Cardapio = () => {
     const categorias: { [categoria: string]: IMenuItem[] } = {}
     
     useEffect(() => {
-        if (data?.items) {
-            setItems(data.items); 
+        if (data?.content) {
+            setItems(data.content); 
         }
-    }, [data?.items])
+    }, [data?.content])
 
     items.forEach(item => {
         if (!categorias[item.category]) {

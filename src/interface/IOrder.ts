@@ -5,7 +5,7 @@ export interface IGetOrder {
     id?: number,
     totalValue?: number,
     paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT-CARD",
-    orderItems?: [OrderItems],
+    orderItems?: [IPostOrderItem],
     orderStatus?: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED",
     desk?: IMesa,
     description?: string
@@ -31,10 +31,16 @@ export interface IPostOrder {
     description: string
 }
 
+// export interface IPostOrderItem {
+//     quantity?: number,
+//     menuItem?: IMenuItem,
+//     order: IGetOrder
+// }
+
 export interface IPostOrderItem {
-    quantity: number,
-    menuItem: IMenuItem,
-    order: IGetOrder
+    quantity?: number,
+    menuItem?: IMenuItem,
+    order: { id: number }
 }
 
 export interface ICreateOrder {

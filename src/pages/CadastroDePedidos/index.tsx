@@ -15,9 +15,8 @@ import { IMenuItem } from "../../interface/IMenu";
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
     const { mesas } = useDesk()
-    //const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
     const { listOrder } = useOrder()
-    const [totalValue, setTotalValue] = useState(50)
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
     // const [paymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
@@ -36,7 +35,7 @@ const CadastroDePedidos = () => {
         aberto(true)
     }
     
-    console.log(listOrder)
+    //console.log(listOrder)
 
     useEffect(() => {
         const fetchMesasDisponiveis = async() => {
@@ -100,7 +99,7 @@ const CadastroDePedidos = () => {
         }
     }, [listOrder, mesaSelecionada]);
 
-    console.log(orderToCompare)
+    //console.log(orderToCompare)
 
     // const submitOrder = () => {
     //     if (!orderToCompare) {
@@ -142,41 +141,45 @@ const CadastroDePedidos = () => {
             console.error('Nenhum pedido encontrado para a mesa selecionada');
             return;
         }
-
-        const itemsToAdd: IPostOrderItem[] = []
-
-        console.log(orderToCompare)
-
+    
+        const orderItems: IPostOrderItem[] = [];
+    
         for (const itemId in quantidade) {
             const quantity = quantidade[parseInt(itemId)];
             if (quantity > 0) {
                 const menuItem = data?.content.find((item) => item.id === parseInt(itemId));
                 if (menuItem) {
-                    itemsToAdd.push({
+                    orderItems.push({
                         quantity,
                         menuItem,
-                        order: {
-                            id: orderToCompare.id || 0
-                        }
+                        order: { id: orderToCompare.id}
                     });
                 }
             }
         }
-
-        // if (!mesaSelecionada) {
-        //     alert('Por favor, selecione uma mesa.');
-        //     return;
+    
+        if (orderItems.length === 0) {
+            alert('Por favor, adicione itens ao pedido.');
+            return;
+        }
+    
+        // const postData: IPostOrderItem = {
+        //     quantity: orderItems.reduce((total, item) => total + item.quantity, 0),
+        //     order: {
+        //         id: orderToCompare.id || 0,
+        //         desk: orderToCompare.desk,
+        //         orderStatus: orderToCompare.orderStatus,
+        //         orderItems: orderItems as [OrderItems],
+        //         description: description
+        //     }
         // }
-
-        // if (createOrderItem.length === 0) {
-        //     alert('Por favor, adicione itens ao pedido.');
-        //     return;
-        // }
-        setAtivado(!ativado)
-        refetch()
-        console.log(itemsToAdd, description)
-        //postOrderItemMutate.mutate(itemsToAdd, description)
-    }
+    
+        console.log('Dados para enviar:', orderItems)
+        postOrderItemMutate.mutate(orderItems)
+    
+        setAtivado(!ativado);
+        refetch();
+    };
 
     const submeterOrder = () => {
         const createOrder: ICreateOrder = {
@@ -185,7 +188,7 @@ const CadastroDePedidos = () => {
         }
 
         console.log(createOrder)
-        //postOrderMutate.mutate(createOrder)
+        postOrderMutate.mutate(createOrder)
         setAtivado(!ativado)
         refetch()
     }

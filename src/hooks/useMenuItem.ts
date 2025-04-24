@@ -16,7 +16,7 @@ const fetchMenuItem = async (id: any): AxiosPromise<IGetMenuItens> => {
 
 export function useMenuItem() {
     const query = useQuery({
-        queryFn: () => fetchMenuItem(4),
+        queryFn: () => fetchMenuItem(1),
         queryKey: ['menuItem'],
         retry: 2
     })

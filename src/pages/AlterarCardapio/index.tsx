@@ -13,6 +13,8 @@ const AlterarCardapio = () => {
     const alterarAltera = () => {
         setAltera(!altera)
     }
+
+    console.log(data)
     
     useEffect(() => {
         if (data?.content) {

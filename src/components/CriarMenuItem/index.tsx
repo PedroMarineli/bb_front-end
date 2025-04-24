@@ -8,7 +8,7 @@ interface Props {
 }
 
 const CriarMenuItem = ({closeModal}: Props) => {
-    const [id, setId] = useState(4)
+    const [id, setId] = useState(1)
     const [name, setName] = useState("")
     const [category, setCategory] = useState("")
     const [available, setAvailable] = useState(true)
@@ -18,14 +18,11 @@ const CriarMenuItem = ({closeModal}: Props) => {
 
     const submit = () => {
         const menuItem: IPostMenuItem = {
-            menu: { id: id,
-                itens: [{                    
-                    price: price,
-                    category: category,
-                    name: name,
-                    available: available,
-                }]
-            }
+            price: price,
+            category: category,
+            name: name,
+            available: available,
+            menu: { id: id }
         }
         console.log(menuItem)
         postMutate.mutate(menuItem)
