@@ -15,10 +15,10 @@ const AlterarCardapio = () => {
     }
     
     useEffect(() => {
-        if (data?.items) {
-            setItems(data.items); 
+        if (data?.content) {
+            setItems(data.content); 
         }
-    }, [data?.items])
+    }, [data?.content])
 
 
     // Organizar os itens por categoria

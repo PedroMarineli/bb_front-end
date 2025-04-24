@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMenuItemMutate } from "../../hooks/UseMenuItemMutate";
-import { IMenuItem } from "../../interface/IMenu";
+import { IPostMenuItem } from "../../interface/IMenu";
 import Botao from "../Botao";
 
 interface Props {
@@ -17,13 +17,17 @@ const CriarMenuItem = ({closeModal}: Props) => {
     const { postMutate } = useMenuItemMutate()
 
     const submit = () => {
-        const menuItem: IMenuItem = {
-            name,
-            price, 
-            category,
-            available,
-            menu: { id: id }
+        const menuItem: IPostMenuItem = {
+            menu: { id: id,
+                itens: [{                    
+                    price: price,
+                    category: category,
+                    name: name,
+                    available: available,
+                }]
+            }
         }
+        console.log(menuItem)
         postMutate.mutate(menuItem)
     }
 

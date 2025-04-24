@@ -1,12 +1,14 @@
 export interface ICreateUser {
     username: string,
-    password: string
+    password: string,
+    role: "USER" | "ADMIN"
 }
 
 export interface IUpdateUser {
     id: number,
     username: string,
-    password: string
+    password: string,
+    role: "USER" | "ADMIN"
 }
 
 export interface IListUsers {

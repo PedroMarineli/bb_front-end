@@ -1,10 +1,10 @@
 import axios, { AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IMenuItem } from "../interface/IMenu";
+import { IMenu, IMenuItem, IPostMenuItem } from "../interface/IMenu";
 
 const API_URL = 'http://localhost:8080';
 
-const postMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
+const postMenuItem = async (data: IPostMenuItem): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
     const response = axios.post(API_URL + '/menu/item', data, {
         headers: {

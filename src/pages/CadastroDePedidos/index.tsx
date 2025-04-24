@@ -6,7 +6,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
 import { useDesk } from "../../hooks/useDesk";
-import { ICreateOrder, ICreateOrderItem, IListOrders } from "../../interface/IOrder";
+import { ICreateOrder, IPostOrderItem, IGetOrder, OrderItems } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { useOrder } from "../../hooks/useOrder";
 import MenuItemCard from "./MenuItemCard";
@@ -15,17 +15,18 @@ import { IMenuItem } from "../../interface/IMenu";
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
     const { mesas } = useDesk()
-    const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    //const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
     const { listOrder } = useOrder()
     const [totalValue, setTotalValue] = useState(50)
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
-    const [paymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
-    const [orderStatus] = useState<ICreateOrder["orderStatus"]>("CREATED")
+    // const [paymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
+    // const [orderStatus] = useState<ICreateOrder["orderStatus"]>("CREATED")
+    const [description, setDescription] = useState("")
     const [isLoadingMesas, setIsLoadingMesas] = useState(true)
     const [errorMesas, setErrorMesas] = useState<string | null>(null)
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
-    const [orderToCompare, setOrderToCompare] = useState<IListOrders>()
+    const [orderToCompare, setOrderToCompare] = useState<IGetOrder | undefined>(undefined)
     const [ativado, setAtivado] = useState(false)
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
@@ -35,6 +36,8 @@ const CadastroDePedidos = () => {
         aberto(true)
     }
     
+    console.log(listOrder)
+
     useEffect(() => {
         const fetchMesasDisponiveis = async() => {
             setIsLoadingMesas(true)
@@ -64,10 +67,10 @@ const CadastroDePedidos = () => {
     }, [mesas])
 
     useEffect(() => {
-        if (data?.items) {
-            setItems(data.items); 
+        if (data?.content) {
+            setItems(data.content); 
         }
-    }, [data?.items])
+    }, [data?.content])
 
     items.forEach(item => {
         if (!categorias[item.category]) {
@@ -76,22 +79,86 @@ const CadastroDePedidos = () => {
         categorias[item.category].push(item);
     })
     
+    // useEffect(() => {
+    //     if (listOrder && mesaSelecionada) {
+    //         let foundOrder: IGetOrder | undefined
+    //         for (let i = 0; i < listOrder.length; i++) {
+    //             const order = listOrder[i]
+    //             if (order.desk?.id === mesaSelecionada) {
+    //                 foundOrder = order
+    //                 break
+    //             }
+    //         }
+    //         setOrderToCompare(foundOrder)
+    //     }
+    // }, [listOrder, mesaSelecionada]);
+
     useEffect(() => {
         if (listOrder && mesaSelecionada) {
-            const foundOrder = listOrder.find(order => order.desk?.id === mesaSelecionada);
-            setOrderToCompare(foundOrder);
+            const foundOrder = listOrder.find(order => order.desk?.id === mesaSelecionada)
+            setOrderToCompare(foundOrder || undefined)
         }
     }, [listOrder, mesaSelecionada]);
+
+    console.log(orderToCompare)
+
+    // const submitOrder = () => {
+    //     if (!orderToCompare) {
+    //         console.error('Nenhum pedido encontrado para a mesa selecionada');
+    //         return;
+    //     }
+
+    //     const itemsToAdd: IPostOrderItem[] = [];
+
+    //     console.log(orderToCompare)
+
+    //     for (const itemId in quantidade) {
+    //         const quantity = quantidade[parseInt(itemId)];
+    //         if (quantity > 0) {
+    //             const menuItem = data?.content.find((item) => item.id === parseInt(itemId));
+    //             if (menuItem) {
+    //                 itemsToAdd.push({ quantity, menuItem: menuItem, order: orderToCompare});
+    //             }
+    //         }
+    //     }
+
+    //     // if (!mesaSelecionada) {
+    //     //     alert('Por favor, selecione uma mesa.');
+    //     //     return;
+    //     // }
+
+    //     // if (createOrderItem.length === 0) {
+    //     //     alert('Por favor, adicione itens ao pedido.');
+    //     //     return;
+    //     // }
+    //     setAtivado(!ativado)
+    //     refetch()
+    //     console.log(itemsToAdd, description)
+    //     //postOrderItemMutate.mutate(itemsToAdd, description)
+    // }
     
     const submitOrder = () => {
-        const itemsToAdd: ICreateOrderItem[] = [];
+        if (!orderToCompare) {
+            console.error('Nenhum pedido encontrado para a mesa selecionada');
+            return;
+        }
+
+        const itemsToAdd: IPostOrderItem[] = []
+
+        console.log(orderToCompare)
 
         for (const itemId in quantidade) {
             const quantity = quantidade[parseInt(itemId)];
             if (quantity > 0) {
-                const menuItem = data?.items?.find((item) => item.id === parseInt(itemId));
+                const menuItem = data?.content.find((item) => item.id === parseInt(itemId));
                 if (menuItem) {
-                itemsToAdd.push({ menuItem: { id: menuItem.id }, quantity, order: { id: orderToCompare?.id } });
+                    itemsToAdd.push({
+                        quantity,
+                        menuItem,
+                        order: {
+                            id: orderToCompare.id || 0
+                        }
+                    });
                 }
             }
         }
@@ -107,17 +174,16 @@ const CadastroDePedidos = () => {
         // }
         setAtivado(!ativado)
         refetch()
-        console.log(itemsToAdd)
-        //postOrderItemMutate.mutate(itemsToAdd)
+        console.log(itemsToAdd, description)
+        //postOrderItemMutate.mutate(itemsToAdd, description)
     }
 
     const submeterOrder = () => {
         const createOrder: ICreateOrder = {
-            totalValue,
-            paymentMethod, 
-            orderStatus,
-            desk: { id: mesaSelecionada }
+            desk: { id: mesaSelecionada },
+            description
         }
+
         console.log(createOrder)
         //postOrderMutate.mutate(createOrder)
         setAtivado(!ativado)
@@ -186,7 +252,7 @@ const CadastroDePedidos = () => {
                     </div>}
                     <div className='grid gap-7'>
                         <h2 className='text-2xl text-center pt-7'>Observações:</h2>
-                        <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"/>
+                        <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black" onChange={(e) => setDescription(e.target.value)}/>
                         <div className="flex justify-center" onClick={alterarStatus}>
                             <button onClick={submitOrder}><Botao>Enviar para a cozinha</Botao></button>
                         </div>

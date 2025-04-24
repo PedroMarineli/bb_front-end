@@ -29,10 +29,9 @@ const Usuario = (user: IUpdateUser) => {
         <div key={user.id} className="flex justify-between items-center">
             <div className="flex gap-5 items-center">
                 <img src={userIcon} alt="Usuário"/>
-                {/* <p>{user.hierarquia}</p> */}
             </div>
             <p>{user.username}</p>
-            <p>{user.password}</p>
+            <p>{user.role}</p>
             <div onClick={() => deleteUser(user.id)}>
                 <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
             </div>

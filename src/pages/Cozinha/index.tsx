@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrder } from '../../hooks/useOrder';
-import { IListOrders } from '../../interface/IOrder';
+import { IGetOrder } from '../../interface/IOrder';
 import { useOrderMutate } from '../../hooks/useOrderMutate';
+import lataLixo from "../../../public/icons/lata-de-lixo.png";
 
 const Cozinha = () => {
     const { listOrder, isLoading, refetch } = useOrder()
-    const { putOrderMutate } = useOrderMutate()
+    const { putOrderMutate, deleteMutate } = useOrderMutate()
     const [newOrderStatus, setNewOrderStatus] = useState("")
 
     // const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
@@ -38,12 +39,25 @@ const Cozinha = () => {
 
         if(newStatus) {
             setNewOrderStatus(newStatus)
-            const orderData: IListOrders = {
+            const orderData: IGetOrder = {
                 orderStatus: newStatus
             }
             console.log(orderData)
             //putOrderMutate.mutate(orderData)
             refetch()
+        }
+    }
+
+    const excluirOrder = (id: any) => {
+        deleteMutate.mutate(id)
+    }
+
+    const getStatusColor = (status: any) => {
+        switch(status) {
+          case 'CREATED': return 'bg-red-600'
+          case 'PREPARING': return 'bg-yellow-500'
+          case 'FINISHED': return 'bg-green-600'
+          default: return 'bg-gray-400'
         }
     }
 
@@ -55,7 +69,7 @@ const Cozinha = () => {
                         {listOrder?.map(pedido => (
                             <div className='flex gap-14 items-start' key={pedido.id}>
                                 <h2 className='text-2xl w-36'>Mesa {pedido.desk?.id}</h2>
-                                <div onClick={() => statusPedido(pedido.orderStatus)} className={`w-10 h-7 bg-green-600 rounded-full`}></div>
+                                <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus)} className={`w-10 h-7 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
                                 <ul className='w-full'>
                                     {pedido.orderItems?.map((item) => (
                                         <li key={item.menuItem.id}>
@@ -66,6 +80,11 @@ const Cozinha = () => {
                                         </li>
                                     ))}
                                 </ul>
+                                {pedido.orderStatus === "CREATED" && 
+                                    <div onClick={() => excluirOrder(pedido.id)}>
+                                        <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                                    </div>
+                                }
                             </div>
                         ))}
                     </>}
@@ -93,4 +112,5 @@ const Cozinha = () => {
         </div>
     )
 }
+
 export default Cozinha;

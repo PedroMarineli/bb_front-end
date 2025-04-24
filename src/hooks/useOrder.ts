@@ -1,10 +1,10 @@
 import axios, { AxiosPromise } from "axios";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { IListOrders } from "../interface/IOrder";
+import { IOrderResponse } from "../interface/IOrder";
 
 const API_URL = 'http://localhost:8080';
 
-const fetchOrder = async (): AxiosPromise<IListOrders[]> => {
+const fetchOrder = async (): AxiosPromise<IOrderResponse> => {
     const token = localStorage.getItem('token')
     const response = await axios.get(API_URL + '/order', {
         headers: {
@@ -25,7 +25,8 @@ export function useOrder() {
 
     return {
         ...query,
-        listOrder: query.data?.data,
+        listOrder: query.data?.data?.content || [], // Garante que sempre retorna um array
+        pagination: query.data?.data?.page,
         refetch: () => queryClient.refetchQueries({ queryKey: ['order'] })
     }
 }

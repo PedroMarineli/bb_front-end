@@ -1,6 +1,6 @@
 export interface IMenu {
     id?: number,
-    items?: IMenuItem[]
+    itens?: IMenuItem[]
 }
 
 export interface IMenuItem {
@@ -9,5 +9,22 @@ export interface IMenuItem {
     price?: number,
     category: string,
     available?: boolean
-    menu?: { id?: number }
+    //menu?: { id?: number }
+}
+
+export interface IPostMenuItem {
+    price?: number,
+    name?: string,
+    category?: string,
+    available?: boolean,
+    menu: IMenu
+}
+
+export interface IGetMenu {
+    id: number,
+    menuLength: number
+}
+
+export interface IGetMenuItens {
+    content: IMenuItem[]
 }

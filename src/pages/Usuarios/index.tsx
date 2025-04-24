@@ -26,8 +26,8 @@ const Usuarios = () => {
                     </>}
                 </section>)
             }
-            <button className="pt-5 text-right">
-                <button onClick={alterarStatus}>Cadastrar</button>
+            <button className="pt-5 text-right" onClick={alterarStatus}>
+                Cadastrar
             </button>
             { fechado && <CadastraUsuario /> }
         </div>
