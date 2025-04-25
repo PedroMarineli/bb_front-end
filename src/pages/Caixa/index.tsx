@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Botao from "../../components/Botao";
 import { useOrder } from "../../hooks/useOrder";
 
@@ -57,7 +57,9 @@ const Caixa = () => {
         }
     }
 
-    const pedidoSelecionado = listOrder?.find(pedido => pedido.desk?.id === orders);
+    const pedidoSelecionado = useMemo(() => {
+        return listOrder?.find(pedido => pedido.desk?.id === orders)
+    }, [listOrder, orders]);
 
     return (
         <section className="telaBranca grid gap-10">
@@ -78,10 +80,10 @@ const Caixa = () => {
                         </thead>
                         <tbody>
                             {pedidoSelecionado.orderItems?.map((item) => (
-                                <tr key={item.menuItem.id}>
-                                    <td>{item.menuItem.name}</td>
+                                <tr key={item.menuItem?.id}>
+                                    <td>{item.menuItem?.name}</td>
                                     <td>{item.quantity}</td>
-                                    <td>{item.menuItem.price?.toFixed(2)}</td>
+                                    <td>{item.menuItem?.price?.toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>

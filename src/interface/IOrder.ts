@@ -21,22 +21,6 @@ export interface IOrderResponse {
     }
 }
 
-export interface IPostOrder {
-    orderItems: [{        
-        id: number,
-        quantity: number,
-        menuItem: IMenuItem,
-    }]
-    desk: IMesa,
-    description: string
-}
-
-// export interface IPostOrderItem {
-//     quantity?: number,
-//     menuItem?: IMenuItem,
-//     order: IGetOrder
-// }
-
 export interface IPostOrderItem {
     quantity?: number,
     menuItem?: IMenuItem,
@@ -48,21 +32,3 @@ export interface ICreateOrder {
     desk: IMesa,
     description?: string
 }
-
-export interface OrderItems {
-    id?: number,
-    quantity: number,
-    menuItem: IMenuItem
-}
-
-
-
-// export interface IListOrders {
-//     id?: number,
-//     totalValue?: number,
-//     paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT-CARD",
-//     orderItems?: [OrderItems],
-//     orderStatus: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED",
-//     desk?: IMesa,
-//     description?: string
-// }

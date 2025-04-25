@@ -10,21 +10,7 @@ const Cozinha = () => {
     const { putOrderMutate, deleteMutate } = useOrderMutate()
     const [newOrderStatus, setNewOrderStatus] = useState("")
 
-    console.log(listOrder)
-
-    // const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
-    //     if(status === "CREATED") setNewOrderStatus("PREPARING")
-    //     else if(status === "PREPARING") setNewOrderStatus("FINISHED")
-
-    //     const orderStatus = newOrderStatus
-
-    //     const orderData: IListOrders = {
-    //         orderStatus
-    //     }
-    //     console.log(orderData)
-    //     //putOrderMutate.mutate(orderData)
-    //     refetch()
-    // }
+    //console.log(listOrder)
 
     const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | undefined = undefined
