@@ -22,11 +22,11 @@ export interface IOrderResponse {
 }
 
 export interface IPostOrder {
-    orderItems: [
+    orderItems: [{        
         id: number,
         quantity: number,
         menuItem: IMenuItem,
-    ]
+    }]
     desk: IMesa,
     description: string
 }

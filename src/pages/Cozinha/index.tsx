@@ -10,6 +10,8 @@ const Cozinha = () => {
     const { putOrderMutate, deleteMutate } = useOrderMutate()
     const [newOrderStatus, setNewOrderStatus] = useState("")
 
+    console.log(listOrder)
+
     // const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
     //     if(status === "CREATED") setNewOrderStatus("PREPARING")
     //     else if(status === "PREPARING") setNewOrderStatus("FINISHED")
@@ -72,9 +74,9 @@ const Cozinha = () => {
                                 <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus)} className={`w-10 h-7 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
                                 <ul className='w-full'>
                                     {pedido.orderItems?.map((item) => (
-                                        <li key={item.menuItem.id}>
+                                        <li key={item.menuItem?.id}>
                                             <div className='flex justify-between'>
-                                                <p>{item.menuItem.name}</p>
+                                                <p>{item.menuItem?.name}</p>
                                                 <p>{item.quantity}</p>
                                             </div>
                                         </li>

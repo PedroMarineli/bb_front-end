@@ -6,7 +6,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
 import { useDesk } from "../../hooks/useDesk";
-import { ICreateOrder, IPostOrderItem, IGetOrder, OrderItems } from "../../interface/IOrder";
+import { ICreateOrder, IPostOrderItem, IGetOrder } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { useOrder } from "../../hooks/useOrder";
 import MenuItemCard from "./MenuItemCard";
@@ -19,23 +19,20 @@ const CadastroDePedidos = () => {
     const { listOrder } = useOrder()
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
-    // const [paymentMethod] = useState<ICreateOrder["paymentMethod"]>("CASH")
-    // const [orderStatus] = useState<ICreateOrder["orderStatus"]>("CREATED")
     const [description, setDescription] = useState("")
     const [isLoadingMesas, setIsLoadingMesas] = useState(true)
     const [errorMesas, setErrorMesas] = useState<string | null>(null)
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderToCompare, setOrderToCompare] = useState<IGetOrder | undefined>(undefined)
     const [ativado, setAtivado] = useState(false)
-    const fechado = useRecoilValue(menuState)
-    const aberto = useSetRecoilState(menuState)
     const [items, setItems] = useState<IMenuItem[]>([])
     const categorias: { [categoria: string]: IMenuItem[] } = {}
+
+    const fechado = useRecoilValue(menuState)
+    const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(true)
     }
-    
-    //console.log(listOrder)
 
     useEffect(() => {
         const fetchMesasDisponiveis = async() => {
@@ -77,20 +74,6 @@ const CadastroDePedidos = () => {
         }
         categorias[item.category].push(item);
     })
-    
-    // useEffect(() => {
-    //     if (listOrder && mesaSelecionada) {
-    //         let foundOrder: IGetOrder | undefined
-    //         for (let i = 0; i < listOrder.length; i++) {
-    //             const order = listOrder[i]
-    //             if (order.desk?.id === mesaSelecionada) {
-    //                 foundOrder = order
-    //                 break
-    //             }
-    //         }
-    //         setOrderToCompare(foundOrder)
-    //     }
-    // }, [listOrder, mesaSelecionada]);
 
     useEffect(() => {
         if (listOrder && mesaSelecionada) {
@@ -98,88 +81,37 @@ const CadastroDePedidos = () => {
             setOrderToCompare(foundOrder || undefined)
         }
     }, [listOrder, mesaSelecionada]);
-
-    //console.log(orderToCompare)
-
-    // const submitOrder = () => {
-    //     if (!orderToCompare) {
-    //         console.error('Nenhum pedido encontrado para a mesa selecionada');
-    //         return;
-    //     }
-
-    //     const itemsToAdd: IPostOrderItem[] = [];
-
-    //     console.log(orderToCompare)
-
-    //     for (const itemId in quantidade) {
-    //         const quantity = quantidade[parseInt(itemId)];
-    //         if (quantity > 0) {
-    //             const menuItem = data?.content.find((item) => item.id === parseInt(itemId));
-    //             if (menuItem) {
-    //                 itemsToAdd.push({ quantity, menuItem: menuItem, order: orderToCompare});
-    //             }
-    //         }
-    //     }
-
-    //     // if (!mesaSelecionada) {
-    //     //     alert('Por favor, selecione uma mesa.');
-    //     //     return;
-    //     // }
-
-    //     // if (createOrderItem.length === 0) {
-    //     //     alert('Por favor, adicione itens ao pedido.');
-    //     //     return;
-    //     // }
-    //     setAtivado(!ativado)
-    //     refetch()
-    //     console.log(itemsToAdd, description)
-    //     //postOrderItemMutate.mutate(itemsToAdd, description)
-    // }
     
     const submitOrder = () => {
         if (!orderToCompare) {
-            console.error('Nenhum pedido encontrado para a mesa selecionada');
-            return;
+            console.error('Nenhum pedido encontrado para a mesa selecionada')
+            return
         }
     
-        const orderItems: IPostOrderItem[] = [];
-    
         for (const itemId in quantidade) {
-            const quantity = quantidade[parseInt(itemId)];
+            const quantity = quantidade[parseInt(itemId)]
             if (quantity > 0) {
-                const menuItem = data?.content.find((item) => item.id === parseInt(itemId));
+                const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
                 if (menuItem) {
-                    orderItems.push({
+                    const orderItem: IPostOrderItem = {
                         quantity,
                         menuItem,
-                        order: { id: orderToCompare.id}
-                    });
+                        order: { id: orderToCompare.id }
+                    }
+                    //console.log('Dados a serem enviados:', orderItem)
+                    postOrderItemMutate.mutate(orderItem)
                 }
             }
         }
     
-        if (orderItems.length === 0) {
-            alert('Por favor, adicione itens ao pedido.');
-            return;
-        }
-    
-        // const postData: IPostOrderItem = {
-        //     quantity: orderItems.reduce((total, item) => total + item.quantity, 0),
-        //     order: {
-        //         id: orderToCompare.id || 0,
-        //         desk: orderToCompare.desk,
-        //         orderStatus: orderToCompare.orderStatus,
-        //         orderItems: orderItems as [OrderItems],
-        //         description: description
-        //     }
+        // if (orderItem.length === 0) {
+        //     alert('Por favor, adicione itens ao pedido.')
+        //     return
         // }
     
-        console.log('Dados para enviar:', orderItems)
-        postOrderItemMutate.mutate(orderItems)
-    
-        setAtivado(!ativado);
-        refetch();
-    };
+        setAtivado(!ativado)
+        refetch()
+    }
 
     const submeterOrder = () => {
         const createOrder: ICreateOrder = {
@@ -187,7 +119,7 @@ const CadastroDePedidos = () => {
             description
         }
 
-        console.log(createOrder)
+        //console.log(createOrder)
         postOrderMutate.mutate(createOrder)
         setAtivado(!ativado)
         refetch()
