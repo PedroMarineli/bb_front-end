@@ -10,25 +10,28 @@ import PaginaPadrao from './components/PaginaPadrao'
 import Usuarios from './pages/Usuarios'
 import Relatorios from './pages/Relatorios'
 import { RecoilRoot } from 'recoil'
+import { UsuarioLogadoProvider } from './context/UserLogadoProvider'
 
 function App() {
   return (
     <RecoilRoot>
-      <Router>
-        <Routes>
-          <Route path='/' element={<Inicio />}/>
-          <Route path='/' element={<PaginaPadrao />}>
-            <Route path='/bb' element={<InicioSistema />}/>
-            <Route path='/bb-reservas' element={<ReservaDeMesas />}/>
-            <Route path='/bb-cozinha' element={<Cozinha />}/>
-            <Route path='/bb-cadastro-pedidos' element={<CadastroDePedidos />}/>
-            <Route path='/bb-alterar-cardapio' element={<AlterarCardapio />}/>
-            <Route path='/bb-caixa' element={<Caixa />}/>
-            <Route path='/bb-usuarios' element={<Usuarios />}/>
-            <Route path='/bb-relatorios' element={<Relatorios />}/>
-          </Route>
-        </Routes>
-      </Router>
+      <UsuarioLogadoProvider>
+        <Router>
+          <Routes>
+            <Route path='/' element={<Inicio />}/>
+            <Route path='/' element={<PaginaPadrao />}>
+              <Route path='/bb' element={<InicioSistema />}/>
+              <Route path='/bb-reservas' element={<ReservaDeMesas />}/>
+              <Route path='/bb-cozinha' element={<Cozinha />}/>
+              <Route path='/bb-cadastro-pedidos' element={<CadastroDePedidos />}/>
+              <Route path='/bb-alterar-cardapio' element={<AlterarCardapio />}/>
+              <Route path='/bb-caixa' element={<Caixa />}/>
+              <Route path='/bb-usuarios' element={<Usuarios />}/>
+              <Route path='/bb-relatorios' element={<Relatorios />}/>
+            </Route>
+          </Routes>
+        </Router>
+      </UsuarioLogadoProvider>
     </RecoilRoot>
   )
 }

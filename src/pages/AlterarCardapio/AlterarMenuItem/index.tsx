@@ -22,15 +22,15 @@ const AlterarMenuItem = (item: IMenuItem) => {
     if (deleteMutate?.isSuccess) {
         return <Exclusao/>
     }
-
+    
     const alterarItemMenu = () => {
         setFormVisivel(true)
     }
-
+    
     if(formVisivel) {
         return <FormAlterarItemMenu onClose={() => setFormVisivel(false)} onSubmit={alterarMenuItem} { ...item } />
     }
-
+    
     return (
         <li key={item.id} className='list-none'>
             <div className='flex justify-between gap-5 items-center'>

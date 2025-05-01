@@ -5,12 +5,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IDoLogin } from "../../interface/ILogin";
 import { useLoginMutate } from "../../hooks/useLoginMutate";
+import { useUsers } from "../../hooks/useUser";
+import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
 const LoginSistema = () => {
     const { mutate } = useLoginMutate();
+    const { users } = useUsers()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState('')
+    const { setUsuarioLogado } = useUsuarioLogado();
     const navigate = useNavigate();
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
@@ -29,8 +33,15 @@ const LoginSistema = () => {
                 if (data?.data?.tokenJWT) {
                     localStorage.setItem('token', data.data.tokenJWT)
                     console.log("Token recebido e armazenado:", data.data.tokenJWT)
-                    navigate('/bb')
-                    alterarStatus()
+
+                    const usuarioEncontrado = users?.content.find((user) => user.username === username)
+                    if (usuarioEncontrado) {
+                        setUsuarioLogado(usuarioEncontrado)
+                        navigate('/bb')
+                        alterarStatus()
+                    } else {
+                        setLoginError('Usuário não encontrado após o login.')
+                    }
                 } else {
                     setLoginError('Erro: Token JWT não recebido do servidor.')
                 }

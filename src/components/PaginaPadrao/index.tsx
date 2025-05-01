@@ -5,8 +5,8 @@ import { useState } from "react";
 import HeaderSistema from "../HeaderSistema";
 
 const PaginaPadrao = () => {
-    const [menu, setMenu] = useState(false);
-    const mostrarMenu = () => setMenu(!menu);
+    const [menu, setMenu] = useState(false)
+    const mostrarMenu = () => setMenu(!menu)
 
     return (
         <main>
@@ -21,4 +21,5 @@ const PaginaPadrao = () => {
         </main>
     )
 }
+
 export default PaginaPadrao;

@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import BurguerBoss from "../BurguerBoss"
+import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
 const HeaderSistema = () => {
+    const { usuarioLogado } = useUsuarioLogado();
     const navigate = useNavigate();
     const sair = () => {
         navigate("/")
@@ -10,7 +12,7 @@ const HeaderSistema = () => {
     return (
         <header className="flex items-center justify-around bg-seaBlue text-white py-2">
             <BurguerBoss />
-            <span className="uppercase px-10 font-bold">Página</span>
+            <span className="uppercase px-10 font-bold">Olá! {usuarioLogado?.username}</span>
             <div onClick={sair}>
                 <img src="/icons/sair.png" alt="Sair" className="h-10 w-10 hover:cursor-pointer"/>
             </div>
