@@ -5,14 +5,26 @@ import { useUserMutate } from "../../../hooks/useUserMutate";
 import { useState } from "react";
 import AlterarUsuario from "./AlteraUsuario";
 import { useUsuarioLogado } from "../../../context/UserLogadoContext";
+import { deleteState } from "../../../state/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import Avisos from "../../../components/Avisos";
 
 const Usuario = (user: IUpdateUser) => {
     const { deleteMutate, putMutate } = useUserMutate()
     const [formVisivel, setFormVisivel] = useState(false)
     const { usuarioLogado } = useUsuarioLogado()
-    
+    const [userToDeleteId, setUserToDeleteId] = useState(null);
+    const deleteFechado = useRecoilValue(deleteState)
+    const deleteAberto = useSetRecoilState(deleteState)
+   
+    const corfirmaExcluir = (id: any) => {
+        deleteAberto(true)
+        setUserToDeleteId(id)
+    }
+
     const deleteUser = (id: any) => {
         deleteMutate.mutate(id)
+        deleteAberto(false)
     }
 
     const alterarUser = (data: IUpdateUser) => {
@@ -36,12 +48,18 @@ const Usuario = (user: IUpdateUser) => {
                 <p>{user.username}</p>
                 <p>{user.role}</p>
                 { usuarioLogado?.role == "ADMIN" &&                 
-                    <div onClick={() => deleteUser(user.id)}>
+                    <div onClick={() => corfirmaExcluir(user.id)}>
                         <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
                     </div>
                 }
                 { usuarioLogado?.role == "ADMIN" && <button onClick={() => callAlterarUser()}>Alterar</button> }
             </div>
+            { deleteFechado && <Avisos title="Excluir Usuário" text={(
+                <div className='grid gap-8 justify-center'>
+                    <p>Tem certeza que quer excluir?! Essa ação não terá mais volta.</p>
+                    <button onClick={() => userToDeleteId !== null && deleteUser(userToDeleteId)}>Excluir</button>
+                </div>
+            )}/> }
         </div>
     )
 }

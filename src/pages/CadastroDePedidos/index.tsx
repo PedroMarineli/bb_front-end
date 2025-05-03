@@ -201,7 +201,7 @@ const CadastroDePedidos = () => {
                 </div>
             </section>
             { usuarioLogado?.role == "ADMIN" && <button onClick={alterarCardapio} className="pt-5 text-right">Alterar Cardápio</button> }
-            { fechado && <Avisos title="Pedido Enviado" text="Pedido enviado com sucesso!"/> }
+            { fechado && <Avisos title="Pedido Enviado" text={<p>Pedido enviado com sucesso!</p>}/> }
         </div>
     )
 }

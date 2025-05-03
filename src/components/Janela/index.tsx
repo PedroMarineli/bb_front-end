@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { menuState } from "../../state/atom";
+import { deleteState, menuState } from "../../state/atom";
 
 interface JanelaProps {
   titulo: string;
@@ -8,8 +8,10 @@ interface JanelaProps {
 
 const Janela: React.FC<JanelaProps> = ({ titulo, conteudo }) => {
     const aberto = useSetRecoilState(menuState)
+    const abertoDelete = useSetRecoilState(deleteState)
     const alterarStatus = () => {
         aberto(false)
+        abertoDelete(false)
     }
 
   return (
