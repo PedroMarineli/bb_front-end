@@ -11,14 +11,11 @@ import Avisos from '../../components/Avisos';
 const Cozinha = () => {
     const { listOrder, isLoading, refetch } = useOrder()
     const { putOrderMutate, deleteMutate } = useOrderMutate()
-    const [newOrderStatus, setNewOrderStatus] = useState("")
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
 
-    //console.log(listOrder)
-
-    const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED") => {
+    const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED", id: any, deskId: any) => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | undefined = undefined
 
         if(status === "CREATED") newStatus = "PREPARING"
@@ -32,12 +29,13 @@ const Cozinha = () => {
         }
 
         if(newStatus) {
-            setNewOrderStatus(newStatus)
             const orderData: IGetOrder = {
-                orderStatus: newStatus
+                id: id,
+                orderStatus: newStatus,
+                desk: {id: deskId}
             }
             console.log(orderData)
-            //putOrderMutate.mutate(orderData)
+            putOrderMutate.mutate(orderData)
             refetch()
         }
     }
@@ -69,8 +67,10 @@ const Cozinha = () => {
                         {isLoading ? <p>Carregando...</p> : <>
                             {listOrder?.map(pedido => (
                                 <div className='flex gap-14 items-start' key={pedido.id}>
-                                    <h2 className='text-2xl w-36'>Mesa {pedido.desk?.id}</h2>
-                                    <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus)} className={`w-10 h-7 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
+                                    <div className='flex'>
+                                        <h2 className='text-2xl w-36'>Mesa {pedido.desk?.id}</h2>
+                                        <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
+                                    </div>
                                     <ul className='w-full'>
                                         {pedido.orderItems?.map((item) => (
                                             <li key={item.menuItem?.id}>
@@ -81,7 +81,7 @@ const Cozinha = () => {
                                             </li>
                                         ))}
                                     </ul>
-                                    {pedido.orderStatus === "CREATED" && 
+                                    {pedido.orderStatus === "CREATED" &&
                                         <div onClick={() => corfirmaExcluir(pedido.id)}>
                                             <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
                                         </div>

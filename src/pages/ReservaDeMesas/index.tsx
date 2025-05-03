@@ -9,6 +9,17 @@ const ReservaDeMesas = () => {
     const [ativado, setAtivado] = useState(false)
     const { mesas, isLoading, refetch } = useDesk()
     const { postMutate, putMutate } = useDeskMutate()
+
+    const mesasOrdenadas = mesas?.content.sort((a, b) => {
+        if (a.id === null && b.id === null) return 0 
+        else if (a.id === null) return 1
+        else if (b.id === null) return -1
+        else {
+            if (a.id < b.id) return -1
+            if (a.id > b.id) return 1
+            else return 0
+        }
+    })
     
     const ativar = () => {
         setAtivado(!ativado)
@@ -36,7 +47,7 @@ const ReservaDeMesas = () => {
         <section className="telaBranca">
             <ul className="grid grid-cols-2 pb-10 gap-x-10 gap-y-3">
                 {isLoading ? <p>Carregando...</p> : <>
-                    {mesas?.content.map((item) => 
+                    {mesasOrdenadas?.map((item) => 
                         <li key={item.id} className="flex justify-between">
                             <p>Mesa {item.id}</p>
                             <div onClick={() => statusMesa(item.id)} className={`h-7 w-7 rounded-full ${item.filled ? 'bg-red-700' : 'bg-green-800'}`}></div>

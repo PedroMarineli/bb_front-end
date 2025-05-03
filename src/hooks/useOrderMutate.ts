@@ -24,9 +24,19 @@ const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
     return response;
 }
 
-const putData = async (data: IGetOrder): AxiosPromise<any> => {
+// const putData = async (data: IGetOrder): AxiosPromise<any> => {
+//     const token = localStorage.getItem('token')
+//     const response = axios.put(API_URL + '/order/item', data, {
+//         headers: {
+//             'Authorization': `Bearer ${token}`,
+//         },
+//     })
+//     return response
+// }
+
+const putOrder = async (data: IGetOrder): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
-    const response = axios.put(API_URL + '/order/item', data, {
+    const response = axios.put(API_URL + '/order', data, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -64,7 +74,7 @@ export function useOrderMutate() {
     })
 
     const putOrderMutate = useMutation({
-        mutationFn: putData,
+        mutationFn: putOrder,
         retry: 2,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['order']})
