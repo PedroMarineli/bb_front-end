@@ -3,8 +3,8 @@ import BurguerBoss from "../BurguerBoss"
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
 const HeaderSistema = () => {
-    const { usuarioLogado } = useUsuarioLogado();
-    const navigate = useNavigate();
+    const { usuarioLogado } = useUsuarioLogado()
+    const navigate = useNavigate()
     const sair = () => {
         navigate("/")
     }

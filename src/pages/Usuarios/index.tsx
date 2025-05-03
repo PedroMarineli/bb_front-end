@@ -3,12 +3,15 @@ import { menuState } from "../../state/atom";
 import { useUsers } from "../../hooks/useUser";
 import CadastraUsuario from "../../components/CadastraUsuario";
 import Usuario from "./Usuario";
+import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
 const Usuarios = () => {
     const { users, isLoading } = useUsers()
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
-    const alterarStatus = () => {
+    const { usuarioLogado } = useUsuarioLogado()
+
+    const cadastrarUsuario = () => {
         aberto(true)
     }
 
@@ -26,9 +29,7 @@ const Usuarios = () => {
                     </>}
                 </section>)
             }
-            <button className="pt-5 text-right" onClick={alterarStatus}>
-                Cadastrar
-            </button>
+            { usuarioLogado?.role == "ADMIN" && <button className="pt-5 text-right" onClick={cadastrarUsuario}> Cadastrar </button> }
             { fechado && <CadastraUsuario /> }
         </div>
     )

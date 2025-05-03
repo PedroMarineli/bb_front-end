@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Botao from "../../components/Botao";
-import PedidoEnviado from "../../components/PedidoEnviado";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
@@ -11,6 +10,8 @@ import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { useOrder } from "../../hooks/useOrder";
 import MenuItemCard from "./MenuItemCard";
 import { IMenuItem } from "../../interface/IMenu";
+import { useUsuarioLogado } from "../../context/UserLogadoContext";
+import Avisos from "../../components/Avisos";
 
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
@@ -27,7 +28,8 @@ const CadastroDePedidos = () => {
     const [ativado, setAtivado] = useState(false)
     const [items, setItems] = useState<IMenuItem[]>([])
     const categorias: { [categoria: string]: IMenuItem[] } = {}
-
+    const { usuarioLogado } = useUsuarioLogado()
+    const navigate = useNavigate()
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
@@ -157,6 +159,10 @@ const CadastroDePedidos = () => {
         }
     }
 
+    const alterarCardapio = () => {
+        navigate("/bb-alterar-cardapio")
+    }
+
     return (
         <div>
             <section className="telaBranca grid gap-5">
@@ -194,10 +200,8 @@ const CadastroDePedidos = () => {
                     </div>
                 </div>
             </section>
-            <button className="pt-5 text-right">
-                <Link to='/bb-alterar-cardapio'>Alterar Cardápio</Link>
-            </button>
-            { fechado && <PedidoEnviado/>}
+            { usuarioLogado?.role == "ADMIN" && <button onClick={alterarCardapio} className="pt-5 text-right">Alterar Cardápio</button> }
+            { fechado && <Avisos title="Pedido Enviado" text="Pedido enviado com sucesso!"/> }
         </div>
     )
 }

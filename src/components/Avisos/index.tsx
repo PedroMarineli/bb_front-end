@@ -1,11 +1,16 @@
 import Janela from "../Janela";
 import LogoBB from "../../../public/images/logoBB.png";
 
-const PedidoEnviado = () => {
+interface AvisosProps {
+    title: string;
+    text: string;
+  }
+  
+  const Avisos = ({ title, text }: AvisosProps) => {
     return (
-        <Janela titulo="Pedido Enviado" conteudo={
+        <Janela titulo={title} conteudo={
             <div className="grid justify-items-center gap-5">
-                <p>Pedido enviado com sucesso!</p>
+                <p>{text}</p>
                 <div className="grid justify-items-center">
                     <img src={LogoBB} alt="Logo BB"/>
                 </div>
@@ -14,4 +19,4 @@ const PedidoEnviado = () => {
     )
 }
 
-export default PedidoEnviado;
+export default Avisos;
