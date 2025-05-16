@@ -8,7 +8,7 @@ import { useDesk } from "../../hooks/useDesk";
 import { ICreateOrder, IPostOrderItem, IGetOrder } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { useOrder } from "../../hooks/useOrder";
-import MenuItemCard from "./MenuItemCard";
+import MenuItemCard from "../../components/MenuItemCard";
 import { IMenuItem } from "../../interface/IMenu";
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
 import Avisos from "../../components/Avisos";

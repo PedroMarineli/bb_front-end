@@ -11,6 +11,7 @@ import Usuarios from './pages/Usuarios'
 import Relatorios from './pages/Relatorios'
 import { RecoilRoot } from 'recoil'
 import { UsuarioLogadoProvider } from './context/UserLogadoProvider'
+import AlterarPedido from './pages/AlterarPedido'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path='/bb-reservas' element={<ReservaDeMesas />}/>
               <Route path='/bb-cozinha' element={<Cozinha />}/>
               <Route path='/bb-cadastro-pedidos' element={<CadastroDePedidos />}/>
+              <Route path="/bb-alterar-pedido" element={<AlterarPedido />} />
               <Route path='/bb-alterar-cardapio' element={<AlterarCardapio />}/>
               <Route path='/bb-caixa' element={<Caixa />}/>
               <Route path='/bb-usuarios' element={<Usuarios />}/>

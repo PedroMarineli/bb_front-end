@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useOrder } from '../../hooks/useOrder';
 import { IGetOrder } from '../../interface/IOrder';
 import { useOrderMutate } from '../../hooks/useOrderMutate';
@@ -9,6 +9,7 @@ import lataLixo from "../../../public/icons/lata-de-lixo.png";
 import Avisos from '../../components/Avisos';
 
 const Cozinha = () => {
+    const navigate = useNavigate();
     const { listOrder, isLoading, refetch } = useOrder()
     const { putOrderMutate, deleteMutate } = useOrderMutate()
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
@@ -82,17 +83,17 @@ const Cozinha = () => {
                                         ))}
                                     </ul>
                                     {pedido.orderStatus === "CREATED" &&
-                                        <div onClick={() => corfirmaExcluir(pedido.id)}>
-                                            <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                                        <div>
+                                            <div onClick={() => corfirmaExcluir(pedido.id)}>
+                                                <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                                            </div>
+                                            <button className="pt-5 text-right" onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}> Alterar </button>
                                         </div>
                                     }
                                 </div>
                             ))}
                         </>}
                     </section>
-                    <button className="pt-5 text-right">
-                        <Link to='/bb-cadastro-pedidos'>Alterar Pedido</Link>
-                    </button>
                 </div>
                 <section className="telaBranca p-10 w-80 h-48">
                     <ul className="grid gap-3">
@@ -121,4 +122,4 @@ const Cozinha = () => {
     )
 }
 
-export default Cozinha;
+export default Cozinha

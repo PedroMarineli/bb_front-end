@@ -32,3 +32,13 @@ export interface ICreateOrder {
     desk: IMesa,
     description?: string
 }
+
+export interface IUpdateOrder {
+    id: number,
+    quantity: number,
+    menuItem: IMenuItem,
+    order: {
+        id: number,
+        //description: string
+    }
+}

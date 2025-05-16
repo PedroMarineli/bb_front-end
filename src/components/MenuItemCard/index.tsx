@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { IMenuItem } from "../../../interface/IMenu";
+import { IMenuItem } from "../../interface/IMenu";
 
 const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuantity }: {
     item: IMenuItem;
