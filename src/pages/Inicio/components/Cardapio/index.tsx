@@ -35,7 +35,7 @@ const Cardapio = () => {
                                     {categorias[categoria].map(item => (
                                         <li key={item.id}>
                                             <div className='flex'>
-                                                <p>{item.name}: {item.category} - R${item.price?.toFixed(2)}</p>
+                                                <p>{item.name}: {item.description} - R${item.price?.toFixed(2)}</p>
                                             </div>
                                         </li>
                                     ))}

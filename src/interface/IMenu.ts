@@ -6,6 +6,7 @@ export interface IMenu {
 export interface IMenuItem {
     id?: number,
     name: string,
+    description?: string,
     price?: number,
     category: string,
     available?: boolean
@@ -15,6 +16,7 @@ export interface IMenuItem {
 export interface IPostMenuItem {
     price?: number,
     name?: string,
+    description?: string,
     category?: string,
     available?: boolean,
     menu: IMenu

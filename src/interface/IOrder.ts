@@ -6,7 +6,7 @@ export interface IGetOrder {
     totalValue?: number,
     paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT-CARD",
     orderItems?: [IPostOrderItem],
-    orderStatus?: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED",
+    orderStatus?: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED",
     desk?: IMesa,
     description?: string
 }

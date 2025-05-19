@@ -16,8 +16,8 @@ const Cozinha = () => {
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
 
-    const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED", id: any, deskId: any) => {
-        let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | undefined = undefined
+    const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED", id: any, deskId: any) => {
+        let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | "DELIVERED" | undefined = undefined
 
         if(status === "CREATED") newStatus = "PREPARING"
         else if(status === "PREPARING") newStatus = "FINISHED"

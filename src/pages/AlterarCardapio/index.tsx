@@ -35,9 +35,9 @@ const AlterarCardapio = () => {
         <section className="telaBranca grid gap-10">
             {isLoading ? <p>Carregando...</p> : <>
                 {Object.keys(categorias).map(categoria => (
-                    <div key={categoria} className='grid gap-7 break-before'>
+                    <div key={categoria} className='grid gap-5 break-before'>
                         <h2 className='text-2xl'>{categoria}</h2>
-                        <ul className='grid gap-7'>
+                        <ul className='grid gap-2'>
                             {categorias[categoria].map(item => (
                                 <AlterarMenuItem key={item.id} {...item}/>
                             ))}

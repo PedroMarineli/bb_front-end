@@ -14,7 +14,7 @@ const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuant
                 <span>{quantidade || 0}</span>
                 <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={() => incrementQuantity(item.id)}>+</button>
             </div>
-            <p>{item.name}: {item.category}</p>
+            <p>{item.name}: {item.description}</p>
         </li>
     )
 })

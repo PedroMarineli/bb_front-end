@@ -45,10 +45,10 @@ const AlterarMenuItem = (item: IMenuItem) => {
             <li key={item.id} className='list-none'>
                 <div className='flex justify-between gap-5 items-center'>
                     <p>{item.name}</p>
-                    <p>{item.category}</p>
+                    <p>{item.description}</p>
                     <p>{item.price}</p>             
                     <div onClick={() => corfirmaExcluir(item.id)}>
-                        <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                        <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
                     </div>
                     <div onClick={() => alterarItemMenu()} className="flex justify-center">
                         <button>Alterar</button>
@@ -65,4 +65,4 @@ const AlterarMenuItem = (item: IMenuItem) => {
     )
 }
 
-export default AlterarMenuItem;
+export default AlterarMenuItem
