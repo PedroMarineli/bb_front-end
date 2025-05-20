@@ -12,14 +12,10 @@ const AlterarMenuItem = (item: IMenuItem) => {
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
     const { putMutate, deleteMutate } = useMenuItemMutate()
-    const [formVisivel, setFormVisivel] = useState(false)
-    //const [itemToDeleteId, setItemToDeleteId] = useState<any>(null)
-    
-    const [itemToDeleteId, setItemToDeleteId] = useRecoilState(itemToDeleteState);
-    //console.log(itemToDeleteId)
+    const [formVisivel, setFormVisivel] = useState(false)  
+    const [itemToDeleteId, setItemToDeleteId] = useRecoilState(itemToDeleteState)
     
     const corfirmaExcluir = (id: any) => {
-        //console.log(id)
         deleteAberto(true)
         setItemToDeleteId(id)
     }
@@ -28,11 +24,12 @@ const AlterarMenuItem = (item: IMenuItem) => {
         console.log("ID garantido:", id)
         deleteMutate.mutate(id, {
             onSuccess: () => {
-                deleteAberto(false)
                 setItemToDeleteId(null)
+            },
+            onError: (error) => {
+                console.error("Falha durante a mutação:", error)
             }
         })
-        deleteAberto(false)
     }
 
     const alterarMenuItem = (data: IMenuItem) => {
