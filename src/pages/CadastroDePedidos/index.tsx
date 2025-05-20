@@ -98,7 +98,8 @@ const CadastroDePedidos = () => {
                     const orderItem: IPostOrderItem = {
                         quantity,
                         menuItem,
-                        order: { id: orderToCompare.id }
+                        order: { id: orderToCompare.id },
+                        description
                     }
                     //console.log('Dados a serem enviados:', orderItem)
                     postOrderItemMutate.mutate(orderItem)
@@ -117,14 +118,14 @@ const CadastroDePedidos = () => {
 
     const submeterOrder = () => {
         const createOrder: ICreateOrder = {
-            desk: { id: mesaSelecionada },
-            description
+            desk: { id: mesaSelecionada }
         }
-
-        //console.log(createOrder)
-        postOrderMutate.mutate(createOrder)
-        setAtivado(!ativado)
-        refetch()
+        postOrderMutate.mutate(createOrder, {
+            onSuccess: () => {
+                setAtivado(!ativado)
+                refetch()
+            }
+        })
     }
 
     const incrementQuantity = (itemId: any) => {

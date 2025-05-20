@@ -54,13 +54,15 @@ const AlterarMenuItem = (item: IMenuItem) => {
                 <div className='flex justify-between gap-5 items-center'>
                     <p>{item.name}</p>
                     <p>{item.description}</p>
-                    <p>{item.price}</p>             
-                    <div onClick={() => corfirmaExcluir(item.id!)}>
-                        <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
-                    </div>
-                    <div onClick={() => alterarItemMenu()} className="flex justify-center">
-                        <button>Alterar</button>
-                    </div>
+                    <p>{item.price}</p>
+                    <div className="flex gap-5">
+                        <div onClick={() => corfirmaExcluir(item.id!)}>
+                            <img src={lataLixo} alt="Lata de lixo" className='h-8 w-8 cursor-pointer'/>
+                        </div>
+                        <div onClick={() => alterarItemMenu()} className="flex justify-center">
+                            <button>Alterar</button>
+                        </div>
+                    </div>          
                 </div>
             </li>
             { deleteFechado && <Avisos title="Excluir Item" text={(
@@ -69,6 +71,14 @@ const AlterarMenuItem = (item: IMenuItem) => {
                     <button onClick={() => itemToDeleteId !== null && excluirMenuItem(itemToDeleteId)}>Excluir</button>
                 </div>
             )}/> }
+            {/* {errorMessage && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                    <span className="block sm:inline">{errorMessage}</span>
+                    <button onClick={() => setErrorMessage(null)} className="absolute top-0 right-0 px-2 py-1">
+                        ×
+                    </button>
+                </div>
+            )} */}
         </div>
     )
 }

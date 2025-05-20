@@ -24,13 +24,13 @@ export interface IOrderResponse {
 export interface IPostOrderItem {
     quantity?: number,
     menuItem?: IMenuItem,
-    order: { id: number }
+    order: { id: number },
+    description?: string
 }
 
 export interface ICreateOrder {
     //orderItems: [OrderItems],
-    desk: IMesa,
-    description?: string
+    desk: IMesa
 }
 
 export interface IUpdateOrder {

@@ -69,13 +69,12 @@ export function useMenuItemMutate() {
                     headers: error.response.headers
                 });
             } else if (error.request) {
-                // Erro sem resposta do servidor
                 console.error("Sem resposta do servidor:", error.request);
             } else {
-                // Erro na configuração da requisição
-                console.error("Erro na configuração:", error.message);
+                console.error("Erro na configuração da requisição:", error.message);
             }
             console.error("Configuração da requisição falha:", error.config);
+            
         }
     })
 

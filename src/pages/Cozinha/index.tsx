@@ -35,9 +35,14 @@ const Cozinha = () => {
                 orderStatus: newStatus,
                 desk: {id: deskId}
             }
-            console.log(orderData)
-            putOrderMutate.mutate(orderData)
-            refetch()
+            putOrderMutate.mutate(orderData, {
+                onSuccess: () => {
+                    refetch()
+                },
+                onError: (error) => {
+                    console.error("Erro ao atualizar status do pedido:", error)
+                }
+            })
         }
     }
 
@@ -47,8 +52,16 @@ const Cozinha = () => {
     }
 
     const excluirOrder = (id: any) => {
-        deleteMutate.mutate(id)
-        deleteAberto(false)
+        deleteMutate.mutate(id, {
+            onSuccess: () => {
+                deleteAberto(false)
+                setItemToDeleteId(null)
+                refetch()
+            },
+            onError: (error) => {
+                console.error("Erro ao excluir pedido:", error)
+            }
+        })
     }
 
     const getStatusColor = (status: any) => {
@@ -62,7 +75,7 @@ const Cozinha = () => {
 
     return (
         <div>
-            <div className="flex justify-between gap-24">
+            <div className="flex justify-between gap-10">
                 <div className='grid w-full'>
                     <section className="telaBranca grid gap-5 ">
                         {isLoading ? <p>Carregando...</p> : <>
@@ -81,6 +94,12 @@ const Cozinha = () => {
                                                             <p>{item.menuItem?.name}</p>
                                                             <p>{item.quantity}</p>
                                                         </div>
+                                                        {pedido.description &&
+                                                            <div className='grid gap-7'>
+                                                                <h2 className='text-2xl text-center pt-7'>Observações:</h2>
+                                                                <span className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"></span>
+                                                            </div>
+                                                        }
                                                     </li>
                                                 ))}
                                             </ul>

@@ -24,7 +24,7 @@ const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
     return response;
 }
 
-const postOrderCompleted = async (id: any): AxiosPromise<any> => {
+const postOrderCompleted = async (id: number): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
     const response = axios.post(API_URL + `/order/${id}/finish`, {
         headers: {

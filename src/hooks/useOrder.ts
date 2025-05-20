@@ -20,6 +20,7 @@ export function useOrder() {
     const query = useQuery({
         queryFn: fetchOrder,
         queryKey: ['order'],
+        staleTime: 1000 * 60 * 5,
         retry: 2
     })
 

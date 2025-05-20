@@ -88,8 +88,8 @@ const Caixa = () => {
 
     const completedOrder = () => {
         if (pedidoIdParaFinalizar) {
-            console.log(pedidoIdParaFinalizar);
-            postOrderFinished.mutate(pedidoIdParaFinalizar);
+            console.log(pedidoIdParaFinalizar)
+            postOrderFinished.mutate(pedidoIdParaFinalizar)
         }
     }
 
