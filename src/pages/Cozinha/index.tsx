@@ -16,15 +16,15 @@ const Cozinha = () => {
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
 
+    console.log(listOrder)
+
     const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED", id: any, deskId: any) => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | "DELIVERED" | undefined = undefined
 
         if(status === "CREATED") newStatus = "PREPARING"
         else if(status === "PREPARING") newStatus = "FINISHED"
-        else if(status === "FINISHED") {
-            console.log("Pedido finalizado")
-            return
-        } else if(status === "CANCELED") {
+        else if(status === "FINISHED") newStatus = "DELIVERED"
+        else if(status === "CANCELED") {
             console.log("Pedido cancelado")
             return
         }
@@ -67,30 +67,34 @@ const Cozinha = () => {
                     <section className="telaBranca grid gap-5 ">
                         {isLoading ? <p>Carregando...</p> : <>
                             {listOrder?.map(pedido => (
-                                <div className='flex gap-14 items-start' key={pedido.id}>
-                                    <div className='flex'>
-                                        <h2 className='text-2xl w-36'>Mesa {pedido.desk?.id}</h2>
-                                        <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
-                                    </div>
-                                    <ul className='w-full'>
-                                        {pedido.orderItems?.map((item) => (
-                                            <li key={item.menuItem?.id}>
-                                                <div className='flex justify-between'>
-                                                    <p>{item.menuItem?.name}</p>
-                                                    <p>{item.quantity}</p>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    {pedido.orderStatus === "CREATED" &&
-                                        <div>
-                                            <div onClick={() => corfirmaExcluir(pedido.id)}>
-                                                <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                                <>
+                                    {pedido.orderStatus !== "DELIVERED" &&
+                                        <div className='flex gap-14 items-start' key={pedido.id}>
+                                            <div className='flex'>
+                                                <h2 className='text-2xl w-28'>Mesa {pedido.desk?.id}</h2>
+                                                <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
                                             </div>
-                                            <button className="pt-5 text-right" onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}> Alterar </button>
+                                            <ul className='w-full'>
+                                                {pedido.orderItems?.map((item) => (
+                                                    <li key={item.menuItem?.id}>
+                                                        <div className='flex justify-between'>
+                                                            <p>{item.menuItem?.name}</p>
+                                                            <p>{item.quantity}</p>
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            {pedido.orderStatus === "CREATED" &&
+                                                <div>
+                                                    <div onClick={() => corfirmaExcluir(pedido.id)}>
+                                                        <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
+                                                    </div>
+                                                    <button className="pt-5 text-right" onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}> Alterar </button>
+                                                </div>
+                                            }
                                         </div>
                                     }
-                                </div>
+                                </>
                             ))}
                         </>}
                     </section>

@@ -9,3 +9,8 @@ export const deleteState = atom({
     key: 'deleteState',
     default: false,
 })
+
+export const itemToDeleteState = atom<number | null>({
+    key: 'itemToDeleteState',
+    default: null
+});

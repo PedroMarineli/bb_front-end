@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IMenu, IMenuItem, IPostMenuItem } from "../interface/IMenu";
+import { IMenuItem, IPostMenuItem } from "../interface/IMenu";
 
 const API_URL = 'http://localhost:8080';
 
@@ -24,7 +24,7 @@ const putMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
     return response
 }
 
-const deleteMenuItem = async (id: IMenuItem): AxiosPromise<any> => {
+const deleteMenuItem = async (id: number): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
     const response = axios.delete(API_URL + `/menu/item/${id}`, {
         headers: {
@@ -59,8 +59,8 @@ export function useMenuItemMutate() {
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['menuItem']})
         },
-        onError: () => {
-            console.log("ERROR")
+        onError: (error) => {
+            console.log("ERROR", error)
         }
     })
 

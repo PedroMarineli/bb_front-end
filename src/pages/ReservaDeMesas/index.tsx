@@ -38,9 +38,11 @@ const ReservaDeMesas = () => {
         const deskData: IDeskId = {
             id
         }
-        console.log(deskData)
-        putMutate.mutate(deskData)
-        refetch()
+        putMutate.mutate(deskData, {
+            onSuccess: () => {
+                refetch()
+            }
+        })
     }
 
     return(

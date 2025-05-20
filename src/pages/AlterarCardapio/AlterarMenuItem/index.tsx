@@ -4,24 +4,35 @@ import { useMenuItemMutate } from "../../../hooks/UseMenuItemMutate";
 import Exclusao from "../../../components/Exclusao";
 import { useState } from "react";
 import FormAlterarItemMenu from "./FormAlterarMenuItem";
-import { deleteState } from "../../../state/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { deleteState, itemToDeleteState } from "../../../state/atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Avisos from "../../../components/Avisos";
 
 const AlterarMenuItem = (item: IMenuItem) => {
-    const { putMutate, deleteMutate } = useMenuItemMutate()
-    const [formVisivel, setFormVisivel] = useState(false)
-    const [itemToDeleteId, setItemToDeleteId] = useState(null);
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
+    const { putMutate, deleteMutate } = useMenuItemMutate()
+    const [formVisivel, setFormVisivel] = useState(false)
+    //const [itemToDeleteId, setItemToDeleteId] = useState<any>(null)
+    
+    const [itemToDeleteId, setItemToDeleteId] = useRecoilState(itemToDeleteState);
+    //console.log(itemToDeleteId)
     
     const corfirmaExcluir = (id: any) => {
+        //console.log(id)
         deleteAberto(true)
         setItemToDeleteId(id)
     }
 
     const excluirMenuItem = (id: any) => {
-        deleteMutate.mutate(id)
+        console.log("ID garantido:", id)
+        deleteMutate.mutate(id, {
+            onSuccess: () => {
+                deleteAberto(false)
+                setItemToDeleteId(null)
+            }
+        })
+        deleteAberto(false)
     }
 
     const alterarMenuItem = (data: IMenuItem) => {
@@ -47,7 +58,7 @@ const AlterarMenuItem = (item: IMenuItem) => {
                     <p>{item.name}</p>
                     <p>{item.description}</p>
                     <p>{item.price}</p>             
-                    <div onClick={() => corfirmaExcluir(item.id)}>
+                    <div onClick={() => corfirmaExcluir(item.id!)}>
                         <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
                     </div>
                     <div onClick={() => alterarItemMenu()} className="flex justify-center">

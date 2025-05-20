@@ -24,15 +24,15 @@ const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
     return response;
 }
 
-// const putData = async (data: IGetOrder): AxiosPromise<any> => {
-//     const token = localStorage.getItem('token')
-//     const response = axios.put(API_URL + '/order/item', data, {
-//         headers: {
-//             'Authorization': `Bearer ${token}`,
-//         },
-//     })
-//     return response
-// }
+const postOrderCompleted = async (id: any): AxiosPromise<any> => {
+    const token = localStorage.getItem('token')
+    const response = axios.post(API_URL + `/order/${id}/finish`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
+    return response
+}
 
 const putOrder = async (data: IGetOrder): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
@@ -44,7 +44,7 @@ const putOrder = async (data: IGetOrder): AxiosPromise<any> => {
     return response
 }
 
-const deleteOrder = async (id: IGetOrder): AxiosPromise<any> => {
+const deleteOrder = async (id: number): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
     const response = axios.delete(API_URL + `/order/${id}`, {
         headers: {
@@ -59,6 +59,14 @@ export function useOrderMutate() {
 
     const postOrderMutate = useMutation({
         mutationFn: postOrder,
+        retry: 2,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['order']})
+        }
+    })
+
+    const postOrderFinished = useMutation({
+        mutationFn: postOrderCompleted,
         retry: 2,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['order']})
@@ -92,5 +100,5 @@ export function useOrderMutate() {
         }
     })
 
-    return { postOrderMutate, postOrderItemMutate, putOrderMutate, deleteMutate };
+    return { postOrderMutate, postOrderFinished, postOrderItemMutate, putOrderMutate, deleteMutate }
 }

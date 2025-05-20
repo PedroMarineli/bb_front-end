@@ -1,19 +1,31 @@
 import { useEffect, useMemo, useState } from "react";
-import Botao from "../../components/Botao";
 import { useOrder } from "../../hooks/useOrder";
+import { useOrderMutate } from "../../hooks/useOrderMutate";
+import Botao from "../../components/Botao";
+import opcoes from "../../json/opcoesPagamento.json";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { deleteState } from "../../state/atom";
+import Avisos from "../../components/Avisos";
+import { IGetOrder } from "../../interface/IOrder";
+
+interface OpcaoPagamento {
+  id: number
+  pagamento: string
+  metodo: "CASH" | "PIX" | "CREDIT-CARD" | "DEBIT-CARD"
+}
 
 const Caixa = () => {
     const { listOrder, isLoading } = useOrder()
     const [orders, setOrders] = useState<number | null>(null)
     const [ordersDisponiveis, setOrdersDisponiveis] = useState<number[]>([])
     const [errorOrders, setErrorOrders] = useState<string | null>(null)
-
-    const opcoes = [
-        { pagamento: "Dinheiro" },
-        { pagamento: "Pix" },
-        { pagamento: "Cartão de Crédito" },
-        { pagamento: "Cartão de Débito" }
-    ]
+    const { postOrderFinished } = useOrderMutate()
+    const deleteFechado = useRecoilValue(deleteState)
+    const deleteAberto = useSetRecoilState(deleteState)
+    const [metodoPag, setMetodoPag] = useState<OpcaoPagamento['metodo']>("CASH")
+    const opcoesPagamento = opcoes as OpcaoPagamento[]
+    const { putOrderMutate } = useOrderMutate()
+    const [pedidoIdParaFinalizar, setPedidoIdParaFinalizar] = useState<number | null>(null)
 
     useEffect(() => {
         const fetchOrders = async() => {
@@ -59,11 +71,31 @@ const Caixa = () => {
 
     const pedidoSelecionado = useMemo(() => {
         return listOrder?.find(pedido => pedido.desk?.id === orders)
-    }, [listOrder, orders]);
+    }, [listOrder, orders])
+
+    const corfirmaFinalizacao = (e: React.FormEvent, id: any, status: any, deskId: any) => {
+        e.preventDefault()
+        setPedidoIdParaFinalizar(id)
+        deleteAberto(true)
+        const paymentMethod: IGetOrder = {
+            id: id,
+            orderStatus: status,
+            desk: {id: deskId},
+            paymentMethod: metodoPag
+        }
+        putOrderMutate.mutate(paymentMethod)
+    }
+
+    const completedOrder = () => {
+        if (pedidoIdParaFinalizar) {
+            console.log(pedidoIdParaFinalizar);
+            postOrderFinished.mutate(pedidoIdParaFinalizar);
+        }
+    }
 
     return (
         <section className="telaBranca grid gap-10">
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-2">
                 <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={retrocederOrder} disabled={orders === null || orders === ordersDisponiveis[0]}>-</button>
                 <span className='text-2xl'>Mesa {orders !== null ? orders : 'Selecione'}</span>
                 <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={avancarOrder} disabled={orders === null || orders === ordersDisponiveis[ordersDisponiveis.length - 1]}>+</button>
@@ -91,22 +123,36 @@ const Caixa = () => {
                     <p>Total: R${pedidoSelecionado.totalValue?.toFixed(2)}</p>
                 </div>)
             }
-            <div className="flex items-center justify-around">
+            <form className="flex items-center justify-around" onSubmit={(e) => corfirmaFinalizacao(e, pedidoSelecionado?.id, pedidoSelecionado?.orderStatus, pedidoSelecionado?.desk?.id)}>
                 <div className="grid gap-2">
                     <p className="pl-6">Opções de pagamento:</p>
                     <ul className="grid gap-1">
-                        {opcoes.map((opcao) => (
-                            <li className="flex items-center gap-2">
-                                <input type="checkbox" className="w-6 h-6 bg-transparent border-black rounded-2xl hover:ring-black"/>
+                        {opcoesPagamento.map((opcao: OpcaoPagamento) => (
+                            <li key={opcao.id} className="flex items-center gap-2">
+                                <input
+                                    type="radio" 
+                                    name="metodo" 
+                                    className="w-6 h-6 bg-transparent border-black rounded-2xl hover:ring-black"
+                                    checked={metodoPag === opcao.metodo}
+                                    onChange={() => setMetodoPag(opcao.metodo)}
+                                />
                                 {opcao.pagamento}
                             </li>
                         ))}
                     </ul>
                 </div>
-                <Botao children="Finalizar Pedido"/>
-            </div>
+                <button>
+                    <Botao>Finalizar Pedido</Botao>
+                </button>
+            </form>
+            { deleteFechado && <Avisos title="Finalizar Pedido" text={(
+                <div className='grid gap-8 justify-center'>
+                    <p>Pedido a ser finalizado?! Deseja mesmo realizar essa ação?!.</p>
+                    <button onClick={() => completedOrder()}>Finalizar</button>
+                </div>
+            )}/> }
         </section>
     )
 }
 
-export default Caixa;
+export default Caixa
