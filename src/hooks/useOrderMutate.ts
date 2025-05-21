@@ -26,11 +26,15 @@ const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
 
 const postOrderCompleted = async (id: number): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
-    const response = axios.post(API_URL + `/order/${id}/finish`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        },
-    })
+    const response = axios.post(
+        API_URL + `/order/${id}/finish`,
+        null, // <--- Sem corpo de requisição, ou pode ser {} se o backend espera um JSON vazio
+        { // <--- Este é o objeto de configuração, onde os headers devem ir
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        }
+    );
     return response
 }
 

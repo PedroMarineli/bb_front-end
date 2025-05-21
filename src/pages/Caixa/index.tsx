@@ -83,14 +83,16 @@ const Caixa = () => {
             desk: {id: deskId},
             paymentMethod: metodoPag
         }
-        console.log(paymentMethod)
         putOrderMutate.mutate(paymentMethod)
     }
 
     const completedOrder = () => {
         if (pedidoIdParaFinalizar) {
-            console.log(pedidoIdParaFinalizar)
-            postOrderFinished.mutate(pedidoIdParaFinalizar)
+            postOrderFinished.mutate(pedidoIdParaFinalizar, {
+                onSuccess: () => {
+                    console.log("deu certo")
+                }
+            })
         }
     }
 
@@ -149,7 +151,7 @@ const Caixa = () => {
             { deleteFechado && <Avisos title="Finalizar Pedido" text={(
                 <div className='grid gap-8 justify-center'>
                     <p>Pedido a ser finalizado?! Deseja mesmo realizar essa ação?!.</p>
-                    <button onClick={() => completedOrder()}>Finalizar</button>
+                    <button onClick={completedOrder}>Finalizar</button>
                 </div>
             )}/> }
         </section>
