@@ -12,24 +12,31 @@ const AlterarMenuItem = (item: IMenuItem) => {
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
     const { putMutate, deleteMutate } = useMenuItemMutate()
-    const [formVisivel, setFormVisivel] = useState(false)  
     const [itemToDeleteId, setItemToDeleteId] = useRecoilState(itemToDeleteState)
+    const [formVisivel, setFormVisivel] = useState(false)  
+    const [error, setError] = useState<boolean>(false)
     
+    const alterarItemMenu = () => {
+        setFormVisivel(true)
+    }
+
     const corfirmaExcluir = (id: any) => {
         deleteAberto(true)
         setItemToDeleteId(id)
     }
 
     const excluirMenuItem = (id: any) => {
-        console.log("ID garantido:", id)
         deleteMutate.mutate(id, {
             onSuccess: () => {
                 setItemToDeleteId(null)
+                setError(false)
             },
-            onError: (error) => {
-                console.error("Falha durante a mutação:", error)
+            onError: () => {
+                setError(true)
+                setTimeout(() => setError(false), 3000)
             }
         })
+        deleteAberto(false)
     }
 
     const alterarMenuItem = (data: IMenuItem) => {
@@ -39,9 +46,13 @@ const AlterarMenuItem = (item: IMenuItem) => {
     if (deleteMutate?.isSuccess) {
         return <Exclusao/>
     }
-    
-    const alterarItemMenu = () => {
-        setFormVisivel(true)
+
+    if (error) {
+        return (
+            <div className="fixed top-0 left-0 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded m-4 z-50">
+                <span className="block sm:inline">Ops! Houve algum erro! Provavelmente o item que você gostaria de excluir está sendo processado.</span>
+            </div>
+        )
     }
     
     if(formVisivel) {
@@ -71,14 +82,6 @@ const AlterarMenuItem = (item: IMenuItem) => {
                     <button onClick={() => itemToDeleteId !== null && excluirMenuItem(itemToDeleteId)}>Excluir</button>
                 </div>
             )}/> }
-            {/* {errorMessage && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                    <span className="block sm:inline">{errorMessage}</span>
-                    <button onClick={() => setErrorMessage(null)} className="absolute top-0 right-0 px-2 py-1">
-                        ×
-                    </button>
-                </div>
-            )} */}
         </div>
     )
 }

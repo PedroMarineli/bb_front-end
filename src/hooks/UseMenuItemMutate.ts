@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosPromise } from "axios"
+import axios, { AxiosPromise } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IMenuItem, IPostMenuItem } from "../interface/IMenu";
 
@@ -58,23 +58,6 @@ export function useMenuItemMutate() {
         retry: 2,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['menuItem']})
-        },
-        onError: (error: AxiosError) => {
-            // Tratamento detalhado do erro
-            if (error.response) {
-                // Erro com resposta do servidor (4xx, 5xx)
-                console.error("Erro na resposta do servidor:", {
-                    status: error.response.status,
-                    data: error.response.data,
-                    headers: error.response.headers
-                });
-            } else if (error.request) {
-                console.error("Sem resposta do servidor:", error.request);
-            } else {
-                console.error("Erro na configuração da requisição:", error.message);
-            }
-            console.error("Configuração da requisição falha:", error.config);
-            
         }
     })
 
