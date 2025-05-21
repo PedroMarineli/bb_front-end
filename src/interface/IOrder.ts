@@ -4,7 +4,7 @@ import { IMenuItem } from "./IMenu"
 export interface IGetOrder {
     id?: number,
     totalValue?: number,
-    paymentMethod?: "CASH" | "PIX" | "CREDIT-CARD" | "DEBIT-CARD",
+    paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT_CARD",
     orderItems?: [IPostOrderItem],
     orderStatus?: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED",
     desk?: IMesa,

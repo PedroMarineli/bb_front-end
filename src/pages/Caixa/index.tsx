@@ -11,7 +11,7 @@ import { IGetOrder } from "../../interface/IOrder";
 interface OpcaoPagamento {
   id: number
   pagamento: string
-  metodo: "CASH" | "PIX" | "CREDIT-CARD" | "DEBIT-CARD"
+  metodo: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT_CARD"
 }
 
 const Caixa = () => {
@@ -83,6 +83,7 @@ const Caixa = () => {
             desk: {id: deskId},
             paymentMethod: metodoPag
         }
+        console.log(paymentMethod)
         putOrderMutate.mutate(paymentMethod)
     }
 

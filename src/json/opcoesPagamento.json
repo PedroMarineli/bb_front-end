@@ -11,12 +11,12 @@
     },
     { 
         "pagamento": "Cartão de Crédito",
-        "metodo": "CREDIT-CARD", 
+        "metodo": "CREDIT_CARD", 
         "id": 3 
     },
     { 
         "pagamento": "Cartão de Débito",
-        "metodo": "DEBIT-CARD",
+        "metodo": "DEBIT_CARD",
         "id": 4 
     }
 ]
