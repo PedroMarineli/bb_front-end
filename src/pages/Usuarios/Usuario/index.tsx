@@ -1,4 +1,5 @@
 import lataLixo from "../../../../public/icons/lata-de-lixo.png";
+import alterar from "../../../../public/icons/alterar.png";
 import userIcon from "../../../../public/icons/blackUserIcon.png";
 import { IUpdateUser } from "../../../interface/IUsers";
 import { useUserMutate } from "../../../hooks/useUserMutate";
@@ -47,12 +48,16 @@ const Usuario = (user: IUpdateUser) => {
                 </div>
                 <p>{user.username}</p>
                 <p>{user.role}</p>
-                { usuarioLogado?.role == "ADMIN" &&                 
-                    <div onClick={() => corfirmaExcluir(user.id)}>
-                        <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
-                    </div>
+                { usuarioLogado?.role == "ADMIN" &&    
+                    <div className="flex gap-16">
+                        <div onClick={() => corfirmaExcluir(user.id)}>
+                            <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                        </div>
+                        <div onClick={() => callAlterarUser()}>
+                            <img src={alterar} alt="Alterar" className='w-12 cursor-pointer'/>
+                        </div>
+                    </div>             
                 }
-                { usuarioLogado?.role == "ADMIN" && <button onClick={() => callAlterarUser()}>Alterar</button> }
             </div>
             { deleteFechado && <Avisos title="Excluir Usuário" text={(
                 <div className='grid gap-8 justify-center'>

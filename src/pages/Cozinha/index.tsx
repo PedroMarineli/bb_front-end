@@ -6,6 +6,7 @@ import { useOrderMutate } from '../../hooks/useOrderMutate';
 import { deleteState } from '../../state/atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import lataLixo from "../../../public/icons/lata-de-lixo.png";
+import alterar from "../../../public/icons/alterar.png";
 import Avisos from '../../components/Avisos';
 
 const Cozinha = () => {
@@ -80,7 +81,7 @@ const Cozinha = () => {
                             {listOrder?.map(pedido => (
                                 <>
                                     {pedido.orderStatus !== "DELIVERED" &&
-                                        <div className='flex gap-14 items-start' key={pedido.id}>
+                                        <div className='flex gap-14 items-center' key={pedido.id}>
                                             <div className='flex'>
                                                 <h2 className='text-2xl w-28'>Mesa {pedido.desk?.id}</h2>
                                                 <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
@@ -102,11 +103,13 @@ const Cozinha = () => {
                                                 ))}
                                             </ul>
                                             {pedido.orderStatus === "CREATED" &&
-                                                <div>
+                                                <div className='flex gap-5'>
                                                     <div onClick={() => corfirmaExcluir(pedido.id)}>
-                                                        <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
+                                                        <img src={lataLixo} alt="Lata de lixo" className='w-14 cursor-pointer'/>
                                                     </div>
-                                                    <button className="pt-5 text-right" onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}> Alterar </button>
+                                                    <div onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}>
+                                                        <img src={alterar} alt="Alterar" className='w-14 cursor-pointer'/>
+                                                    </div >
                                                 </div>
                                             }
                                         </div>
