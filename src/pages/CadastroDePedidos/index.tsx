@@ -1,6 +1,8 @@
+import Botao from "../../components/Botao";
+import MenuItemCard from "../../components/MenuItemCard";
+import Avisos from "../../components/Avisos";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Botao from "../../components/Botao";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
@@ -8,10 +10,8 @@ import { useDesk } from "../../hooks/useDesk";
 import { ICreateOrder, IPostOrderItem, IGetOrder } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { useOrder } from "../../hooks/useOrder";
-import MenuItemCard from "../../components/MenuItemCard";
 import { IMenuItem } from "../../interface/IMenu";
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
-import Avisos from "../../components/Avisos";
 
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
@@ -21,8 +21,6 @@ const CadastroDePedidos = () => {
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
     const [description, setDescription] = useState("")
-    const [isLoadingMesas, setIsLoadingMesas] = useState(true)
-    const [errorMesas, setErrorMesas] = useState<string | null>(null)
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderToCompare, setOrderToCompare] = useState<IGetOrder | undefined>(undefined)
     const [ativado, setAtivado] = useState(false)
@@ -38,8 +36,6 @@ const CadastroDePedidos = () => {
 
     useEffect(() => {
         const fetchMesasDisponiveis = async() => {
-            setIsLoadingMesas(true)
-            setErrorMesas(null)
             try {
                 if (mesas?.content) { // Filtra apenas os IDs das mesas não preenchidas (se necessário)
                     const ids = mesas?.content
@@ -48,19 +44,17 @@ const CadastroDePedidos = () => {
                     .filter((id): id is number => id !== undefined) // Garante que não há undefined
                     .sort((a, b) => a - b) // Ordena os IDs
                     
-                    setMesasDisponiveisIds(ids);
+                    setMesasDisponiveisIds(ids)
                     if (ids.length > 0 && mesaSelecionada === null) {
-                        setMesaSelecionada(ids[0]);
+                        setMesaSelecionada(ids[0])
                     }
                 } else {
-                    setErrorMesas('Erro ao buscar mesas disponíveis.')
+                    console.log('Erro ao buscar mesas disponíveis.')
                 }
             } catch (error: any) {
-                setErrorMesas('Erro ao buscar mesas: ' + error.message)
-            } finally {
-                setIsLoadingMesas(false)
+                console.log('Erro ao buscar mesas: ' + error.message)
             }
-        };
+        }
         fetchMesasDisponiveis()
     }, [mesas])
 
@@ -101,16 +95,17 @@ const CadastroDePedidos = () => {
                         order: { id: orderToCompare.id },
                         description
                     }
-                    //console.log('Dados a serem enviados:', orderItem)
-                    postOrderItemMutate.mutate(orderItem)
+                    postOrderItemMutate.mutate(orderItem, {
+                        onSuccess: () => {
+                            refetch()
+                        }
+                    })
                 }
+            } else {
+                alert('Por favor, adicione itens ao pedido.')
+                return
             }
         }
-    
-        // if (orderItem.length === 0) {
-        //     alert('Por favor, adicione itens ao pedido.')
-        //     return
-        // }
     
         setAtivado(!ativado)
         refetch()
@@ -160,10 +155,6 @@ const CadastroDePedidos = () => {
         }
     }
 
-    const alterarCardapio = () => {
-        navigate("/bb-alterar-cardapio")
-    }
-
     return (
         <div>
             <section className="telaBranca grid gap-5">
@@ -201,7 +192,7 @@ const CadastroDePedidos = () => {
                     </div>
                 </div>
             </section>
-            { usuarioLogado?.role == "ADMIN" && <button onClick={alterarCardapio} className="pt-5 text-right">Alterar Cardápio</button> }
+            { usuarioLogado?.role == "ADMIN" && <button onClick={() => navigate("/bb-alterar-cardapio")} className="pt-5 text-right">Alterar Cardápio</button> }
             { fechado && <Avisos title="Pedido Enviado" text={<p>Pedido enviado com sucesso!</p>}/> }
         </div>
     )

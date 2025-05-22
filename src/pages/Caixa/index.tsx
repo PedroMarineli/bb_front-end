@@ -18,20 +18,22 @@ const Caixa = () => {
     const { listOrder, isLoading } = useOrder()
     const [orders, setOrders] = useState<number | null>(null)
     const [ordersDisponiveis, setOrdersDisponiveis] = useState<number[]>([])
-    const [errorOrders, setErrorOrders] = useState<string | null>(null)
     const { postOrderFinished } = useOrderMutate()
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
     const [metodoPag, setMetodoPag] = useState<OpcaoPagamento['metodo']>("CASH")
     const opcoesPagamento = opcoes as OpcaoPagamento[]
-    const { putOrderMutate } = useOrderMutate()
+    const { putOrderMutate, deleteMutate } = useOrderMutate()
     const [pedidoIdParaFinalizar, setPedidoIdParaFinalizar] = useState<number | null>(null)
+
+    // '?? []' -> garante que listOrder seja um array, mesmo se for undefined ou null inicialmente
+    const deliveredOrders = listOrder?.filter(pedido => pedido.orderStatus === "DELIVERED") ?? []
 
     useEffect(() => {
         const fetchOrders = async() => {
             try {
-                if(listOrder) {
-                    const ids = listOrder
+                if(deliveredOrders) {
+                    const ids = deliveredOrders
                     .map(order => order.desk?.id)
                     .filter((desk): desk is number => desk !== undefined)
                     .sort((a, b) => a - b)
@@ -42,14 +44,14 @@ const Caixa = () => {
                         setOrders(ids[0])
                     }
                 } else {
-                    setErrorOrders('Erro ao buscar mesas disponíveis.')
+                    console.log('Erro ao buscar mesas disponíveis.')
                 }
             } catch (error: any) {
-                setErrorOrders('Erro ao buscar mesas: ' + error.message)
+                console.log('Erro ao buscar mesas: ' + error.message)
             }
         }
         fetchOrders()
-    }, [listOrder])
+    }, [deliveredOrders])
 
     const avancarOrder = () => {
         if (orders !== null && ordersDisponiveis.length > 0) {
@@ -70,8 +72,8 @@ const Caixa = () => {
     }
 
     const pedidoSelecionado = useMemo(() => {
-        return listOrder?.find(pedido => pedido.desk?.id === orders)
-    }, [listOrder, orders])
+        return deliveredOrders?.find(pedido => pedido.desk?.id === orders)
+    }, [deliveredOrders, orders])
 
     const corfirmaFinalizacao = (e: React.FormEvent, id: any, status: any, deskId: any) => {
         e.preventDefault()
@@ -90,7 +92,7 @@ const Caixa = () => {
         if (pedidoIdParaFinalizar) {
             postOrderFinished.mutate(pedidoIdParaFinalizar, {
                 onSuccess: () => {
-                    console.log("deu certo")
+                    deleteMutate.mutate(pedidoIdParaFinalizar)
                 }
             })
         }

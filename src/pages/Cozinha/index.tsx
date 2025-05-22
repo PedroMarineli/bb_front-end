@@ -16,8 +16,6 @@ const Cozinha = () => {
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
 
-    console.log(listOrder)
-
     const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED", id: any, deskId: any) => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | "DELIVERED" | undefined = undefined
 
