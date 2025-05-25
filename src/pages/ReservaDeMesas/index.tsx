@@ -29,9 +29,12 @@ const ReservaDeMesas = () => {
         const deskData: IDeskNumber = {
             deskNumber
         }
-        postMutate.mutate(deskData)
-        setAtivado(!ativado)
-        refetch()
+        postMutate.mutate(deskData, {
+            onSuccess: () => {
+                setAtivado(!ativado)
+                refetch()
+            }
+        })
     }
 
     const statusMesa = (id: any) => {

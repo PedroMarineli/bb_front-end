@@ -24,7 +24,7 @@ export interface IOrderResponse {
 export interface IPostOrderItem {
     quantity?: number,
     menuItem?: IMenuItem,
-    order: { id: number },
+    order: { id?: number },
     description?: string
 }
 
@@ -34,11 +34,11 @@ export interface ICreateOrder {
 }
 
 export interface IUpdateOrder {
-    id: number,
+    id?: number,
     quantity: number,
     menuItem: IMenuItem,
     order: {
-        id: number,
+        id?: number,
         //description: string
     }
 }

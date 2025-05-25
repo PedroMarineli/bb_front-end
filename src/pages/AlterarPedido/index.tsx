@@ -15,6 +15,7 @@ const AlterarPedido = () => {
     const { postOrderItemMutate } = useOrderMutate()
     const [description, setDescription] = useState("")
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
+    const [orderId, setOrderId] = useState<number | undefined>(undefined)
     const [items, setItems] = useState<IMenuItem[]>([])
     const categorias: { [categoria: string]: IMenuItem[] } = {}
     //const navigate = useNavigate()
@@ -23,12 +24,16 @@ const AlterarPedido = () => {
     const alterarStatus = () => {
         aberto(true)
     }
-
-
     const location = useLocation();
     const { pedido } = location.state as { pedido: IGetOrder }
 
-    console.log(pedido)
+    useEffect(() => {
+        setOrderId(pedido.id)
+    }, [])
+
+
+
+    //console.log(pedido)
 
     useEffect(() => {
         if (data?.content) {
@@ -50,11 +55,12 @@ const AlterarPedido = () => {
                 const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
                 if (menuItem) {
                     const updateOrder: IUpdateOrder = {
-                        id,
+                        id: orderId,
                         quantity,
                         menuItem,
                         order: { id: pedido.id }
                     }
+                    console.log(updateOrder)
                     postOrderItemMutate.mutate(updateOrder)
                 }
             }
