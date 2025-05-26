@@ -4,7 +4,7 @@ export interface IMenu {
 }
 
 export interface IMenuItem {
-    id?: number,
+    id: number,
     name: string,
     description?: string,
     price?: number,

@@ -16,7 +16,7 @@ import { useUsuarioLogado } from "../../context/UserLogadoContext";
 const CadastroDePedidos = () => {
     const { data, isLoading, refetch } = useMenuItem()
     const { mesas } = useDesk()
-    const { postOrderMutate, postOrderItemMutate } = useOrderMutate()
+    const { postOrderMutate, postOrderItemMutate, putOrderMutate } = useOrderMutate()
     const { listOrder } = useOrder()
     const [mesasDisponiveisIds, setMesasDisponiveisIds] = useState<number[]>([])
     const [mesaSelecionada, setMesaSelecionada] = useState<number | null>(null)
@@ -95,13 +95,27 @@ const CadastroDePedidos = () => {
                     const orderItem: IPostOrderItem = {
                         quantity,
                         menuItem,
-                        order: { id: orderToCompare.id },
-                        description
+                        order: { id: orderToCompare.id }
                     }
                     postOrderItemMutate.mutate(orderItem)
                 }
             }
         }
+
+        const orderDescription: IGetOrder = {
+            id: orderToCompare.id,
+            orderStatus: "CREATED",
+            desk: {id: mesaSelecionada},
+            description
+        }
+        putOrderMutate.mutate(orderDescription, {
+            onSuccess: () => {
+                refetch()
+            },
+            onError: (error) => {
+                console.error("Erro ao atualizar status do pedido:", error)
+            }
+        })
         
         if (!hasItems) {
             alert('Por favor, adicione itens ao pedido.');

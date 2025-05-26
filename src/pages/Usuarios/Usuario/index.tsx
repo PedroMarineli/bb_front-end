@@ -51,10 +51,10 @@ const Usuario = (user: IUpdateUser) => {
                 { usuarioLogado?.role == "ADMIN" &&    
                     <div className="flex gap-16">
                         <div onClick={() => corfirmaExcluir(user.id)}>
-                            <img src={lataLixo} alt="Lata de lixo" className='w-12 cursor-pointer'/>
+                            <img src={lataLixo} alt="Lata de lixo" className='w-8 cursor-pointer'/>
                         </div>
                         <div onClick={() => callAlterarUser()}>
-                            <img src={alterar} alt="Alterar" className='w-12 cursor-pointer'/>
+                            <img src={alterar} alt="Alterar" className='w-8 cursor-pointer'/>
                         </div>
                     </div>             
                 }

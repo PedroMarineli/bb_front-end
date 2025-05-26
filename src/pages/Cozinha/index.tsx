@@ -16,6 +16,7 @@ const Cozinha = () => {
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
+    console.log(listOrder)
 
     const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED", id: any, deskId: any) => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | "DELIVERED" | undefined = undefined
@@ -106,7 +107,7 @@ const Cozinha = () => {
                                                     </li>
                                                 ))}
                                             </ul>
-                                            {pedido.orderStatus === "CREATED" &&
+                                            {(pedido.orderStatus === "CREATED" || pedido.orderStatus === null) &&
                                                 <div className='flex gap-5'>
                                                     <div onClick={() => corfirmaExcluir(pedido.id)}>
                                                         <img src={lataLixo} alt="Lata de lixo" className='w-14 cursor-pointer'/>

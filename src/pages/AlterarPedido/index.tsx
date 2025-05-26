@@ -12,28 +12,33 @@ import MenuItemCard from "../../components/MenuItemCard";
 
 const AlterarPedido = () => {
     const { data, isLoading, refetch } = useMenuItem()
-    const { postOrderItemMutate } = useOrderMutate()
+    const { postOrderItemMutate, putOrderMutate } = useOrderMutate()
     const [description, setDescription] = useState("")
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderId, setOrderId] = useState<number | undefined>(undefined)
     const [items, setItems] = useState<IMenuItem[]>([])
     const categorias: { [categoria: string]: IMenuItem[] } = {}
-    //const navigate = useNavigate()
     const fechado = useRecoilValue(menuState)
     const aberto = useSetRecoilState(menuState)
-    const alterarStatus = () => {
-        aberto(true)
-    }
-    const location = useLocation();
+    const alterarStatus = () => { aberto(true) }
+    const location = useLocation()
     const { pedido } = location.state as { pedido: IGetOrder }
 
     useEffect(() => {
         setOrderId(pedido.id)
-    }, [])
 
-
-
-    //console.log(pedido)
+        if (pedido?.orderItems) {
+            const initialQuantities: { [itemId: number]: number } = {}
+            
+            pedido.orderItems.forEach(orderItem => {
+                if (orderItem.menuItem?.id && orderItem.quantity > 0) {
+                    initialQuantities[orderItem.menuItem.id] = orderItem.quantity
+                }
+            })
+            
+            setQuantidade(initialQuantities)
+        }
+    }, [pedido])
 
     useEffect(() => {
         if (data?.content) {
@@ -65,6 +70,15 @@ const AlterarPedido = () => {
                 }
             }
         }    
+
+        const orderDescription: IGetOrder = {
+            id: orderId,
+            orderStatus: pedido.orderStatus,
+            desk: {id: pedido.desk?.id},
+            description
+        }
+        putOrderMutate.mutate(orderDescription)
+
         refetch()
     }
 
@@ -86,7 +100,7 @@ const AlterarPedido = () => {
         <div>
             <section className="telaBranca grid gap-5">
                 <div className="flex justify-center items-center gap-3">
-                    <span>Mesa {pedido.desk?.id}</span>
+                    <h2 className='text-2xl justify-center'>Mesa {pedido.desk?.id}</h2>
                 </div>
                 <div>
                     {isLoading ? <p>Carregando...</p> : <div className="grid gap-5">
