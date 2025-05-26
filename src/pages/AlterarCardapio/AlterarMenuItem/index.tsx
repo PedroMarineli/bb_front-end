@@ -1,5 +1,6 @@
 import { IMenuItem } from "../../../interface/IMenu";
 import lataLixo from "../../../../public/icons/lata-de-lixo.png";
+import alterar from "../../../../public/icons/alterar.png";
 import { useMenuItemMutate } from "../../../hooks/UseMenuItemMutate";
 import Exclusao from "../../../components/Exclusao";
 import { useState } from "react";
@@ -66,18 +67,18 @@ const AlterarMenuItem = (item: IMenuItem) => {
     return (
         <div>
             <li key={item.id} className='list-none'>
-                <div className={`flex justify-between gap-5 items-center ${item.available ? 'opacity-100' : 'opacity-40'}`}>
-                    <p>{item.name}</p>
-                    <p>{item.description}</p>
-                    <div className="flex gap-5">
-                        <p className="mr-8">{item.price}</p>
-                        <div onClick={() => corfirmaExcluir(item.id!)}>
-                            <img src={lataLixo} alt="Lata de lixo" className='h-8 w-8 cursor-pointer'/>
+                <div className={`grid grid-cols-12 gap-4 items-center ${item.available ? 'opacity-100' : 'opacity-40'}`}>
+                    <p className="col-span-3">{item.name}</p>
+                    <p className="col-span-6">{item.description}</p>
+                    <div className="col-span-3 flex items-center justify-end gap-4">
+                        <p>R$ {item.price?.toFixed(2)}</p>
+                        <div onClick={() => corfirmaExcluir(item.id!)} className="cursor-pointer">
+                            <img src={lataLixo} alt="Lata de lixo" className='h-6 w-6'/>
                         </div>
-                        <div onClick={() => alterarItemMenu()} className="flex justify-center">
-                            <button>Alterar</button>
+                        <div onClick={alterarItemMenu} className="cursor-pointer">
+                            <img src={alterar} alt="Alterar" className='h-6 w-6'/>
                         </div>
-                    </div>          
+                    </div>
                 </div>
             </li>
             { deleteFechado && <Avisos title="Excluir Item" text={(
