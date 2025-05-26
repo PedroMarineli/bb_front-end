@@ -83,10 +83,13 @@ const CadastroDePedidos = () => {
             console.error('Nenhum pedido encontrado para a mesa selecionada')
             return
         }
+
+        let hasItems = false
     
         for (const itemId in quantidade) {
             const quantity = quantidade[parseInt(itemId)]
             if (quantity > 0) {
+                hasItems = true
                 const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
                 if (menuItem) {
                     const orderItem: IPostOrderItem = {
@@ -95,20 +98,17 @@ const CadastroDePedidos = () => {
                         order: { id: orderToCompare.id },
                         description
                     }
-                    postOrderItemMutate.mutate(orderItem, {
-                        onSuccess: () => {
-                            refetch()
-                        }
-                    })
+                    postOrderItemMutate.mutate(orderItem)
                 }
-            } else {
-                alert('Por favor, adicione itens ao pedido.')
-                return
             }
         }
-    
+        
+        if (!hasItems) {
+            alert('Por favor, adicione itens ao pedido.');
+            return;
+        }
+        
         setAtivado(!ativado)
-        refetch()
     }
 
     const submeterOrder = () => {
@@ -171,13 +171,17 @@ const CadastroDePedidos = () => {
                                 <h2 className='text-2xl justify-center'>{categoria}</h2>
                                 <ul className='grid gap-2'>
                                     {categorias[categoria].map(item => (
-                                        <MenuItemCard
-                                            key={item.id}
-                                            item={item}
-                                            quantidade={quantidade[item.id] || 0}
-                                            incrementQuantity={incrementQuantity}
-                                            decrementQuantity={decrementQuantity}
-                                        />
+                                        <>
+                                            {item.available &&
+                                                <MenuItemCard
+                                                    key={item.id}
+                                                    item={item}
+                                                    quantidade={quantidade[item.id] || 0}
+                                                    incrementQuantity={incrementQuantity}
+                                                    decrementQuantity={decrementQuantity}
+                                                />
+                                            }
+                                        </>
                                     ))}
                                 </ul>
                             </div>

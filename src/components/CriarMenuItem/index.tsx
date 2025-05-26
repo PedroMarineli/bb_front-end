@@ -8,7 +8,6 @@ interface Props {
 }
 
 const CriarMenuItem = ({closeModal}: Props) => {
-    const [id, setId] = useState(1)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [category, setCategory] = useState("")
@@ -24,7 +23,7 @@ const CriarMenuItem = ({closeModal}: Props) => {
             description: description,
             name: name,
             available: available,
-            menu: { id: id }
+            menu: { id: 1 }
         }
         postMutate.mutate(menuItem)
     }
@@ -53,12 +52,11 @@ const CriarMenuItem = ({closeModal}: Props) => {
                         </div>
                         <div className="form"><span>Descrição:</span><input className="input w-full" type="text" value={description} onChange={e => setDescription(e.target.value)}/></div>
                         <div className="flex items-center justify-between">
-                            <div className="form"><span>Preço:</span><input className="input w-40" type="text" value={preco} onChange={e => setPreco(e.target.value)}/></div>
-                            <div className="flex gap-5">
+                            <div className="form"><span>Preço:</span><input className="input w-56" type="text" value={preco} onChange={e => setPreco(e.target.value)}/></div>
+                            <div className="flex gap-16">
                                 <label><input type="radio" name="assinatura" onChange={() => setAvailable(true)}/>Disponível</label>
                                 <label><input type="radio" name="assinatura" onChange={() => setAvailable(false)}/>Indisponível</label>
                             </div>
-                            <input className="input w-28" type="number" value={id} onChange={e => setId(Number(e.target.value))}/>
                         </div>
                     </div>
                     <button className="btn-secondary"><Botao> Submeter </Botao></button>

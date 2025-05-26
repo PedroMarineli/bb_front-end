@@ -33,11 +33,15 @@ const Cardapio = () => {
                                 <h2 className='text-2xl'>{categoria}</h2>
                                 <ul className='grid gap-7'>
                                     {categorias[categoria].map(item => (
-                                        <li key={item.id}>
-                                            <div className='flex'>
-                                                <p>{item.name}: {item.description} - R${item.price?.toFixed(2)}</p>
-                                            </div>
-                                        </li>
+                                        <>
+                                            {item.available &&
+                                                <li key={item.id}>
+                                                    <div className='flex'>
+                                                        <p>{item.name}: {item.description} - R${item.price?.toFixed(2)}</p>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </>
                                     ))}
                                 </ul>
                             </div>

@@ -15,12 +15,14 @@ const fetchOrder = async (): AxiosPromise<IOrderResponse> => {
 }
 
 export function useOrder() {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
 
     const query = useQuery({
         queryFn: fetchOrder,
         queryKey: ['order'],
-        staleTime: 1000 * 60 * 5,
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
+        staleTime: 1000 * 60 * 5,  // 5 minutos
         retry: 2
     })
 

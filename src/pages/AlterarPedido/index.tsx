@@ -95,13 +95,17 @@ const AlterarPedido = () => {
                                 <h2 className='text-2xl justify-center'>{categoria}</h2>
                                 <ul className='grid gap-2'>
                                     {categorias[categoria].map(item => (
-                                        <MenuItemCard
-                                            key={item.id}
-                                            item={item}
-                                            quantidade={quantidade[item.id] || 0}
-                                            incrementQuantity={incrementQuantity}
-                                            decrementQuantity={decrementQuantity}
-                                        />
+                                        <>
+                                            {item.available &&
+                                                <MenuItemCard
+                                                    key={item.id}
+                                                    item={item}
+                                                    quantidade={quantidade[item.id] || 0}
+                                                    incrementQuantity={incrementQuantity}
+                                                    decrementQuantity={decrementQuantity}
+                                                />
+                                            }
+                                        </>
                                     ))}
                                 </ul>
                             </div>

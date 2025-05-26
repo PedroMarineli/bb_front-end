@@ -10,7 +10,6 @@ export interface IMenuItem {
     price?: number,
     category: string,
     available?: boolean
-    //menu?: { id?: number }
 }
 
 export interface IPostMenuItem {

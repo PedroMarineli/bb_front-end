@@ -13,7 +13,7 @@ const AlterarMenuItem = (item: IMenuItem) => {
     const deleteAberto = useSetRecoilState(deleteState)
     const { putMutate, deleteMutate } = useMenuItemMutate()
     const [itemToDeleteId, setItemToDeleteId] = useRecoilState(itemToDeleteState)
-    const [formVisivel, setFormVisivel] = useState(false)  
+    const [formVisivel, setFormVisivel] = useState(false)
     const [error, setError] = useState<boolean>(false)
     
     const alterarItemMenu = () => {
@@ -40,7 +40,11 @@ const AlterarMenuItem = (item: IMenuItem) => {
     }
 
     const alterarMenuItem = (data: IMenuItem) => {
-        putMutate.mutate(data)
+        putMutate.mutate(data, {
+            onSuccess: () => {
+                setFormVisivel(false)
+            }
+        })
     }
 
     if (deleteMutate?.isSuccess) {
@@ -62,11 +66,11 @@ const AlterarMenuItem = (item: IMenuItem) => {
     return (
         <div>
             <li key={item.id} className='list-none'>
-                <div className='flex justify-between gap-5 items-center'>
+                <div className={`flex justify-between gap-5 items-center ${item.available ? 'opacity-100' : 'opacity-40'}`}>
                     <p>{item.name}</p>
                     <p>{item.description}</p>
-                    <p>{item.price}</p>
                     <div className="flex gap-5">
+                        <p className="mr-8">{item.price}</p>
                         <div onClick={() => corfirmaExcluir(item.id!)}>
                             <img src={lataLixo} alt="Lata de lixo" className='h-8 w-8 cursor-pointer'/>
                         </div>
