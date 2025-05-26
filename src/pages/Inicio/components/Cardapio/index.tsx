@@ -10,15 +10,15 @@ const Cardapio = () => {
     
     useEffect(() => {
         if (data?.content) {
-            setItems(data.content); 
+            setItems(data.content)
         }
     }, [data?.content])
 
     items.forEach(item => {
         if (!categorias[item.category]) {
-            categorias[item.category] = [];
+            categorias[item.category] = []
         }
-        categorias[item.category].push(item);
+        categorias[item.category].push(item)
     })
 
     return (
