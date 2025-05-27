@@ -81,46 +81,55 @@ const Cozinha = () => {
             <div className="flex justify-between gap-10">
                 <div className='grid w-full'>
                     <section className="telaBranca grid gap-5 ">
-                        {isLoading ? <p>Carregando...</p> : <>
-                            {listOrder?.map(pedido => (
-                                <>
-                                    {pedido.orderStatus !== "DELIVERED" &&
-                                        <div className='flex gap-14 items-center' key={pedido.id}>
-                                            <div className='flex'>
-                                                <h2 className='text-2xl w-28'>Mesa {pedido.desk?.id}</h2>
-                                                <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
-                                            </div>
-                                            <ul className='w-full'>
-                                                {pedido.orderItems?.map((item) => (
-                                                    <li key={item.menuItem?.id}>
-                                                        <div className='flex justify-between'>
-                                                            <p>{item.menuItem?.name}</p>
-                                                            <p>{item.quantity}</p>
-                                                        </div>
-                                                        {pedido.description &&
-                                                            <div className='grid gap-7'>
-                                                                <h2 className='text-2xl text-center pt-7'>Observações:</h2>
-                                                                <span className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"></span>
-                                                            </div>
-                                                        }
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                            {(pedido.orderStatus === "CREATED" || pedido.orderStatus === null) &&
-                                                <div className='flex gap-5'>
-                                                    <div onClick={() => corfirmaExcluir(pedido.id)}>
-                                                        <img src={lataLixo} alt="Lata de lixo" className='w-14 cursor-pointer'/>
+                        {isLoading ? (
+                            <p>Carregando...</p>
+                        ) : (
+                            <>
+                                {listOrder?.length > 0 ? (
+                                    listOrder.map(pedido => (
+                                        <>
+                                            {pedido.orderStatus !== "DELIVERED" &&
+                                                <div className='flex gap-14 items-center' key={pedido.id}>
+                                                    <div className='flex'>
+                                                        <h2 className='text-2xl w-28'>Mesa {pedido.desk?.id}</h2>
+                                                        <div onClick={() => pedido.orderStatus && statusPedido(pedido.orderStatus, pedido.id, pedido.desk?.id)} className={`cursor-pointer w-8 h-8 rounded-full ${getStatusColor(pedido.orderStatus)}`}></div>
                                                     </div>
-                                                    <div onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}>
-                                                        <img src={alterar} alt="Alterar" className='w-14 cursor-pointer'/>
-                                                    </div >
+                                                    <ul className='w-full'>
+                                                        {pedido.orderItems?.map((item) => (
+                                                            <li key={item.menuItem?.id}>
+                                                                <div className='flex justify-between'>
+                                                                    <p>{item.menuItem?.name}</p>
+                                                                    <p>{item.quantity}</p>
+                                                                </div>
+                                                                {pedido.description &&
+                                                                    <div className='grid gap-7'>
+                                                                        <h2 className='text-2xl text-center pt-7'>Observações:</h2>
+                                                                        <span className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black"></span>
+                                                                    </div>
+                                                                }
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                    {(pedido.orderStatus === "CREATED" || pedido.orderStatus === null) &&
+                                                        <div className='flex gap-5'>
+                                                            <div onClick={() => corfirmaExcluir(pedido.id)}>
+                                                                <img src={lataLixo} alt="Lata de lixo" className='w-14 cursor-pointer'/>
+                                                            </div>
+                                                            <div onClick={() => navigate('/bb-alterar-pedido', { state: { pedido } })}>
+                                                                <img src={alterar} alt="Alterar" className='w-14 cursor-pointer'/>
+                                                            </div >
+                                                        </div>
+                                                    }
                                                 </div>
                                             }
-                                        </div>
-                                    }
-                                </>
-                            ))}
-                        </>}
+                                            {pedido.orderStatus == "DELIVERED" && <p>Não há pedidos na fila de montagem.</p> }
+                                        </>
+                                    ))
+                                ) : (
+                                    <p>Não há pedidos na fila de montagem.</p>
+                                )}
+                            </>
+                        )}
                     </section>
                 </div>
                 <section className="telaBranca p-10 w-80 h-48">
