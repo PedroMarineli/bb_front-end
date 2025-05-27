@@ -50,15 +50,7 @@ export default function Bar() {
                 defaultColors: ["#000000"],
                 getSeriesStyle: () => ({
                     color: "#0000FF", 
-                }),
-                tooltip: {
-                    style: {
-                        color: "#000000",
-                        backgroundColor: "#ffffff",
-                        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-                        border: "1px solid #e5e7eb",
-                    }
-                }
+                })
             }}
         />
     )

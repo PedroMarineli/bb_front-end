@@ -37,7 +37,7 @@ const OcupacaoMesasPorDia = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {listReport?.mostOrderedItems.map(report => (
+                            {listReport?.mostOrderedItems?.map(report => (
                                 <tr key={report.id}>
                                     <td>{report.name}</td>
                                     <td>{report.quantity}</td>

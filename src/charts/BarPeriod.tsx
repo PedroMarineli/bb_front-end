@@ -1,37 +1,31 @@
+// Bar.tsx
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
-import { useReportByPeriod } from "../hooks/useReportByPeriod";
-import { format } from "date-fns";
 
-interface BarChartProps {
-  startDate: Date;
-  endDate: Date;
+interface MostOrderedItem {
+    id: number;
+    name: string;
+    quantity: number;
 }
 
-export default function Bar({ startDate, endDate }: BarChartProps) {
-  // Formata as datas para o formato esperado pela API
-  const formattedStart = format(startDate, "yyyy-MM-dd'T'00:00:00");
-  const formattedEnd = format(endDate, "yyyy-MM-dd'T'23:59:59");
+interface BarProps {
+    data?: MostOrderedItem[]
+}
 
-  const { listReportByPeriod, isLoading } = useReportByPeriod({
-    startDate: formattedStart,
-    endDate: formattedEnd
-  });
+export default function Bar({ data = [] }: BarProps) {
+    const chartData = React.useMemo(() => {
+        if (!data || data.length === 0) return []
 
-  // Transforma os dados para o formato que o react-charts espera
-  const data = React.useMemo(() => {
-    if (!listReportByPeriod) return [];
-
-    return [
-      {
-        label: "Itens Mais Pedidos",
-        data: listReportByPeriod.mostOrderedItems.map(item => ({
-          primary: item.name,
-          secondary: item.quantity,
-        })),
-      },
-    ];
-  }, [listReportByPeriod]);
+        return [
+            {
+                label: "Itens Mais Pedidos",
+                data: data.map(item => ({
+                    primary: item.name,
+                    secondary: item.quantity,
+                })),
+            },
+        ];
+    }, [data]);
 
     const primaryAxis = React.useMemo<AxisOptions<{ primary: string; secondary: number }>>(
         () => ({
@@ -51,27 +45,18 @@ export default function Bar({ startDate, endDate }: BarChartProps) {
         []
     )
 
-    if (isLoading) return <div>Carregando...</div>
-    if (!data.length) return <div>Nenhum dado disponível</div>
+    if (!chartData.length) return <div>Nenhum dado disponível para o período selecionado</div>
 
     return (
         <Chart
             options={{
-                data,
+                data: chartData,
                 primaryAxis,
                 secondaryAxes,
                 defaultColors: ["#000000"],
                 getSeriesStyle: () => ({
                     color: "#0000FF", 
-                }),
-                tooltip: {
-                    style: {
-                        color: "#000000",
-                        backgroundColor: "#ffffff",
-                        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-                        border: "1px solid #e5e7eb",
-                    }
-                }
+                })
             }}
         />
     )

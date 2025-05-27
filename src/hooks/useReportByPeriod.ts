@@ -5,13 +5,16 @@ import { IGetReports } from "../interface/IReport";
 const API_URL = 'http://localhost:8080';
 
 interface ReportPeriodParams {
-  startDate: string;
-  endDate: string;
+    startDate: string;
+    endDate: string;
 }
 
 const fetchReportByPeriod = async (params: ReportPeriodParams): AxiosPromise<IGetReports> => {
     const token = localStorage.getItem('token')
-    const response = await axios.get(API_URL + '/reports', {
+    
+    const url = `${API_URL}/reports/period`
+    
+    const response = await axios.get(url, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -23,20 +26,21 @@ const fetchReportByPeriod = async (params: ReportPeriodParams): AxiosPromise<IGe
     return response
 }
 
-export function useReportByPeriod(params: ReportPeriodParams) {
+export function useReportByPeriod(params?: ReportPeriodParams) {
     const queryClient = useQueryClient();
 
     const query = useQuery({
-        queryFn: () => fetchReportByPeriod(params),
-        queryKey: ['report', params.startDate, params.endDate],
+        queryFn: () => params ? fetchReportByPeriod(params) : Promise.resolve(null),
+        queryKey: ['report', params?.startDate, params?.endDate],
         retry: 2,
-        enabled: !!params.startDate && !!params.endDate // Só executa quando ambas datas estiverem definidas
+        enabled: !!params?.startDate && !!params?.endDate, // Só executa quando ambas datas estiverem definidas
+        staleTime: 0, // Adicione isso para evitar cache
     })
 
     return {
         ...query,
-        listReportByPeriod: query.data?.data || [], // Garante que sempre retorna um array
+        listReportByPeriod: query.data?.data || null,
         pagination: query.data?.data,
-        refetch: () => queryClient.refetchQueries({ queryKey: ['report', params.startDate, params.endDate] })
+        refetch: () => queryClient.refetchQueries({ queryKey: ['report', params?.startDate, params?.endDate] })
     }
 }

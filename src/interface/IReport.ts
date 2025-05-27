@@ -1,17 +1,17 @@
 export interface IGetReports {
-    mostOrderedItems: [
+    mostOrderedItems?: [
         {
             id: number,
             name: string,
             quantity: number
         }
     ],
-    leastOrderedItems: [
+    leastOrderedItems?: [
         {
             id: number,
             name: string,
             quantity: number            
         }
     ],
-    totalRevenue: number
+    totalRevenue?: number
 }
