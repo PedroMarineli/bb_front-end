@@ -11,7 +11,7 @@ const postMenuItem = async (data: IPostMenuItem): AxiosPromise<any> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 const putMenuItem = async (data: IMenuItem): AxiosPromise<any> => {
@@ -61,5 +61,5 @@ export function useMenuItemMutate() {
         }
     })
 
-    return { postMutate, putMutate, deleteMutate };
+    return { postMutate, putMutate, deleteMutate }
 }

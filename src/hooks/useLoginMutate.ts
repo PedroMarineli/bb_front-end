@@ -14,7 +14,7 @@ const postLogin = async (data: IDoLogin): AxiosPromise<any> => {
 }
 
 export function useLoginMutate() {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
 
     const mutate = useMutation({
         mutationFn: postLogin,
@@ -24,7 +24,7 @@ export function useLoginMutate() {
             queryClient.invalidateQueries({queryKey: ['login']})
         },
         onError: (error) => {
-            console.error("Erro na mutação de login:", error);
+            console.error("Erro na mutação de login:", error)
         }
     })
 

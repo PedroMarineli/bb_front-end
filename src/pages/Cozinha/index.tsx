@@ -13,10 +13,9 @@ const Cozinha = () => {
     const navigate = useNavigate();
     const { listOrder, isLoading, refetch } = useOrder()
     const { putOrderMutate, deleteMutate } = useOrderMutate()
-    const [itemToDeleteId, setItemToDeleteId] = useState(null);
+    const [itemToDeleteId, setItemToDeleteId] = useState(null)
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
-    console.log(listOrder)
 
     const statusPedido = (status: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED", id: any, deskId: any) => {
         let newStatus: "PREPARING" | "FINISHED" | "CANCELED" | "CREATED" | "DELIVERED" | undefined = undefined

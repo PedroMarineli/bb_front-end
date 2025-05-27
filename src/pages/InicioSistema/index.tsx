@@ -8,4 +8,5 @@ const InicioSistema = () => {
         </main>
     )
 }
-export default InicioSistema;
+
+export default InicioSistema

@@ -10,7 +10,7 @@ const postData = async (data: IDeskNumber): AxiosPromise<any> => {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
-    });
+    })
     return response;
 }
 
@@ -43,5 +43,5 @@ export function useDeskMutate() {
         }
     })
 
-    return { postMutate, putMutate };
+    return { postMutate, putMutate }
 }

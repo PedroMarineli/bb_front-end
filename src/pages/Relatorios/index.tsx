@@ -13,12 +13,12 @@ const Relatorios = () => {
     const { usuarioLogado } = useUsuarioLogado()
   
     const proximoRelatorio = () => {
-      setRelatorioAtual((relatorioAnterior) => (relatorioAnterior + 1) % relatorios.length);
-    };
+      setRelatorioAtual((relatorioAnterior) => (relatorioAnterior + 1) % relatorios.length)
+    }
   
     const relatorioAnterior = () => {
-      setRelatorioAtual((relatorioAnterior) => (relatorioAnterior - 1 + relatorios.length) % relatorios.length);
-    };
+      setRelatorioAtual((relatorioAnterior) => (relatorioAnterior - 1 + relatorios.length) % relatorios.length)
+    }
 
     return(
         <div>

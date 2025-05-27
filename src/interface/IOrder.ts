@@ -14,10 +14,10 @@ export interface IGetOrder {
 export interface IOrderResponse {
     content: IGetOrder[],
     page: {
-        size: number;
-        number: number;
-        totalElements: number;
-        totalPages: number;
+        size: number,
+        number: number,
+        totalElements: number,
+        totalPages: number,
     }
 }
 

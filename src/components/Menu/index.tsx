@@ -3,7 +3,7 @@ import paginas from "../../json/paginas.json";
 
 const Menu = () => {
     return (
-        <div className="menu fixed right-0 top-0">
+        <div className="menu fixed right-0 top-0 z-50">
             <ul>
                 {paginas.map((pagina) => (
                     <li key={pagina.nome}>
@@ -20,4 +20,4 @@ const Menu = () => {
     )
 }
 
-export default Menu;
+export default Menu

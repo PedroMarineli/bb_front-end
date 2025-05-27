@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080';
 
 const fetchMenuItem = async (id: any): AxiosPromise<IGetMenuItens> => {
     const response = await axios.get(API_URL + `/menu/${id}`)
-    return response;
+    return response
 }
 
 export function useMenuItem() {

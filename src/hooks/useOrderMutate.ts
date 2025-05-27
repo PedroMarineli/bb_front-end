@@ -11,7 +11,7 @@ const postOrder = async (data: ICreateOrder): AxiosPromise<any> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
@@ -21,7 +21,7 @@ const postOrderItem = async (data: IPostOrderItem): AxiosPromise<any> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 const postOrderCompleted = async (id: number): AxiosPromise<any> => {

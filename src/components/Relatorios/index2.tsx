@@ -5,4 +5,4 @@ const PratosMaisPedidos = () => {
         </div>
     )
 }
-export default PratosMaisPedidos;
+export default PratosMaisPedidos

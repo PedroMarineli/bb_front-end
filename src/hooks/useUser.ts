@@ -15,11 +15,11 @@ const fetchUsers = async (): AxiosPromise<IListUsers> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 export function useUsers() {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
 
     const query = useQuery({
         queryFn: fetchUsers,

@@ -19,4 +19,4 @@ const MenuItemCard = memo(({ item, quantidade, decrementQuantity, incrementQuant
     )
 })
 
-export default MenuItemCard;
+export default MenuItemCard

@@ -14,8 +14,8 @@ const LoginSistema = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loginError, setLoginError] = useState('')
-    const { setUsuarioLogado } = useUsuarioLogado();
-    const navigate = useNavigate();
+    const { setUsuarioLogado } = useUsuarioLogado()
+    const navigate = useNavigate()
     const aberto = useSetRecoilState(menuState)
     const alterarStatus = () => {
         aberto(false)

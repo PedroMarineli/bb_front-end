@@ -5,4 +5,4 @@ const PedidosPorDias = () => {
         </div>
     )
 }
-export default PedidosPorDias;
+export default PedidosPorDias

@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { IMenuItem } from "../../../../interface/IMenu"
+import { useState } from "react";
+import { IMenuItem } from "../../../../interface/IMenu";
 
 type Props = IMenuItem & { onClose(): void, onSubmit(body: IMenuItem): void }
 

@@ -14,7 +14,7 @@ const Usuario = (user: IUpdateUser) => {
     const { deleteMutate, putMutate } = useUserMutate()
     const [formVisivel, setFormVisivel] = useState(false)
     const { usuarioLogado } = useUsuarioLogado()
-    const [userToDeleteId, setUserToDeleteId] = useState(null);
+    const [userToDeleteId, setUserToDeleteId] = useState(null)
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
    

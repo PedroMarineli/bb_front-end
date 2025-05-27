@@ -11,7 +11,7 @@ const fetchReport = async (): AxiosPromise<IGetReports> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 export function useReport() {

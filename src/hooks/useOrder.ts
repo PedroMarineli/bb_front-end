@@ -11,7 +11,7 @@ const fetchOrder = async (): AxiosPromise<IOrderResponse> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 export function useOrder() {

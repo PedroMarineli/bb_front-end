@@ -11,7 +11,7 @@ const postUsers = async (data: ICreateUser): AxiosPromise<any> => {
             'Authorization': `Bearer ${token}`,
         },
     })
-    return response;
+    return response
 }
 
 const putUsers = async (data: IUpdateUser): AxiosPromise<any> => {
@@ -64,5 +64,5 @@ export function useUserMutate() {
         }
     })
 
-    return { postMutate, putMutate, deleteMutate };
+    return { postMutate, putMutate, deleteMutate }
 }

@@ -72,4 +72,4 @@ const ReservaDeMesas = () => {
     )
 }
 
-export default ReservaDeMesas;
+export default ReservaDeMesas
