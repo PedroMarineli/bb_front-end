@@ -27,7 +27,7 @@ const Relatorios = () => {
                     <div onClick={proximoRelatorio} className="flex flex-col absolute bottom-1/2 right-20 p-5 bg-white rounded-full border-solid border-2 border-black hover:cursor-pointer">
                         <img src={SetaDireita} alt="Seta Direita" className="w-8 h-8"/>
                     </div>
-                        <section className="telaBranca grid gap-10 h-96">
+                        <section className="telaBranca grid gap-10">
                             {relatorios[relatorioAtual]}
                         </section>
                     <div onClick={relatorioAnterior} className="flex flex-col absolute bottom-1/2 left-20 p-5 bg-white rounded-full border-solid border-2 border-black hover:cursor-pointer">
