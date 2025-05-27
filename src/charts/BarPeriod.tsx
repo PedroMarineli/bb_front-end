@@ -1,24 +1,37 @@
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
-import { useReport } from "../hooks/useReport";
+import { useReportByPeriod } from "../hooks/useReportByPeriod";
+import { format } from "date-fns";
 
-export default function Bar() {
-    const { listReport, isLoading } = useReport()
+interface BarChartProps {
+  startDate: Date;
+  endDate: Date;
+}
 
-    // Transforma os dados para o formato que o react-charts espera
-    const data = React.useMemo(() => {
-        if (!listReport) return []
-        
-        return [
-            {
-                label: "Itens Mais Pedidos",
-                data: listReport.mostOrderedItems.map(item => ({
-                    primary: item.name,
-                    secondary: item.quantity,
-                }))
-            },
-        ]
-    }, [listReport])
+export default function Bar({ startDate, endDate }: BarChartProps) {
+  // Formata as datas para o formato esperado pela API
+  const formattedStart = format(startDate, "yyyy-MM-dd'T'00:00:00");
+  const formattedEnd = format(endDate, "yyyy-MM-dd'T'23:59:59");
+
+  const { listReportByPeriod, isLoading } = useReportByPeriod({
+    startDate: formattedStart,
+    endDate: formattedEnd
+  });
+
+  // Transforma os dados para o formato que o react-charts espera
+  const data = React.useMemo(() => {
+    if (!listReportByPeriod) return [];
+
+    return [
+      {
+        label: "Itens Mais Pedidos",
+        data: listReportByPeriod.mostOrderedItems.map(item => ({
+          primary: item.name,
+          secondary: item.quantity,
+        })),
+      },
+    ];
+  }, [listReportByPeriod]);
 
     const primaryAxis = React.useMemo<AxisOptions<{ primary: string; secondary: number }>>(
         () => ({
