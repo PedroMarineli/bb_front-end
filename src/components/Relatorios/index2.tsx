@@ -65,7 +65,12 @@ const PratosMaisPedidos = () => {
             ) : (
                 <div className="h-96">
                     {listReportByPeriod?.mostOrderedItems?.length ? (
-                        <Bar data={listReportByPeriod.mostOrderedItems}/>
+                        <div className="grid gap-5">
+                            <div className="h-96">
+                                <Bar data={listReportByPeriod.mostOrderedItems}/>
+                            </div>
+                            <p>Valor total em vendas: R${listReportByPeriod?.totalRevenue}</p>
+                        </div>
                     ) : (
                         <div className="flex items-center justify-center h-full">
                             <p>Nenhum dado disponível para o período selecionado</p>
@@ -74,7 +79,7 @@ const PratosMaisPedidos = () => {
                 </div>
             )}
             {listReportByPeriod?.mostOrderedItems?.length ? (
-                <button onClick={handleGeneratePdf}>Download PDF</button>
+                <button className="mt-10" onClick={handleGeneratePdf}>Download PDF</button>
             ) : null}
             
             {showPdfContent && (
@@ -95,7 +100,7 @@ const PratosMaisPedidos = () => {
                             ))}
                         </tbody>
                     </table>
-                    <p>{listReportByPeriod?.totalRevenue}</p>
+                    <p>Valor total em vendas: R${listReportByPeriod?.totalRevenue}</p>
                 </div>
             )}
             {/* <h2>Pratos mais pedidos (últimos 30 dias)</h2> */}

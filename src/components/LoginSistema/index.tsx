@@ -8,7 +8,11 @@ import { useLoginMutate } from "../../hooks/useLoginMutate";
 import { useUsers } from "../../hooks/useUser";
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
-const LoginSistema = () => {
+interface Props {
+    chamarFale: React.MouseEventHandler<HTMLDivElement>
+}
+
+const LoginSistema = ({chamarFale}: Props) => {
     const { mutate } = useLoginMutate();
     const { users } = useUsers()
     const [username, setUsername] = useState('')
@@ -68,7 +72,7 @@ const LoginSistema = () => {
                         <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className="grid justify-items-center">
-                        <p>Esqueceu a senha?</p>
+                        <div className="cursor-pointer" onClick={chamarFale}>Esqueceu a senha?</div>
                         <p>Entre em contato com um administrador para efetuar a troca da senha.</p>
                     </div>
                     <button type="submit">

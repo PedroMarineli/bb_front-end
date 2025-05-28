@@ -1,7 +1,7 @@
 [
     {
         "nome": "Telefone",
-        "icone": "/icons/telefoneBlack.png",
+        "icone": "/icons/telephoneBlack.png",
         "texto": "14 3322-2233"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "nome": "E-mail",
-        "icone": "/icons/emailBlack.png",
+        "icone": "/icons/walletBlack.png",
         "texto": "bb.hamburguer@gmail.ocom"
     }
 ]

@@ -22,8 +22,11 @@ const OcupacaoMesasPorDia = () => {
             {isLoading ? (
                 <p>Carregando...</p>
             ) : (
-                <div className="h-96">
-                    <Bar />
+                <div className="grid gap-5">
+                    <div className="h-96">
+                        <Bar />
+                    </div>
+                    <p>Valor total em vendas: R${listReport?.totalRevenue}</p>
                 </div>
             )}
             <button onClick={handleGeneratePdf}>Download PDF</button>
@@ -45,7 +48,7 @@ const OcupacaoMesasPorDia = () => {
                             ))}
                         </tbody>
                     </table>
-                    <p>{listReport?.totalRevenue}</p>
+                    <p>Valor total em vendas: R${listReport?.totalRevenue}</p>
                 </div>
             )}
 

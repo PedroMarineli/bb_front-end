@@ -1,5 +1,5 @@
-import meios from "../../json/faleConosco.json";
-import LogoBB from "../../../public/images/logoBB.png";
+import meios from "../../../../json/faleConosco.json";
+import LogoBB from "../../../../../public/images/logoBB.png";
 
 interface Props {
     alterarStatus: React.MouseEventHandler<HTMLImageElement>
@@ -9,19 +9,21 @@ const FaleComAGente = ({alterarStatus}: Props) => {
     return (
         <div className="grid justify-items-center">
             <div className="overlay"/>
-            <div className="janela">
-                <div className="flex justify-between items-center mb-6">
+            <div className="janela grid justify-items-center gap-10">
+                <div className="flex justify-between items-center w-full">
                     <div></div>
                     <h3 className="tituloJanela text-center">Fale com a gente</h3>
                     <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarStatus}/>
                 </div>
-                <p>Tem alguma dúvida?! Alguma sugestão?! Alguma reclamação?!</p>
-                <p>Entre em contato conosco por meio destes meios abaixo!</p>
-                <ul className="grid gap-5 my-8">
+                <div className="grid gap-1 justify-items-center">
+                    <p>Tem alguma dúvida?! Alguma sugestão?! Alguma reclamação?!</p>
+                    <p>Entre em contato conosco por meio destes meios abaixo!</p>
+                </div>
+                <ul className="grid gap-3 justify-items-center">
                     {meios.map((meio) => (
-                        <li className="flex gap-6 items-center">
+                        <li className="flex gap-5 items-center">
                             <span>{meio.nome}</span>
-                            <img src={meio.icone} alt={meio.nome} className="w-9"/>
+                            <img src={meio.icone} alt={meio.nome} className="w-8"/>
                             <span>{meio.texto}</span>
                         </li>
                     ))}

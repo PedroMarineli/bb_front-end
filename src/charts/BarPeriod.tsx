@@ -1,4 +1,3 @@
-// Bar.tsx
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
 

@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import QuemSomos from "./components/QuemSomos";
 import Unidades from "./components/Unidades";
 import Cardapio from "./components/Cardapio";
-import FaleComAGente from "../../components/FaleComAGente";
+import FaleComAGente from "./components/FaleComAGente";
 import LoginSistema from "../../components/LoginSistema";
 import { useRecoilValue } from "recoil";
 import { menuState } from "../../state/atom";
@@ -11,7 +11,6 @@ import { useState } from "react";
 
 const Inicio = () => {
     const aberto = useRecoilValue(menuState)
-
     const [fale, setFale] = useState(false)
     const alterarStatus = () => {
         setFale(!fale)
@@ -33,7 +32,7 @@ const Inicio = () => {
                 </main>
             </div>
             <Footer alterarStatus={alterarStatus}/>
-            {aberto && <LoginSistema/>}
+            {aberto && <LoginSistema chamarFale={alterarStatus}/>}
             {fale && <FaleComAGente alterarStatus={alterarStatus}/>}
         </main>
     )
