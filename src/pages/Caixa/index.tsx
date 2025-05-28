@@ -100,11 +100,15 @@ const Caixa = () => {
 
     return (
         <section className="telaBranca grid gap-10">
-            <div className="flex justify-center gap-2">
-                <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={retrocederOrder} disabled={orders === null || orders === ordersDisponiveis[0]}>-</button>
-                <span className='text-2xl'>Mesa {orders !== null ? orders : 'Selecione'}</span>
-                <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={avancarOrder} disabled={orders === null || orders === ordersDisponiveis[ordersDisponiveis.length - 1]}>+</button>
-            </div>
+            {pedidoSelecionado ? (
+                <div className="flex justify-center gap-2">
+                    <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={retrocederOrder} disabled={orders === null || orders === ordersDisponiveis[0]}>-</button>
+                    <span className='text-2xl'>Mesa {orders !== null ? orders : 'Selecione'}</span>
+                    <button className="p-1 w-9 h-9 border-solid border-2 rounded-full border-black" onClick={avancarOrder} disabled={orders === null || orders === ordersDisponiveis[ordersDisponiveis.length - 1]}>+</button>
+                </div>
+            ) : (
+                <h2 className="flex justify-center gap-2">Não há nenhum pedido para ser finalizado.</h2>
+            )}
             {isLoading ? <p>Carregando...</p> : pedidoSelecionado && (                    
                 <div className='grid gap-10 text-center'>
                     <table className="text-center w-full">
@@ -128,7 +132,7 @@ const Caixa = () => {
                     <p>Total: R${pedidoSelecionado.totalValue?.toFixed(2)}</p>
                 </div>)
             }
-            <form className="flex items-center justify-around" onSubmit={(e) => corfirmaFinalizacao(e, pedidoSelecionado?.id, pedidoSelecionado?.orderStatus, pedidoSelecionado?.desk?.id)}>
+            <form className={`flex items-center justify-around ${pedidoSelecionado ? '' : 'opacity-55 pointer-events-none'}`} onSubmit={(e) => corfirmaFinalizacao(e, pedidoSelecionado?.id, pedidoSelecionado?.orderStatus, pedidoSelecionado?.desk?.id)}>
                 <div className="grid gap-2">
                     <p className="pl-6">Opções de pagamento:</p>
                     <ul className="grid gap-1">

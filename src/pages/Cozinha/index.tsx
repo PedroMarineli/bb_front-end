@@ -124,7 +124,6 @@ const Cozinha = () => {
                                                 }
                                             </li>
                                         }
-                                        {pedido.orderStatus == "DELIVERED" && <p>Não há pedidos na fila de montagem.</p> }
                                     </ul>
                                 ))
                             ) : (

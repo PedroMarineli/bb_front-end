@@ -4,12 +4,11 @@ import LogoBB from "../../../public/images/logoBB.png";
 import { useState } from "react";
 import OcupacaoMesasPorDia from "../../components/Relatorios";
 import PratosMaisPedidos from "../../components/Relatorios/index2";
-import PedidosPorDias from "../../components/Relatorios/index3";
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
 
 const Relatorios = () => {
     const [relatorioAtual, setRelatorioAtual] = useState(0)
-    const relatorios = [<OcupacaoMesasPorDia/>, <PratosMaisPedidos/>, <PedidosPorDias/>]
+    const relatorios = [<OcupacaoMesasPorDia/>, <PratosMaisPedidos/>]
     const { usuarioLogado } = useUsuarioLogado()
   
     const proximoRelatorio = () => {
@@ -46,4 +45,4 @@ const Relatorios = () => {
         </div>
     )
 }
-export default Relatorios;
+export default Relatorios
