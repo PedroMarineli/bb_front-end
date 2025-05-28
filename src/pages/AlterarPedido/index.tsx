@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useMenuItem } from "../../hooks/useMenuItem";
-import { IGetOrder, IUpdateOrder } from "../../interface/IOrder";
+import { IGetOrder, IPostOrderItem, IUpdateOrder } from "../../interface/IOrder";
 import { useOrderMutate } from "../../hooks/useOrderMutate";
 import { IMenuItem } from "../../interface/IMenu";
 import Botao from "../../components/Botao";
@@ -12,7 +12,7 @@ import MenuItemCard from "../../components/MenuItemCard";
 
 const AlterarPedido = () => {
     const { data, isLoading, refetch } = useMenuItem()
-    const { putOrderMutate, putOrderItemMutate } = useOrderMutate()
+    const { putOrderMutate, putOrderItemMutate, postOrderItemMutate } = useOrderMutate()
     const [description, setDescription] = useState("")
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderId, setOrderId] = useState<number | undefined>(undefined)
@@ -54,23 +54,35 @@ const AlterarPedido = () => {
         categorias[item.category].push(item)
     })
     
-    const submitChange = () => {    
+    const submitChange = () => {
         for (const itemId in quantidade) {
             const quantity = quantidade[parseInt(itemId)]
-            if (quantity > 0) {
-                const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
-                if (menuItem) {
-                    const updateOrder: IUpdateOrder = {
-                        //id: pedido.orderItems.,
-                        quantity,
-                        menuItem,
-                        order: { id: pedido.id }
-                    }
-                    console.log(updateOrder)
-                    //putOrderItemMutate.mutate(updateOrder)
+            
+            if (quantity <= 0) continue
+            
+            const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
+            
+            if (!menuItem) continue
+
+            const idMenuItem = pedido.orderItems?.find((item) => item.menuItem?.id === menuItem.id)?.id
+
+            if (idMenuItem) {
+                const updateOrder: IUpdateOrder = {
+                    id: idMenuItem,
+                    quantity,
+                    menuItem,
+                    order: { id: pedido.id }
                 }
+                putOrderItemMutate.mutate(updateOrder)
+            } else {
+                const newOrderItem: IPostOrderItem = {
+                    quantity,
+                    menuItem,
+                    order: { id: pedido.id }
+                }
+                postOrderItemMutate.mutate(newOrderItem)
             }
-        }    
+        } 
 
         const orderDescription: IGetOrder = {
             id: orderId,
@@ -78,8 +90,7 @@ const AlterarPedido = () => {
             desk: {id: pedido.desk?.id},
             description
         }
-        //putOrderMutate.mutate(orderDescription)
-
+        putOrderMutate.mutate(orderDescription)
         refetch()
     }
 
@@ -140,4 +151,4 @@ const AlterarPedido = () => {
     )
 }
 
-export default AlterarPedido;
+export default AlterarPedido

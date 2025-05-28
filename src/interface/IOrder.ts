@@ -22,6 +22,7 @@ export interface IOrderResponse {
 }
 
 export interface IPostOrderItem {
+    id?: number,
     quantity: number,
     menuItem?: IMenuItem,
     order: { id?: number },
