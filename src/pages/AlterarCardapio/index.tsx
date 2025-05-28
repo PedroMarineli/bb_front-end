@@ -51,4 +51,4 @@ const AlterarCardapio = () => {
     )
 }
 
-export default AlterarCardapio;
+export default AlterarCardapio

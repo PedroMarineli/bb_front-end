@@ -13,11 +13,11 @@ interface Props {
 }
 
 const LoginSistema = ({chamarFale}: Props) => {
-    const { mutate } = useLoginMutate();
-    const { users } = useUsers()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [loginError, setLoginError] = useState('')
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    const { users } = useUsers()
+    const { mutate } = useLoginMutate()
     const { setUsuarioLogado } = useUsuarioLogado()
     const navigate = useNavigate()
     const aberto = useSetRecoilState(menuState)
@@ -36,23 +36,23 @@ const LoginSistema = ({chamarFale}: Props) => {
             onSuccess: (data) => {
                 if (data?.data?.tokenJWT) {
                     localStorage.setItem('token', data.data.tokenJWT)
-                    console.log("Token recebido e armazenado:", data.data.tokenJWT)
 
                     const usuarioEncontrado = users?.content.find((user) => user.username === username)
                     if (usuarioEncontrado) {
-                        setUsuarioLogado(usuarioEncontrado)
                         navigate('/bb')
+                        setUsuarioLogado(usuarioEncontrado)
                         alterarStatus()
                     } else {
-                        setLoginError('Usuário não encontrado após o login.')
+                        localStorage.removeItem('token')
                     }
                 } else {
-                    setLoginError('Erro: Token JWT não recebido do servidor.')
+                    console.error('Erro: Token JWT não recebido do servidor.')
                 }
             },
             onError: (err: any) => {
+                setErrorMessage('Usuário ou senha incorretos!')
                 console.error('Erro ao fazer login:', err)
-                setLoginError(err?.response?.data?.error || 'Erro ao fazer login. Verifique suas credenciais.')
+                console.error(err?.response?.data?.error || 'Erro ao fazer login. Verifique suas credenciais.')
             }
         })
     }
@@ -71,6 +71,9 @@ const LoginSistema = ({chamarFale}: Props) => {
                         <input required type="text" placeholder="Username" className="input" id="username" onChange={(e) => setUsername(e.target.value)}/>
                         <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
+                    {errorMessage && (
+                        <span className="text-red-700 block sm:inline">{errorMessage}</span>
+                    )}
                     <div className="grid justify-items-center">
                         <div className="cursor-pointer" onClick={chamarFale}>Esqueceu a senha?</div>
                         <p>Entre em contato com um administrador para efetuar a troca da senha.</p>
@@ -84,4 +87,4 @@ const LoginSistema = ({chamarFale}: Props) => {
     )
 }
 
-export default LoginSistema;
+export default LoginSistema

@@ -31,7 +31,7 @@ const Cardapio = () => {
                         {Object.keys(categorias).map(categoria => (
                             <div key={categoria} className='grid gap-7 break-before'>
                                 <h2 className='text-2xl'>{categoria}</h2>
-                                <ul className='grid gap-7'>
+                                <ul className='grid gap-7 justify-items-center'>
                                     {categorias[categoria].map(item => (
                                         <>
                                             {item.available &&

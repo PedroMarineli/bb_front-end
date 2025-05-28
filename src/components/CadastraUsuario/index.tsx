@@ -4,6 +4,8 @@ import Botao from "../Botao";
 import Janela from "../../components/Janela";
 import { useUserMutate } from "../../hooks/useUserMutate";
 import { useUsers } from "../../hooks/useUser";
+import { useSetRecoilState } from "recoil";
+import { menuState } from "../../state/atom";
 
 const CadastraUsuario = () => {
     const [username, setUsername] = useState("")
@@ -11,6 +13,7 @@ const CadastraUsuario = () => {
     const [role, setRole] = useState<"ADMIN" | "USER">("USER")
     const { refetch } = useUsers()
     const { postMutate } = useUserMutate()
+    const aberto = useSetRecoilState(menuState)
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -19,8 +22,12 @@ const CadastraUsuario = () => {
             password,
             role
         }
-        postMutate.mutate(users)
-        refetch()
+        postMutate.mutate(users, {
+            onSuccess: () => {
+                refetch()
+                aberto(false)
+            }
+        })        
     }
 
     return(
@@ -42,4 +49,4 @@ const CadastraUsuario = () => {
     )
 }
 
-export default CadastraUsuario;
+export default CadastraUsuario

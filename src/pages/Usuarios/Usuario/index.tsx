@@ -6,7 +6,7 @@ import { useUserMutate } from "../../../hooks/useUserMutate";
 import { useState } from "react";
 import AlterarUsuario from "./AlteraUsuario";
 import { useUsuarioLogado } from "../../../context/UserLogadoContext";
-import { deleteState } from "../../../state/atom";
+import { deleteState, menuState } from "../../../state/atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Avisos from "../../../components/Avisos";
 
@@ -17,6 +17,7 @@ const Usuario = (user: IUpdateUser) => {
     const [userToDeleteId, setUserToDeleteId] = useState(null)
     const deleteFechado = useRecoilValue(deleteState)
     const deleteAberto = useSetRecoilState(deleteState)
+    const aberto = useSetRecoilState(menuState)
    
     const corfirmaExcluir = (id: any) => {
         deleteAberto(true)
@@ -29,7 +30,11 @@ const Usuario = (user: IUpdateUser) => {
     }
 
     const alterarUser = (data: IUpdateUser) => {
-        putMutate.mutate(data)
+        putMutate.mutate(data, {
+            onSuccess: () => {
+                aberto(false)
+            }
+        })
     }
 
     const callAlterarUser = () => {

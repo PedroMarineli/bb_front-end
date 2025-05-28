@@ -141,7 +141,7 @@ const AlterarPedido = () => {
                         <h2 className='text-2xl text-center pt-7'>Observações:</h2>
                         <input type="text" value={description} className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black" onChange={(e) => setDescription(e.target.value)}/>
                         <div className="flex justify-center" onClick={alterarStatus}>
-                            <button onClick={submitChange}><Botao>Salvar Alteração</Botao></button>
+                            <button onClick={submitChange}><Botao>Alterar</Botao></button>
                         </div>
                     </div>
                 </div>
