@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ICreateOrder, IPostOrderItem, IGetOrder } from "../interface/IOrder";
+import { ICreateOrder, IPostOrderItem, IGetOrder, IUpdateOrder } from "../interface/IOrder";
 
 const API_URL = 'http://localhost:8080';
 
@@ -41,6 +41,16 @@ const postOrderCompleted = async (id: number): AxiosPromise<any> => {
 const putOrder = async (data: IGetOrder): AxiosPromise<any> => {
     const token = localStorage.getItem('token')
     const response = axios.put(API_URL + '/order', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    })
+    return response
+}
+
+const putOrderItem = async (data: IUpdateOrder): AxiosPromise<any> => {
+    const token = localStorage.getItem('token')
+    const response = axios.put(API_URL + '/order/item', data, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -93,6 +103,14 @@ export function useOrderMutate() {
         }
     })
 
+        const putOrderItemMutate = useMutation({
+        mutationFn: putOrderItem,
+        retry: 2,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['order']})
+        }
+    })
+
     const deleteMutate = useMutation({
         mutationFn: deleteOrder,
         retry: 2,
@@ -104,5 +122,5 @@ export function useOrderMutate() {
         }
     })
 
-    return { postOrderMutate, postOrderFinished, postOrderItemMutate, putOrderMutate, deleteMutate }
+    return { postOrderMutate, postOrderFinished, postOrderItemMutate, putOrderMutate, putOrderItemMutate, deleteMutate }
 }

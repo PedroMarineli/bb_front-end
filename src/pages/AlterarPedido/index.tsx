@@ -12,7 +12,7 @@ import MenuItemCard from "../../components/MenuItemCard";
 
 const AlterarPedido = () => {
     const { data, isLoading, refetch } = useMenuItem()
-    const { postOrderItemMutate, putOrderMutate } = useOrderMutate()
+    const { putOrderMutate, putOrderItemMutate } = useOrderMutate()
     const [description, setDescription] = useState("")
     const [quantidade, setQuantidade] = useState<{ [itemId: number]: number }>({})
     const [orderId, setOrderId] = useState<number | undefined>(undefined)
@@ -26,6 +26,7 @@ const AlterarPedido = () => {
 
     useEffect(() => {
         setOrderId(pedido.id)
+        setDescription(pedido.description || "")
 
         if (pedido?.orderItems) {
             const initialQuantities: { [itemId: number]: number } = {}
@@ -60,13 +61,13 @@ const AlterarPedido = () => {
                 const menuItem = data?.content.find((item) => item.id === parseInt(itemId))
                 if (menuItem) {
                     const updateOrder: IUpdateOrder = {
-                        id: orderId,
+                        //id: pedido.orderItems.,
                         quantity,
                         menuItem,
                         order: { id: pedido.id }
                     }
                     console.log(updateOrder)
-                    postOrderItemMutate.mutate(updateOrder)
+                    //putOrderItemMutate.mutate(updateOrder)
                 }
             }
         }    
@@ -77,7 +78,7 @@ const AlterarPedido = () => {
             desk: {id: pedido.desk?.id},
             description
         }
-        putOrderMutate.mutate(orderDescription)
+        //putOrderMutate.mutate(orderDescription)
 
         refetch()
     }
@@ -127,7 +128,7 @@ const AlterarPedido = () => {
                     </div>}
                     <div className='grid gap-7'>
                         <h2 className='text-2xl text-center pt-7'>Observações:</h2>
-                        <input type="text" className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black" onChange={(e) => setDescription(e.target.value)}/>
+                        <input type="text" value={description} className="p-5 bg-transparent w-full h-36 border-solid border-2 rounded-lg border-black" onChange={(e) => setDescription(e.target.value)}/>
                         <div className="flex justify-center" onClick={alterarStatus}>
                             <button onClick={submitChange}><Botao>Salvar Alteração</Botao></button>
                         </div>

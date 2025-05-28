@@ -116,6 +116,7 @@ const CadastroDePedidos = () => {
                 console.error("Erro ao atualizar status do pedido:", error)
             }
         })
+        console.log(orderDescription)
         
         if (!hasItems) {
             alert('Por favor, adicione itens ao pedido.');

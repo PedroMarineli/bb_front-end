@@ -62,10 +62,14 @@ const LoginSistema = () => {
                     <h3 className="tituloJanela text-center">Login</h3>
                     <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarStatus}/>
                 </div>
-                <form className="grid justify-items-center" onSubmit={validarLogin}>
-                    <div className="grid gap-8 my-12">
+                <form className="grid justify-items-center gap-8" onSubmit={validarLogin}>
+                    <div className="grid gap-8">
                         <input required type="text" placeholder="Username" className="input" id="username" onChange={(e) => setUsername(e.target.value)}/>
                         <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    <div className="grid justify-items-center">
+                        <p>Esqueceu a senha?</p>
+                        <p>Entre em contato com um administrador para efetuar a troca da senha.</p>
                     </div>
                     <button type="submit">
                         <Botao children="Entrar"/>
