@@ -3,10 +3,14 @@ import { useSetRecoilState } from "recoil";
 import { menuState } from "../../state/atom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { IDoLogin } from "../../interface/ILogin";
 import { useLoginMutate } from "../../hooks/useLoginMutate";
 import { useUsers } from "../../hooks/useUser";
 import { useUsuarioLogado } from "../../context/UserLogadoContext";
+=======
+import Janela from "../Janela";
+>>>>>>> origin/main
 
 interface Props {
     chamarFale: React.MouseEventHandler<HTMLDivElement>
@@ -58,14 +62,13 @@ const LoginSistema = ({chamarFale}: Props) => {
     }
 
     return(
-        <div className="grid justify-items-center">
-            <div className="overlay"/>
-            <div className="janela">
-                <div className="flex justify-between items-center">
-                    <div></div>
-                    <h3 className="tituloJanela text-center">Login</h3>
-                    <img src="/icons/fechar.png" alt="Fechar" className="h-6 w-6 hover:cursor-pointer" onClick={alterarStatus}/>
+        <Janela titulo="Login" conteudo={
+            <form className="grid justify-items-center" onSubmit={validarLogin}>
+                <div className="grid gap-8 my-12">
+                    <input required type="text" placeholder="Id" className="input" id="id" onChange={(e) => setId(e.target.value)}/>
+                    <input required type="password" placeholder="Senha" className="input" id="senha" onChange={(e) => setSenha(e.target.value)}/>
                 </div>
+<<<<<<< HEAD
                 <form className="grid justify-items-center gap-8" onSubmit={validarLogin}>
                     <div className="grid gap-8">
                         <input required type="text" placeholder="Username" className="input" id="username" onChange={(e) => setUsername(e.target.value)}/>
@@ -84,6 +87,13 @@ const LoginSistema = ({chamarFale}: Props) => {
                 </form>
             </div>
         </div>
+=======
+                <button type="submit">
+                    <Botao children="Entrar"/>
+                </button>
+            </form>
+        }/>
+>>>>>>> origin/main
     )
 }
 

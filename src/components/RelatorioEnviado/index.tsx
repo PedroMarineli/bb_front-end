@@ -1,16 +1,11 @@
-<<<<<<< HEAD
-import Janela from "../../components/Janela";
-import LogoBB from "../../../public/images/logoBB.png";
-=======
 import Janela from "../Janela";
 import LogoBB from "/images/logoBB.png";
->>>>>>> origin/main
 
-const Exclusao = () => {
+const RelatorioEnviado = () => {
     return (
-        <Janela titulo="Exclusão" conteudo={
+        <Janela titulo="Relatório Enviado" conteudo={
             <div className="grid justify-items-center gap-5">
-                <p>Exclusão feita com sucesso!</p>
+                <p>O download começará em segundos...</p>
                 <div className="grid justify-items-center">
                     <img src={LogoBB} alt="Logo BB"/>
                 </div>
@@ -19,4 +14,4 @@ const Exclusao = () => {
     )
 }
 
-export default Exclusao;
+export default RelatorioEnviado;

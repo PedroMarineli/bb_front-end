@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Bar from "../../charts/Bar"
 import { useEffect, useState } from "react"
 import { usePDF } from "react-to-pdf"
@@ -109,3 +110,13 @@ const PratosMaisPedidos = () => {
 }
 
 export default PratosMaisPedidos
+=======
+const PratosMaisPedidos = () => {
+    return(
+        <div className="text-center">
+            <h2>Pratos mais pedidos (últimos 30 dias)</h2>
+        </div>
+    )
+}
+export default PratosMaisPedidos;
+>>>>>>> origin/main

@@ -5,4 +5,8 @@ const PedidosPorDias = () => {
         </div>
     )
 }
+<<<<<<< HEAD
 export default PedidosPorDias
+=======
+export default PedidosPorDias;
+>>>>>>> origin/main

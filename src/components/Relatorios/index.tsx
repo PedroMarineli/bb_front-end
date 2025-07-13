@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Bar from "../../charts/Bar";
 import { useReport } from "../../hooks/useReport";
 import { usePDF } from 'react-to-pdf';
@@ -80,3 +81,13 @@ const OcupacaoMesasPorDia = () => {
 }
 
 export default OcupacaoMesasPorDia
+=======
+const OcupacaoMesasPorDia = () => {
+    return(
+        <div className="text-center">
+            <h2>Número de ocupações de mesas por dias da semana</h2>
+        </div>
+    )
+}
+export default OcupacaoMesasPorDia;
+>>>>>>> origin/main

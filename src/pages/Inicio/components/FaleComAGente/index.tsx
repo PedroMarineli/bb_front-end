@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/pages/Inicio/components/FaleComAGente/index.tsx
 import meios from "../../../../json/faleConosco.json";
 import LogoBB from "../../../../../public/images/logoBB.png";
+=======
+import meios from "../../json/faleConosco.json";
+import LogoBB from "/images/logoBB.png";
+>>>>>>> origin/main:src/components/FaleComAGente/index.tsx
 
 interface Props {
     alterarStatus: React.MouseEventHandler<HTMLImageElement>
@@ -21,9 +26,15 @@ const FaleComAGente = ({alterarStatus}: Props) => {
                 </div>
                 <ul className="grid gap-3 justify-items-center">
                     {meios.map((meio) => (
+<<<<<<< HEAD:src/pages/Inicio/components/FaleComAGente/index.tsx
                         <li className="flex gap-5 items-center">
                             <span>{meio.nome}</span>
                             <img src={meio.icone} alt={meio.nome} className="w-8"/>
+=======
+                        <li className="flex gap-6 items-center">
+                            <span>{meio.nome}</span>
+                            <img src={meio.icone} alt={meio.nome} className="w-9"/>
+>>>>>>> origin/main:src/components/FaleComAGente/index.tsx
                             <span>{meio.texto}</span>
                         </li>
                     ))}
