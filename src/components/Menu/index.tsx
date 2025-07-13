@@ -8,11 +8,7 @@ interface Props {
 
 const Menu = ({alterarStatus}: Props) => {
     return (
-<<<<<<< HEAD
         <div className="menu fixed right-0 top-0 z-50">
-=======
-        <div className="menu fixed right-0 top-0 z-10">
->>>>>>> origin/main
             <ul>
                 {paginas.map((pagina) => (
                     <li key={pagina.nome}>
@@ -29,4 +25,4 @@ const Menu = ({alterarStatus}: Props) => {
     )
 }
 
-export default Menu
+export default Menu;

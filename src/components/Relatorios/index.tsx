@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Bar from "../../charts/Bar";
 import { useReport } from "../../hooks/useReport";
 import { usePDF } from 'react-to-pdf';
@@ -52,42 +51,8 @@ const OcupacaoMesasPorDia = () => {
                     <p>Valor total em vendas: R${listReport?.totalRevenue}</p>
                 </div>
             )}
-
-            {/* <button onClick={() => toPDF()}>Download PDF</button>
-            <div ref={targetRef}>
-                {isLoading ? <p>Carregando...</p> : <>
-                        <table className="text-center w-full">
-                            <thead>
-                                <tr>
-                                    <th>Prato</th>
-                                    <th>Quantidade</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listReport?.leastOrderedItems.map(report => (
-                                    <tr key={report.id}>
-                                        <td>{report.name}</td>
-                                        <td>{report.quantity}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    <p>{listReport?.totalRevenue}</p>
-                </>}
-            </div> */}
-            {/* <h2>Número de ocupações de mesas por dias da semana</h2> */}
         </div>
     )
 }
 
 export default OcupacaoMesasPorDia
-=======
-const OcupacaoMesasPorDia = () => {
-    return(
-        <div className="text-center">
-            <h2>Número de ocupações de mesas por dias da semana</h2>
-        </div>
-    )
-}
-export default OcupacaoMesasPorDia;
->>>>>>> origin/main

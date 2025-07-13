@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import Janela from "../../components/Janela";
 import LogoBB from "../../../public/images/logoBB.png";
-=======
-import Janela from "../Janela";
-import LogoBB from "/images/logoBB.png";
->>>>>>> origin/main
 
 const Exclusao = () => {
     return (

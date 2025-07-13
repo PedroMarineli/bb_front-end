@@ -5,16 +5,11 @@ import HeaderSistema from "../HeaderSistema";
 import { useState } from "react";
 
 const PaginaPadrao = () => {
-<<<<<<< HEAD
     const [menu, setMenu] = useState(false)
-    const mostrarMenu = () => setMenu(!menu)
-=======
-    const [menu, setMenu] = useState(false);
 
     const alterarStatus = () => {
         setMenu(!menu)
     }
->>>>>>> origin/main
 
     return (
         <main>
@@ -23,11 +18,7 @@ const PaginaPadrao = () => {
             <div onClick={alterarStatus}>
                 <BotaoMenu />
             </div>
-<<<<<<< HEAD
             <div className="m-32 lg:mx-60">
-=======
-            <div className="mx-32 lg:mx-60 my-32">
->>>>>>> origin/main
                 <Outlet/>
             </div>
         </main>

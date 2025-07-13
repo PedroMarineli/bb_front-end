@@ -1,11 +1,7 @@
 [
     {
         "nome": "Telefone",
-<<<<<<< HEAD
         "icone": "/icons/telephoneBlack.png",
-=======
-        "icone": "/icons/telefoneBlack.png",
->>>>>>> origin/main
         "texto": "14 3322-2233"
     },
     {
@@ -20,11 +16,7 @@
     },
     {
         "nome": "E-mail",
-<<<<<<< HEAD
         "icone": "/icons/walletBlack.png",
-=======
-        "icone": "/icons/emailBlack.png",
->>>>>>> origin/main
         "texto": "bb.hamburguer@gmail.ocom"
     }
 ]
