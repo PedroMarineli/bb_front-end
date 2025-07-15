@@ -34,7 +34,7 @@ const HeaderInicio = () => {
             <BurguerBoss />
             <ul className="flex">
                 {opcoes.map((opcao) => (
-                    <li className="uppercase px-10 font-bold">
+                    <li key={opcao.id} className="uppercase px-10 font-bold">
                         <Link key={opcao.id} to={`#${opcao.id}`} smooth={true}>{opcao.opcao}</Link>
                     </li>
                 ))}

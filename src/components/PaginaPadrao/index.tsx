@@ -5,7 +5,7 @@ import HeaderSistema from "../HeaderSistema";
 import { useState } from "react";
 
 const PaginaPadrao = () => {
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(false)
 
     const alterarStatus = () => {
         setMenu(!menu)
@@ -18,10 +18,11 @@ const PaginaPadrao = () => {
             <div onClick={alterarStatus}>
                 <BotaoMenu />
             </div>
-            <div className="mx-32 lg:mx-60 my-32">
+            <div className="m-32 lg:mx-60">
                 <Outlet/>
             </div>
         </main>
     )
 }
+
 export default PaginaPadrao;

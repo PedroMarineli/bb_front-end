@@ -1,4 +1,4 @@
-import HomemCozinhando from "/images/imagemHomemcozinhando.png";
+import HomemCozinhando from "../../../../../public/images/imagemHomemcozinhando.png";
 
 const QuemSomos = () => {
     return (

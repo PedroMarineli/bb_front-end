@@ -1,5 +1,5 @@
-import Janela from "../Janela";
-import LogoBB from "/images/logoBB.png";
+import Janela from "../../components/Janela";
+import LogoBB from "../../../public/images/logoBB.png";
 
 const Exclusao = () => {
     return (

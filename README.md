@@ -1,50 +1,42 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Burguer Boss
 
-Currently, two official plugins are available:
+<h2>Descrição do Projeto</h2>
+Projeto universitário para gestão de uma hamburgueria. Nesse web site é possível fazer toda a gestão de ocupação de mesas, controle de cardápio, pedidos e usuários, acompanhamento de pedidos e emissão de relatórios.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Página inicial do projeto](image.png)
 
-## Expanding the ESLint configuration
+# :hammer: Funcionalidades do projeto
+- `Funcionalidade 1`: Efetuar login
+- `Funcionalidade 2`: Gerenciar mesas (Adicionar e retirar mesas, verificar ocupação)
+- `Funcionalidade 3`: Manter cardápio (Adicionar itens ao cardápio, atualizar, excluir)
+- `Funcionalidade 4`: Manter pedidos (Criar pedidos, atualizar, excluir)
+- `Funcionalidade 5`: Acompanhar pedidos (Verificar e atualizar status do pedido)
+- `Funcionalidade 6`: Manter usuários (Criar, atualizar e excluir usuários do sistema)
+- `Funcionalidade 7`: Emitir relatórios
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# 🚀 React + TypeScript + Vite
 
-- Configure the top-level `parserOptions` property like this:
+Este projeto foi criado com Vite, React e TypeScript para um desenvolvimento rápido e eficiente.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📋 Pré-requisitos
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Node.js 18+
+- npm ou yarn
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🛠️ Como executar
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+**Clone o repositório**
+
+- git clone https://github.com/PedroMarineli/bb_front-end.git
+
+## 📦 Comandos disponíveis
+
+- npm run dev	- Inicia servidor de desenvolvimento
+- npm run build	- Cria build para produção
+- npm run preview	- Pré-visualiza a build de produção
+
+# Autores
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/135459469?v=4" width=115><br><sub>Fabio Andrade</sub>](https://github.com/FabioBarAnd) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/136920284?v=4" width=115><br><sub>Matheus Rebello</sub>](https://github.com/msrebello) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/82478259?v=4" width=115><br><sub>Pedro Marineli</sub>](https://github.com/PedroMarineli) |
+| :---: | :---: | :---: |

@@ -1,0 +1,43 @@
+import { IMesa } from "./IDesk"
+import { IMenuItem } from "./IMenu"
+
+export interface IGetOrder {
+    id?: number,
+    totalValue?: number,
+    paymentMethod?: "CASH" | "PIX" | "CREDIT_CARD" | "DEBIT_CARD",
+    orderItems?: [IPostOrderItem],
+    orderStatus?: "CREATED" | "PREPARING" | "FINISHED" | "CANCELED" | "DELIVERED",
+    desk: IMesa,
+    description?: string
+}
+
+export interface IOrderResponse {
+    content: IGetOrder[],
+    page: {
+        size: number,
+        number: number,
+        totalElements: number,
+        totalPages: number,
+    }
+}
+
+export interface IPostOrderItem {
+    id?: number,
+    quantity: number,
+    menuItem?: IMenuItem,
+    order: { id?: number },
+    description?: string
+}
+
+export interface ICreateOrder {
+    desk: IMesa
+}
+
+export interface IUpdateOrder {
+    id?: number,
+    quantity: number,
+    menuItem: IMenuItem,
+    order: {
+        id?: number
+    }
+}

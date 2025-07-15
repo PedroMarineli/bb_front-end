@@ -1,4 +1,4 @@
-import Logo from "/images/logoBB.png";
+import Logo from "../../../public/images/LogoBB.png";
 
 const BurguerBoss = () => {
     return (

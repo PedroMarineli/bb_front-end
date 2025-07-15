@@ -34,6 +34,9 @@
     .inputAlterar {
         @apply px-3 py-1.5 rounded-lg;
     }
+    .form {
+        @apply flex items-center gap-5;
+    }
 
 @tailwind utilities;
 
@@ -47,4 +50,3 @@
     src: local("Irish_Grover");
     src: url("./assets/fonts/Irish_Grover/IrishGrover-Regular.ttf") format("truetype");
 }
-

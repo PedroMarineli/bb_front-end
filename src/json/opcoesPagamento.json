@@ -1,0 +1,22 @@
+[
+    { 
+        "pagamento": "Dinheiro",
+        "metodo": "CASH",
+        "id": 1 
+    },
+    { 
+        "pagamento": "Pix", 
+        "metodo": "PIX",
+        "id": 2 
+    },
+    { 
+        "pagamento": "Cartão de Crédito",
+        "metodo": "CREDIT_CARD", 
+        "id": 3 
+    },
+    { 
+        "pagamento": "Cartão de Débito",
+        "metodo": "DEBIT_CARD",
+        "id": 4 
+    }
+]

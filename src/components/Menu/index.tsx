@@ -8,10 +8,10 @@ interface Props {
 
 const Menu = ({alterarStatus}: Props) => {
     return (
-        <div className="menu fixed right-0 top-0 z-10">
+        <div className="menu fixed right-0 top-0 z-50">
             <ul>
                 {paginas.map((pagina) => (
-                    <li>
+                    <li key={pagina.nome}>
                         <Link to={pagina.link}>
                             <div className="flex items-center gap-3 py-4 border-b" onClick={alterarStatus}>
                                 <img src={pagina.icon} alt={pagina.nome} className="w-7 h-7"/>
